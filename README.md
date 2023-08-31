@@ -63,7 +63,7 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+The purpose of the system is to help the user monitor the groceries and other food staples currently in their kitchen. After the user catalogs the products and assigns expiration dates to each staple, the system can notify the user when the expiration date approaches, which reduces food waste. Apart from notifying the user, the system will also take favorite recipes as input, and recommend recipes with regard to what the user has in their kitchen. Another feature is to act as an easily accessible and manageable grocery list, where the user writes their own grocery list whilst also getting recommendations on staples that will soon expire. The goal of the system is to reduce food waste and contribute to a sustainable food economy. 
 
 ### Pages
 
