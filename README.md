@@ -67,8 +67,13 @@ The purpose of the system is to help the user monitor the groceries and other fo
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+Here are the pages of the system.
+* Home page: User's login page. 
+* Account page: (For the first users only) User will enter name, password and add a food list with the name and the expiry date.
+* Foodstuff: (When logged in) User will see a list of food items that are expiring soon and can add more food items with their expiry dates.
+* Receipe Katalog: User will have a list of receipes recommended in regards to the short term expiring items and can also add their favorite recepies.
+* Receipe: User will see the ingredients and follow the instructions direct from the system.
+* Grocery List: User can make a grocery list with the help of recommendations of the expiring products from the system .
 
 ### Entity-Relationship (ER) Diagram
 
