@@ -7,7 +7,7 @@ var history = require('connect-history-api-fallback');
 const foodist = require ("./controllers/foodist");
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://faizaamjad254:YDqhhAxnyDIY5kWq@cluster0.dtzhud1.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
