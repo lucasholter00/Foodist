@@ -28,10 +28,10 @@ router.get("/grocery", function (req, res) {
     res.send("Make a list for grocery shopping");
   });
 
-// Catch all non-error handler for api (i.e., 404 Not Found)
-// router.use('/*', function (req, res) {
-//   res.send("Page not found")
-//   res.status(404).json({ 'message': 'Not Found' });
-// });
+//Catch all non-error handler for api (i.e., 404 Not Found)
+router.use('/*', function (req, res) {
+  res.send("Page not found")
+  //res.status(404).json({ 'message': 'Not Found' });
+});
 
 module.exports = router;
