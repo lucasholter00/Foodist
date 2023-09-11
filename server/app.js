@@ -4,10 +4,10 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
-const foodist = require ("./controllers/foodist");
+
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://faizaamjad254:YDqhhAxnyDIY5kWq@cluster0.dtzhud1.mongodb.net/?retryWrites=true&w=majority';
+var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://webdev:123@foodist.dukzvjt.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
@@ -32,7 +32,7 @@ app.options('*', cors());
 app.use(cors());
 
 //Route handlers
-app.use(foodist);
+
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
