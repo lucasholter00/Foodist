@@ -1,12 +1,12 @@
-const mongose = require('mongose');
+const mongoose = require('mongoose');
 
-const Schema = mongose.Schema;
+const Schema = mongoose.Schema;
 
 const groceryListSchema = new Schema({
     Name : String,
     Groceries: [String]
 });
 
-const groceryList = mongose.model('groceryList', groceryListSchema);
+const groceryList = mongoose.model('groceryList', groceryListSchema);
 
 module.exports = groceryList;
