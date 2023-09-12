@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
-const recipeRouter = require('recipeRouter');
-const groceryListRouter = require('groceryListRouter')
+const recipeRouter = require('./recipeRoutes');
+const groceryListRouter = require('./groceryListRoutes');
 
 router.get('/', function(req, res){
     //Get all users
@@ -28,7 +28,7 @@ router.delete('/:username', function(req, res){
 });
 
 router.use('/:id/recipes', recipeRouter);
-router.use('/:id/grocery-lists', groceryListRouter)
+router.use('/:id/grocery-lists', groceryListRouter);
 
 
 module.exports = router;
