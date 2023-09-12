@@ -13,10 +13,18 @@ const recipeSchema = new Schema(
         },
         description: {
             type: String,
-            required: false
         }
     }
 );
+
+const groceryListSchema = new Schema({
+    Name: {
+        type: String,
+        required: true
+    },
+    Groceries: [String]
+
+});
 
 const userSchema = new Schema(
     {
@@ -28,9 +36,8 @@ const userSchema = new Schema(
             type: String,
             required: true
         },
-        Recipes: {
-            recipes: [recipeSchema]
-        }
+        GroceryList: [groceryListSchema],
+        Recipes: [recipeSchema]
     }
 )
 
