@@ -4,6 +4,8 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var userRoutes = require('routes/userRoutes');
+var foodItemRoutes = require('routes/foodItemRoutes');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://webdev:123@foodist.dukzvjt.mongodb.net/?retryWrites=true&w=majority';
@@ -39,6 +41,9 @@ app.get('/api', function(req, res) {
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
+
+app.use('/users', userRoutes);
+app.use('/food-items', foodItemRoutes);
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
