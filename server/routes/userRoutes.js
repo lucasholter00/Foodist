@@ -27,8 +27,9 @@ router.delete('/:username', function(req, res){
     //Delete user with specific username
 });
 
-router.use('/:id/recipes', recipeRouter);
-router.use('/:id/grocery-lists', groceryListRouter);
+router.use('/:username/recipes', recipeRouter);
+
+router.use('/:username/grocery-lists', groceryListRouter);
 
 
 module.exports = router;
