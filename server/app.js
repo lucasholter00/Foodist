@@ -5,7 +5,6 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://webdev:123@foodist.dukzvjt.mongodb.net/?retryWrites=true&w=majority';
 var port = process.env.PORT || 3000;
@@ -31,7 +30,7 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-//Route handlers
+// Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
