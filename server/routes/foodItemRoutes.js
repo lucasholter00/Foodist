@@ -1,5 +1,5 @@
 const express = require('express');
-const router = new express.Router();
+const router = new express.Router({mergeParams: true});
 
 router.get('/', function(req, res){
     //Get all get all food items in the database

@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const recipeRouter = require('./recipeRoutes');
 const groceryListRouter = require('./groceryListRoutes');
+const foodItemRoutes = require('./foodItemRoutes');
 
 router.get('/', function(req, res){
     //Get all users
@@ -30,6 +31,8 @@ router.delete('/:username', function(req, res){
 router.use('/:username/recipes', recipeRouter);
 
 router.use('/:username/grocery-lists', groceryListRouter);
+
+router.use('/:username/food-items', foodItemRoutes);
 
 
 module.exports = router;
