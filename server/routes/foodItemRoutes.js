@@ -6,7 +6,7 @@ router.get('/', (req, res)=>{
     //Get all get all food items in the database
    Food.find()
    .then((result) => {
-    res.status(200).send({ success: true, msg: "Food List", data: result});
+    res.status(200).json({ success: true, msg: "Food List", data: result});
    })
    .catch((err) => {
     console.log(err.message);
@@ -19,7 +19,11 @@ router.get('/:id', (req, res)=>{
     const id = req.param.id;
     Food.findById(id)
     .then(result =>{
-        res.status(200).send({ success: true, msg: "Food by ID", data: result});
+        if (result === null) {
+            res.status(200).json({ success: false, msg: "Food not found", data: result});
+        } else {
+            res.status(200).json({ success: true, msg: "Food by ID", data: result});
+        }
     })
     .catch((err) => {
         console.log(err.message);
@@ -33,10 +37,10 @@ router.post('/add-food', (req, res)=>{
 
         food.save()
         .then((result)=>{
-            res.status(200).send({ success: true, msg: "Food details", data: food});
+            res.status(200).json({ success: true, msg: "Food details", data: food});
         })
         .catch((err)=>{
-            console.log(error.message);
+            console.log(err.message);
         res.status(500).json({message: err.message})
         })       
 
@@ -48,14 +52,31 @@ router.put('/:id', function(req, res){
 
 router.patch('/:id', function(req, res){
     //Update a specific food item
+
 });
 
 router.delete('/', function(req, res){
     //Delete all food items
+
 });
 
-router.delete('/:username', function(req, res){
-    //Delete user with specific username
+router.delete('/:id', (req, res)=>{
+    //Delete food item with specific id
+    const id = req.params.id;
+
+    Food.findByIdAndDelete(id)
+    .then(result =>{
+        if (result === null) {
+            res.status(200).json({ success: false, msg: "Food not found", data: result});
+        } else {
+            res.status(200).json({ success: true, msg: "Food deleted", data: result});
+        }
+    })
+    .catch((err)=>{
+        console.log(err.message);
+    res.status(500).json({message: err.message})
+    })
+
 });
 
 module.exports = router;
