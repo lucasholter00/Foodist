@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     Food.find()
         .then((result) => {
             if (result === null) {
-                res.status(404).json({ success: false, msg: "Foods not found", data: result });
+                res.status(200).json({ success: false, msg: "Foods not found", data: result });
             } else {
                 res.status(200).json({ success: true, msg: "Food List", data: result });
             }
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
     Food.findById(id)
         .then(result => {
             if (result === null) {
-                res.status(404).json({ success: false, msg: "Food not found", data: result });
+                res.status(200).json({ success: false, msg: "Food not found", data: result });
             } else {
                 res.status(200).json({ success: true, msg: "Food by ID", data: result });
             }
@@ -35,12 +35,12 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('/add-food', (req, res) => {
+router.post('/addfood', (req, res) => {
     //Create new food item
     var food = new Food(req.body);
 
     food.save()
-        .then((result) => {
+        .then(() => {
             res.status(200).json({ success: true, msg: "Food details", data: food });
         })
         .catch((err) => {
@@ -52,30 +52,30 @@ router.post('/add-food', (req, res) => {
 
 router.put('/:id', function (req, res) {
     //Replace food with specific id
-    const id = req.params.id;
-
-    Food.findOneAndReplace(id)
-        .then(result => {
-            if (!result) {
-                res.status(404).json({ success: false, msg: "Food not found", data: result });
-            } else {
-                res.status(200).json({ success: true, msg: "Food replaced", data: result });
-            }
-        })
-        .catch((err) => {
-            console.log(err.message);
-            res.status(500).json({ message: err.message })
-        })
+      const id = req.params.id;
+        Food.findOneAndReplace(id.body)
+            .then(result => {
+                if (!result) {
+                    res.status(200).json({ success: false, msg: "Food not found", data: result });
+                } else {
+                    res.status(200).json({ success: true, msg: "Food replaced", data: result });
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+                res.status(500).json({ message: err.message })
+            })
+    
 });
 
 router.patch('/:id', function (req, res) {
     //Update a specific food item
     const id = req.params.id;
 
-    Food.findByIdAndUpdate(id)
+    Food.findByIdAndUpdate(id.body)
         .then(result => {
             if (!result) {
-                res.status(404).json({ success: false, msg: "Food not found", data: result });
+                res.status(200).json({ success: false, msg: "Food not found", data: result });
             } else {
                 res.status(200).json({ success: true, msg: "Food Updated", data: result });
             }
@@ -91,10 +91,10 @@ router.delete('/', function (req, res) {
     Food.find()
         .then((result) => {
             if (!result) {
-                res.status(404).json({ success: false, msg: "Foods not found", data: result });
+                res.status(200).json({ success: false, msg: "Foods not found" });
             } else {
-                result.delete();
-                res.status(200).json({ success: true, msg: "Food List deleted", data: result });
+                result.body.delete();
+                res.status(200).json({ success: true, msg: "Food List deleted"});
             }
         })
         .catch((err) => {
@@ -110,7 +110,7 @@ router.delete('/:id', (req, res) => {
     Food.findByIdAndDelete(id)
         .then(result => {
             if (result === null) {
-                res.status(404).json({ success: false, msg: "Food not found", data: result });
+                res.status(200).json({ success: false, msg: "Food not found", data: result });
             } else {
                 res.status(200).json({ success: true, msg: "Food deleted", data: result });
             }
