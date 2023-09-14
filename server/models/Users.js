@@ -43,11 +43,9 @@ const groceryListSchema = new Schema({
 
 });
 
-const Food = mongoose.model("Food", foodSchema);
-const Recipe = mongoose.model("Recipe", recipeSchema);
-const GroceryList = mongoose.model("GroceryList", groceryListSchema);
 
-const userSchema = new Schema(
+
+const UserSchema = new Schema(
     {
         UserName: {
             type: String,
@@ -59,9 +57,10 @@ const userSchema = new Schema(
         },
         GroceryList: [groceryListSchema],
         Recipe: [recipeSchema],
-        Food: {Food}
+        Food: [foodSchema]
     }
 )
 
-const User = mongoose.model("User", userSchema);
+//Only export UserSchema, with the other schemas embedded due to being weak entities
+const User = mongoose.model("User", UserSchema);
 module.exports = User;
