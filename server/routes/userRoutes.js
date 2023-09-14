@@ -11,16 +11,18 @@ router.get('/', function(req, res){
     //Get all users
 });
 
+//This endpoint gets a user with specific username
 router.get('/:username', (req, res) => {
-    //Get user with specific username
     var filter = {userName: req.params.username};
     
     var user = User.findOne(filter)  
     .then((user) => {
         if(!user){
+            //If user is not found, return appropriate status code and a message
             res.status(404).json({message: "User not found"});
         } 
         else{
+            //If user is found, return status message and the user itself
             res.status(200).json(user);
         }
     })
@@ -32,20 +34,37 @@ router.get('/:username', (req, res) => {
     
 });
 
+//Creates new user
 router.post('/', (req, res) => {
-    //Create new user
     
+    var filter = {userName: req.body.userName};
+    var existingUser = User.findOne(filter)
+    .then((existingUser) => {
+        //checks if existing user has the desired username
+        if (existingUser){
+            res.status(409).json({message: "Username already taken"});
+        }
+        //if noone has the desired username create a username
+        else{
+            var user = new User(req.body);
+            user.save()
+            .then(() => {
+                res.status(201).json({message: "User created"});
+            })
+            .catch((error) =>{
+                console.error(error);
+                res.status(500).json({message: "Server error"});
+            });
 
-    var user = new User(req.body);
-    user.save()
-    .then(() => {
-        res.status(201).json({message: "User created"});
+        }
     })
-    .catch((error) =>{
+    .catch((error) => {
         console.error(error);
-        res.status(500).json({message: "Server error"});
-    });
+        res.status(500).json({message: "Server error"})
+        });
+
 });
+
 
 router.patch('/:username', function(req, res){
     //Update a specific user
