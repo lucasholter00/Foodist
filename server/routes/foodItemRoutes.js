@@ -2,18 +2,16 @@ const express = require('express');
 const router = new express.Router({mergeParams: true});
 const Food = require("../models/User");
 
-router.get('/', function(req, res){
+router.get('/', (req, res)=>{
     //Get all get all food items in the database
-    try {
-        var result = Food.find();
-        then((result) => {
-        res.send(result);
-   } )
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({message: error.message})
-    }
-   
+   Food.find()
+   .then((result) => {
+    res.status(200).send({ success: true, msg: "Food List", data: result});
+   })
+   .catch((err) => {
+    console.log(error.message);
+    res.status(500).json({message: error.message})
+   })
 });
 
 router.get('/:id', function(req, res){
@@ -26,7 +24,7 @@ router.post('/add-food', (req, res)=>{
 
         food.save()
         .then((result)=>{
-            res.status(200).send({ success: true, msg: "Food details", data: food_item});
+            res.status(200).send({ success: true, msg: "Food details", data: food});
         })
         .catch((err)=>{
             console.log(error.message);
