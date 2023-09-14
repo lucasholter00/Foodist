@@ -9,13 +9,22 @@ router.get('/', (req, res)=>{
     res.status(200).send({ success: true, msg: "Food List", data: result});
    })
    .catch((err) => {
-    console.log(error.message);
-    res.status(500).json({message: error.message})
+    console.log(err.message);
+    res.status(500).json({message: err.message})
    })
 });
 
-router.get('/:id', function(req, res){
+router.get('/:id', (req, res)=>{
     //Get food item with specific id
+    const id = req.param.id;
+    Food.findById(id)
+    .then(result =>{
+        res.status(200).send({ success: true, msg: "Food by ID", data: result});
+    })
+    .catch((err) => {
+        console.log(err.message);
+        res.status(500).json({message: err.message})
+       })
 });
 
 router.post('/add-food', (req, res)=>{
@@ -28,7 +37,7 @@ router.post('/add-food', (req, res)=>{
         })
         .catch((err)=>{
             console.log(error.message);
-        res.status(500).json({message: error.message})
+        res.status(500).json({message: err.message})
         })       
 
 });
