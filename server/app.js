@@ -43,7 +43,6 @@ app.use('/api/*', function (req, res) {
 });
 
 app.use('/users', userRoutes);
-app.use('/food-items', foodItemRoutes);
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
