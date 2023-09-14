@@ -35,11 +35,11 @@ const recipeSchema = new Schema(
 );
 
 const groceryListSchema = new Schema({
-    Name: {
+    name: {
         type: String,
         required: true
     },
-    Groceries: [String]
+    groceries: [String]
 
 });
 
@@ -47,19 +47,19 @@ const groceryListSchema = new Schema({
 
 const UserSchema = new Schema(
     {
-        UserName: {
+        userName: {
             type: String,
             required: true
         },
-        Password: {
+        password: {
             type: String,
             required: true
         },
-        GroceryList: [groceryListSchema],
-        Recipe: [recipeSchema],
-        Food: [foodSchema]
+        groceryList: [groceryListSchema],
+        recipe: [recipeSchema],
+        food: [foodSchema]
     }
-)
+);
 
 //Only export UserSchema, with the other schemas embedded due to being weak entities
 const User = mongoose.model("User", UserSchema);
