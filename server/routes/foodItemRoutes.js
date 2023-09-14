@@ -70,12 +70,25 @@ router.put('/:id', function (req, res) {
 
 router.patch('/:id', function (req, res) {
     //Update a specific food item
-  
+    const id = req.params.id;
+
+    Food.findByIdAndUpdate(id)
+        .then(result => {
+            if (!result) {
+                res.status(404).json({ success: false, msg: "Food not found", data: result });
+            } else {
+                res.status(200).json({ success: true, msg: "Food Updated", data: result });
+            }
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.status(500).json({ message: err.message })
+        })
 });
 
 router.delete('/', function (req, res) {
     //Delete all food items
-
+   
 });
 
 router.delete('/:id', (req, res) => {
