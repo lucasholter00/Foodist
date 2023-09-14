@@ -32,6 +32,9 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
+app.use(foodItemRoutes);
+app.use(userRoutes);
+
 // Import routes
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
