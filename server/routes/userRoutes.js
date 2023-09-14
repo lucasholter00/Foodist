@@ -6,6 +6,7 @@ const foodItemRoutes = require('./foodItemRoutes');
 
 router.get('/', function(req, res){
     //Get all users
+    res.send("User home page");
 });
 
 router.get('/:username', function(req, res){
