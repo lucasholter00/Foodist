@@ -5,7 +5,6 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var userRoutes = require('./routes/userRoutes');
-var foodItemRoutes = require('./routes/foodItemRoutes');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://webdev:123@foodist.dukzvjt.mongodb.net/?retryWrites=true&w=majority';
@@ -31,6 +30,7 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
 
 // Import routes
 app.get('/api', function(req, res) {
