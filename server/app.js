@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var userRoutes = require('./routes/userRoutes');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://webdev:123@foodist.dukzvjt.mongodb.net/?retryWrites=true&w=majority';
