@@ -64,5 +64,5 @@ const UserSchema = new Schema(
 const Food = mongoose.model("Food", foodSchema);
 
 //Only export UserSchema, with the other schemas embedded due to being weak entities
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema, 'users');
 module.exports = User;
