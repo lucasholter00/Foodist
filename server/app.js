@@ -41,7 +41,7 @@ app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
 });
 
-
+app.use('/users', userRoutes);
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
