@@ -7,8 +7,23 @@ const User = require('../models/User');
 const app = require('../app');
 const mongoose = require('mongoose');
 
+//Get username of all users using field selection
 router.get('/', function(req, res){
-    //Get all users
+
+    User.find()
+    .then((users) => {
+        if(!users){
+            res.status(404).json({message: 'No users found'});
+        }
+        else{
+            var usernames = users.map((users) => users.userName);
+            res.status(200).json({usernames});
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+        res.status(500).json({message: "server error"});
+    });
 });
 
 //This endpoint gets a user with specific username
@@ -28,7 +43,7 @@ router.get('/:username', (req, res) => {
     })
     .catch((error) => {
         console.log(error);
-        res.status(500).json({message: "Server error"});
+        res.status(500).json({message: "server error"});
     });
 
     
@@ -100,8 +115,10 @@ router.delete('/:username', (req, res) => {
         }
         //needs authentication
         else{
-            deleteUser.deleteOne();
-            res.status(200).json({message: "User deleted"});
+            deleteUser.deleteOne()
+            .then(() => {
+                    res.status(200).json({message: 'User deleted'});
+                });
         }
     })
     .catch((error) => {
@@ -110,12 +127,43 @@ router.delete('/:username', (req, res) => {
     });
 });
 
+
+
+
 router.use('/:username/recipes', recipeRouter);
 
 router.use('/:username/grocery-lists', groceryListRouter);
 
 router.use('/:username/food-items', foodItemRoutes);
 
+
+//Example of method overriding, not to be used
+router.post('/:username', (req, res) =>{
+    if(req.query._method === 'DELETE'){
+        var filter = {userName: req.params.username}; 
+        
+        User.findOne(filter)
+        .then((user) => {
+            if(!user){
+                res.status(404).json({message: 'User not found'});    
+            }
+
+            else{
+                user.deleteOne()
+                .then(() => {
+                    res.status(200).json({message: 'User deleted'});
+                });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({message: 'Server error'});
+        });
+    }
+    else{
+        res.status(400).json({message: 'Bad request'});
+    }
+});
 
 
 module.exports = router;
