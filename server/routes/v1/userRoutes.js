@@ -3,9 +3,7 @@ const router = new express.Router();
 const recipeRouter = require('./recipeRoutes');
 const groceryListRouter = require('./groceryListRoutes');
 const foodItemRoutes = require('./foodItemRoutes');
-const User = require('../models/User');
-const app = require('../app');
-const mongoose = require('mongoose');
+const User = require('../../models/User');
 
 //Get username of all users using field selection
 router.get('/', function(req, res){
@@ -81,7 +79,7 @@ router.post('/', (req, res) => {
 });
 
 
-router.patch('/:username', function(req, res){
+router.patch('/:username', (req, res) => {
     //Update a specific user
     var filter = {userName: req.params.username};
 
