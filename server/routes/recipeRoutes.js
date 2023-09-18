@@ -52,30 +52,34 @@ router.get('/:name', function(req, res){
 router.post('/', function(req, res){
     //Create new recipe for a specific user
     const userName = {userName: req.params.username};
+    const recipeName = req.body.name;
 
     User.findOne(userName)
         .then((user) =>{
             if(!user){
                 res.status(404).json({ message: 'User not found' });
             }else{
-                // Create a new recipe based on the request body
-                const newRecipe = {
-                    name: req.body.name,
-                    ingredients: req.body.ingredients,
-                    description: req.body.description,
-                };
+                const exist = user.recipe.some((recipe)=> recipe.name ===recipeName);
 
-                user.recipe.push(newRecipe);
+                if (exist){
+                    res.status(409).json({message: "Recipe name already exists"})
+                }else{
+                    // Create a new recipe based on the request body
+                    const newRecipe = {
+                        name: req.body.name,
+                        ingredients: req.body.ingredients,
+                        description: req.body.description,
+                    };
 
-                //save the recipe
-                user.save()
-                    .then(() => {
-                        res.status(201).json({ message: 'Recipe added successfully' });
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                        res.status(500).json({ message: 'Server error' });
-                    });
+                    user.recipe.push(newRecipe);
+
+                    //save the recipe
+                    user.save()
+                        .then(() => {
+                            res.status(201).json({ message: 'Recipe added successfully' });
+                        })
+                }
+
             }
 
         }).catch((err)=>{
