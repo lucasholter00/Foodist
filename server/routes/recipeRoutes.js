@@ -143,11 +143,11 @@ router.patch('/:name', function(req, res){
                 if (indexRecipe === -1) {
                     return res.status(404).json({ message: 'Recipe not found' });
                 }
-                // Update the recipe data with the new data from the request body
+                // Update the recipe data with the new data from the request body, or keep the data already in the database
                 user.recipe[indexRecipe] = {
-                    name: req.body.name,
-                    ingredients: req.body.ingredients,
-                    description: req.body.description,
+                    name: req.body.name || user.recipe[indexRecipe].name,
+                    ingredients: req.body.ingredients || user.recipe[indexRecipe].ingredients,
+                    description: req.body.description || user.recipe[indexRecipe].description,
                 };
 
                 user.save()
