@@ -12,7 +12,7 @@ router.get('/', (req, res) =>{
             if (!user){
                 res.status(404).json({ message: 'User not found' });
             }else {
-                const recipes = user.recipe; // Verify that 'recipe' is spelled correctly
+                const recipes = user.recipe;
 
                 res.status(200).json(recipes);
             }
@@ -109,8 +109,6 @@ router.put('/:name', function(req, res){
                     ingredients: req.body.ingredients,
                     description: req.body.description,
                 };
-
-                user.recipe.push(newRecipe);
 
                 user.save()
                     .then(() => {
