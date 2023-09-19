@@ -12,7 +12,7 @@ const foodSchema = new Schema(
             required: false,
         },
         expiryDate:{
-            type: String,
+            type: Date,
             required: true,
         }
     }
@@ -60,8 +60,6 @@ const UserSchema = new Schema(
         food: [foodSchema]
     }
 );
-
-const Food = mongoose.model("Food", foodSchema);
 
 //Only export UserSchema, with the other schemas embedded due to being weak entities
 const User = mongoose.model("User", UserSchema, 'users');

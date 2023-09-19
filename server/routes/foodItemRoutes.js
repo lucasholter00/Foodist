@@ -1,15 +1,16 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
-const Food = require("../models/User");
+const User = require("../models/User");
 
 router.get('/', (req, res) => {
     //Get all get all food items in the database
-    Food.find()
+    const user = req.param.userName
+    User.findOne(user)
         .then((result) => {
-            if (result === null) {
-                res.status(200).json({ success: false, msg: "Foods not found", data: result });
+            if (!result) {
+                res.status(404).json({ success: false, msg: "User not found" });
             } else {
-                res.status(200).json({ success: true, msg: "Food List", data: result });
+                res.status(200).json({ success: true, msg: "Food List", data: result.food });
             }
         })
         .catch((err) => {
@@ -18,15 +19,19 @@ router.get('/', (req, res) => {
         })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:name', (req, res) => {
     //Get food item with specific id
-    const id = req.param.id;
-    Food.findById(id)
+    const user = req.param.userName;
+    User.findOne(user)
         .then(result => {
-            if (result === null) {
-                res.status(200).json({ success: false, msg: "Food not found", data: result });
+            if (!result) {
+                res.status(404).json({ success: false, msg: "User not found" });
             } else {
-                res.status(200).json({ success: true, msg: "Food by ID", data: result });
+                const food_item = result.food.find((food) => food.name === req.params.name)
+                if (!food_item) {
+                    res.status(404).json({ success: false, msg: "Food item not found" });
+                }
+                res.status(200).json({ success: true, msg: "Specific food found", data: food_item });
             }
         })
         .catch((err) => {
@@ -35,37 +40,54 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('/addfood', (req, res) => {
+router.post('/', (req, res) => {
     //Create new food item
-    var food = new Food(req.body);
+    const user = req.param.userName
+    User.findOne(user)
+        .then((result) => {
+            if (!result) {
+                res.status(404).json({ success: false, msg: "Food not found", data: result });
+            } else {
+                var newFood = (req.body);
+                result.food.push(newFood);
+                result.save();
+                res.status(200).json({ success: true, msg: "New food item is stored.", data: food });
+            }
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.status(500).json({ message: err.message })
+        })
+});
 
-    food.save()
-        .then(() => {
-            res.status(200).json({ success: true, msg: "Food details", data: food });
+router.put('/:name', function (req, res) {
+    //Replace food with specific name
+    const userName = req.param.userName;
+    const foodName = req.param.name;
+    User.findOne(userName)
+        .then(user => {
+            if (!user) {
+                res.status(404).json({ success: false, msg: "User not found"});
+            } else {
+                // 
+                const foodIndex = user.food.findIndex((food) => food.name === foodName)
+                if (foodIndex === -1) {
+                    res.status(404).json({ success: false, msg: "Food not found"});
+                } else {
+                    user.food[foodIndex] = {
+                        name: req.body.name,
+                        description: req.body.description,
+                        expiryDate: req.body.expiryDate
+                    };
+                    res.status(200).json({ success: true, msg: "Food replaced", data: food_item });
+                }
+            }
         })
         .catch((err) => {
             console.log(err.message);
             res.status(500).json({ message: err.message })
         })
 
-});
-
-router.put('/:id', function (req, res) {
-    //Replace food with specific id
-      const id = req.params.id;
-        Food.findOneAndReplace(id.body)
-            .then(result => {
-                if (!result) {
-                    res.status(200).json({ success: false, msg: "Food not found", data: result });
-                } else {
-                    res.status(200).json({ success: true, msg: "Food replaced", data: result });
-                }
-            })
-            .catch((err) => {
-                console.log(err.message);
-                res.status(500).json({ message: err.message })
-            })
-    
 });
 
 router.patch('/:id', function (req, res) {
@@ -94,7 +116,7 @@ router.delete('/', function (req, res) {
                 res.status(200).json({ success: false, msg: "Foods not found" });
             } else {
                 result.body.delete();
-                res.status(200).json({ success: true, msg: "Food List deleted"});
+                res.status(200).json({ success: true, msg: "Food List deleted" });
             }
         })
         .catch((err) => {
