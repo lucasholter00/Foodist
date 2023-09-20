@@ -62,7 +62,8 @@ router.post('/', (req, res) => {
 
 router.put('/:name', function (req, res) {
     //Replace food with specific name
-    const user = {userName : req.param.username};
+    const user = {uerName : req.params.username};
+    const food =  req.params.name;
 
     User.findOne(user)
         .then((userResult) => {
@@ -70,19 +71,20 @@ router.put('/:name', function (req, res) {
                 res.status(404).json({ success: false, msg: "PUT request: User not found" });
             } else {
                 // Find the specific food in food list
-                User.food.findOne(req.param.name)
-                    .then((result) => {
-                        if (!result) {
-                            res.status(404).json({ success: false, msg: "PUT request: Food not found" });
-                        } else {
-                            result.name = req.body.name,
-                            result.description = req.body.description,
-                            result.expiryDate = req.body.expiryDate
-                            result_object.save();
-                            console.log(result);
-                            res.status(200).json({ success: true, msg: "PUT request: Food replaced", data: result });
-                        }
+                var foodIndex = user.food.findIndex((i)=> i.name === food)
+                if (foodIndex === -1) {
+                    res.status(404).json({ success: false, msg: "PUT request: Food not found" });
+                } else {
+                    userResult.food[foodIndex] = {
+                        name : req.body.name,
+                        description : req.body.description,
+                        expiryDate : req.body.expiryDate
+                    }
+                    userResult.save()
+                    .then(()=> {
+                        res.status(200).json({ success: true, msg: "PUT request: Food updated" });
                     })
+                }
             }
         })
         .catch((err) => {
