@@ -23,11 +23,11 @@ router.get('/:name', (req, res) => {
     //Get food item with specific id
     const user = req.param.userName;
     User.findOne(user)
-        .then(result => {
-            if (!result) {
+        .then(userResult => {
+            if (!userResult) {
                 res.status(404).json({ success: false, msg: "User not found" });
             } else {
-                const food_item = result.food.find((food) => food.name === req.params.name)
+                const food_item = userResult.food.find((food) => food.name === req.params.name)
                 if (!food_item) {
                     res.status(404).json({ success: false, msg: "Food item not found" });
                 }
@@ -44,14 +44,14 @@ router.post('/', (req, res) => {
     //Create new food item
     const user = req.param.userName
     User.findOne(user)
-        .then((result) => {
-            if (!result) {
-                res.status(404).json({ success: false, msg: "Food not found", data: result });
+        .then((userResult) => {
+            if (!userResult) {
+                res.status(404).json({ success: false, msg: "User not found" });
             } else {
                 var newFood = (req.body);
-                result.food.push(newFood);
-                result.save();
-                res.status(200).json({ success: true, msg: "New food item is stored.", data: food });
+                userResult.food.push(newFood);
+                userResult.save();
+                res.status(200).json({ success: true, msg: "New food item is stored.", data: userResult });
             }
         })
         .catch((err) => {
@@ -62,25 +62,27 @@ router.post('/', (req, res) => {
 
 router.put('/:name', function (req, res) {
     //Replace food with specific name
-    const userName = req.param.userName;
-    const foodName = req.param.name;
-    User.findOne(userName)
-        .then(user => {
-            if (!user) {
-                res.status(404).json({ success: false, msg: "User not found"});
+    const user = {userName : req.param.username};
+
+    User.findOne(user)
+        .then((userResult) => {
+            if (!userResult) {
+                res.status(404).json({ success: false, msg: "PUT request: User not found" });
             } else {
-                // 
-                const foodIndex = user.food.findIndex((food) => food.name === foodName)
-                if (foodIndex === -1) {
-                    res.status(404).json({ success: false, msg: "Food not found"});
-                } else {
-                    user.food[foodIndex] = {
-                        name: req.body.name,
-                        description: req.body.description,
-                        expiryDate: req.body.expiryDate
-                    };
-                    res.status(200).json({ success: true, msg: "Food replaced", data: food_item });
-                }
+                // Find the specific food in food list
+                User.food.findOne(req.param.name)
+                    .then((result) => {
+                        if (!result) {
+                            res.status(404).json({ success: false, msg: "PUT request: Food not found" });
+                        } else {
+                            result.name = req.body.name,
+                            result.description = req.body.description,
+                            result.expiryDate = req.body.expiryDate
+                            result_object.save();
+                            console.log(result);
+                            res.status(200).json({ success: true, msg: "PUT request: Food replaced", data: result });
+                        }
+                    })
             }
         })
         .catch((err) => {
@@ -90,15 +92,14 @@ router.put('/:name', function (req, res) {
 
 });
 
-router.patch('/:id', function (req, res) {
+router.patch('/:name', function (req, res) {
     //Update a specific food item
-    const id = req.params.id;
-
-    Food.findByIdAndUpdate(id.body)
+    User.findOne(req.param.username)
         .then(result => {
             if (!result) {
-                res.status(200).json({ success: false, msg: "Food not found", data: result });
+                res.status(404).json({ success: false, msg: "User not found", data: result });
             } else {
+
                 res.status(200).json({ success: true, msg: "Food Updated", data: result });
             }
         })
@@ -110,11 +111,12 @@ router.patch('/:id', function (req, res) {
 
 router.delete('/', function (req, res) {
     //Delete all food items
-    Food.find()
+    User.findOne(req.param.username)
         .then((result) => {
             if (!result) {
-                res.status(200).json({ success: false, msg: "Foods not found" });
+                res.status(200).json({ success: false, msg: "User not found" });
             } else {
+
                 result.body.delete();
                 res.status(200).json({ success: true, msg: "Food List deleted" });
             }
