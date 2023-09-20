@@ -1,7 +1,7 @@
 const express = require('express');
-const User = require("../models/User");
+const User = require("../../models/User");
 const router = new express.Router({mergeParams: true});
-const App = require("../app");
+const App = require("../../app");
 
 router.get('/', (req, res) =>{
     //Get all recipes for specific user
