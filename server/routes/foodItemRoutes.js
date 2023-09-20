@@ -50,8 +50,10 @@ router.post('/', (req, res) => {
             } else {
                 var newFood = (req.body);
                 userResult.food.push(newFood);
-                userResult.save();
-                res.status(200).json({ success: true, msg: "New food item is stored.", data: userResult });
+                userResult.save()
+                    .then(() => {
+                        res.status(200).json({ success: true, msg: "POST request: New food item is stored.", data: userResult });
+                    })
             }
         })
         .catch((err) => {
@@ -62,28 +64,32 @@ router.post('/', (req, res) => {
 
 router.put('/:name', function (req, res) {
     //Replace food with specific name
-    const user = {uerName : req.params.username};
-    const food =  req.params.name;
+    const user = { userName: req.params.username };
+    const foodName = req.params.name;
 
-    User.findOne(user)
+    User.findOne(user) // Find user by user name
         .then((userResult) => {
-            if (!userResult) {
+            if (userResult) {
                 res.status(404).json({ success: false, msg: "PUT request: User not found" });
             } else {
-                // Find the specific food in food list
-                var foodIndex = user.food.findIndex((i)=> i.name === food)
+                // Find the specific food index in food list
+                var foodIndex = user.food.findIndex((i) => i.name === foodName);
                 if (foodIndex === -1) {
                     res.status(404).json({ success: false, msg: "PUT request: Food not found" });
                 } else {
                     userResult.food[foodIndex] = {
-                        name : req.body.name,
-                        description : req.body.description,
-                        expiryDate : req.body.expiryDate
-                    }
+                        name: req.body.name,
+                        description: req.body.description,
+                        expiryDate: req.body.expiryDate
+                    };
                     userResult.save()
-                    .then(()=> {
-                        res.status(200).json({ success: true, msg: "PUT request: Food updated" });
-                    })
+                        .then(() => {
+                            res.status(200).json({ success: true, msg: "PUT request: Food updated" });
+                        }).catch((err) => {
+                            console.log(err.message);
+                            res.status(500).json({ message: err.message })
+                        })
+
                 }
             }
         })
@@ -129,23 +135,34 @@ router.delete('/', function (req, res) {
         })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:name', (req, res) => {
     //Delete food item with specific id
-    const id = req.params.id;
+    const user = { userName: req.params.username };
+    const foodName = req.params.name;
 
-    Food.findByIdAndDelete(id)
-        .then(result => {
-            if (result === null) {
-                res.status(200).json({ success: false, msg: "Food not found", data: result });
+    User.findOne(user) // Find user by user name
+        .then((userResult) => {
+            if (userResult) {
+                res.status(404).json({ success: false, msg: "PUT request: User not found" });
             } else {
-                res.status(200).json({ success: true, msg: "Food deleted", data: result });
+                // Find the specific food index in food list
+                var foodIndex = user.food.findIndex((i) => i.name === foodName);
+                if (foodIndex === -1) {
+                    res.status(404).json({ success: false, msg: "PUT request: Food not found" });
+                } else {
+                    userResult.food.splice(foodIndex, 1);
+                };
+                userResult.save()
+                    .then(() => {
+                        res.status(200).json({ success: true, msg: "PUT request: Food deleted" });
+                    })
             }
-        })
+        }
+        )
         .catch((err) => {
             console.log(err.message);
             res.status(500).json({ message: err.message })
         })
-
 });
 
 module.exports = router;
