@@ -82,10 +82,62 @@ router.put('/:id', function(req, res){
 
 router.patch('/:id', function(req, res){
     //Update grocery list with specific name
+    var filter = {userName: req.params.username};
+
+    User.findOne(filter)
+    .then((user) => {
+        if (!user){
+            res.status(404).json({message: 'User not found'});
+        }
+        else{
+            const list = user.groceryList.find((list) => list.id === groceryId);
+            
+            if(!list){
+                res.status(404).json({message: 'Grocery list not found'});
+            }
+            else{
+                list = {
+                    name: req.body.name || list.name,
+                    groceries: req.body.groceries || list.groceries
+                };
+                user.save()
+                .then(() => {
+                    res.status(200).json({message: 'Grocery list updated'});
+                })
+            }
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
 });
 
 router.delete('/', function(req, res){
     //Delete all grocery list for specific user
+    var filter = {userName: req.params.username};
+
+    User.findOne(filter)
+    .then((user) => {
+        if(!user){
+            res.status(404).json({message: 'User not found'});
+        }
+        else{
+            user.groceryList = [];
+
+            user.save()
+            .then(() => {
+                res.status(200).json({message: 'Grocery lists deleted'});
+            });
+        }
+    
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
+
+
 });
 
 router.delete('/:id', function(req, res){
