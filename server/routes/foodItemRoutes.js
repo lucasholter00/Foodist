@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
                 res.status(404).json({ success: false, msg: "User not found" });
             } else {
 
-                var newFood = (req.body);
+                const newFood = (req.body);
                 userResult.food.push(newFood);
                 userResult.save()
                     .then(() => {
@@ -142,14 +142,18 @@ router.patch('/:name', function (req, res) {
 
 router.delete('/', function (req, res) {
     //Delete all food items
-    User.findOne(req.params.username)
-        .then((result) => {
-            if (!result) {
+    const user = { userName: req.params.username };
+    User.findOne(user)
+        .then((userResult) => {
+            if (!userResult) {
                 res.status(200).json({ success: false, msg: "User not found" });
             } else {
 
-                result.body.delete();
-                res.status(200).json({ success: true, msg: "Food List deleted" });
+                userResult.food = [];
+                userResult.save()
+                        .then(() => {
+                            res.status(200).json({ success: true, msg: "Food List is deleted"});
+                        })
             }
         })
         .catch((err) => {
@@ -165,23 +169,22 @@ router.delete('/:name', (req, res) => {
 
     User.findOne(user) // Find user by user name
         .then((userResult) => {
-            if (userResult) {
-                res.status(404).json({ success: false, msg: "PUT request: User not found" });
+            if (!userResult) {
+                res.status(404).json({ success: false, msg: "Delete request: User not found" });
             } else {
                 // Find the specific food index in food list
-                var foodIndex = user.food.findIndex((i) => i.name === foodName);
+                const foodIndex = userResult.food.findIndex((food) => food.name === foodName);
                 if (foodIndex === -1) {
-                    res.status(404).json({ success: false, msg: "PUT request: Food not found" });
+                    res.status(404).json({ success: false, msg: "Delete request: Food not found" });
                 } else {
                     userResult.food.splice(foodIndex, 1);
-                };
-                userResult.save()
+                    userResult.save()
                     .then(() => {
-                        res.status(200).json({ success: true, msg: "PUT request: Food deleted" });
+                        res.status(200).json({ success: true, msg: "Delete request: Food is deleted" });
                     })
+                }
             }
-        }
-        )
+        })
         .catch((err) => {
             console.log(err.message);
             res.status(500).json({ message: err.message })
