@@ -35,12 +35,12 @@
 					"raw": "{\n    \"userName\": \"Testbonk\",\n    \"password\": \"123\"\n\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users",
+					"raw": "http://127.0.0.1:3001/api/v1/users",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -79,12 +79,12 @@
 					"raw": "{\n    \"userName\": \"Testbonk\",\n    \"password\": \"123\"\n\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users",
+					"raw": "http://127.0.0.1:3001/api/v1/users",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -116,12 +116,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/",
+					"raw": "http://127.0.0.1:3001/api/v1/users/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -158,12 +158,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/Testbonk",
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -196,12 +196,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/fsdhgiuwphuifguurwehguhpwfjgklwjnrkjwg134a@fghfg",
+					"raw": "http://127.0.0.1:3001/api/v1/users/fsdhgiuwphuifguurwehguhpwfjgklwjnrkjwg134a@fghfg",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -244,12 +244,12 @@
 					"raw": "{\n    \"newPassword\": \"321\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/Testbonk",
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -292,12 +292,12 @@
 					"raw": "{\n    \"newPassword\": \"321\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/gfsdhihiehehuhtjkgh3893481212@uihufihdij",
+					"raw": "http://127.0.0.1:3001/api/v1/users/gfsdhihiehehuhtjkgh3893481212@uihufihdij",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -340,12 +340,12 @@
 					"raw": "{\n    \"password\": \"123\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/gsdfhjoihsdhgif348t438t92348hufhihuhfuwef@jgdfijg",
+					"raw": "http://127.0.0.1:3001/api/v1/users/gsdfhjoihsdhgif348t438t92348hufhihuhfuwef@jgdfijg",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -388,12 +388,12 @@
 					"raw": "{\n    \"password\": \"123\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/Testbonk",
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -437,12 +437,12 @@
 					"raw": "{\n    \"userName\": \"Testbonk\",\n    \"password\": \"123\"\n\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users",
+					"raw": "http://127.0.0.1:3001/api/v1/users",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -474,12 +474,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/fsdjgouihjsdfjguifghfiushgidfguhsgui3452432452345?_method=DELETE",
+					"raw": "http://127.0.0.1:3001/api/v1/users/fsdjgouihjsdfjguifghfiushgidfguhsgui3452432452345?_method=DELETE",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -518,12 +518,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/Testbonk",
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -563,12 +563,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/users/Testbonk?_method=DELETE",
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk?_method=DELETE",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127.0.0.1"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
