@@ -78,6 +78,33 @@ router.post('/', function(req, res){
 
 router.put('/:id', function(req, res){
     //Replace grocery list with specific name
+    var filter = {userName: req.params.username}
+    const groceryId = req.params.id;
+
+    User.findOne(filter)
+    .then((user) => {
+        if(!user){
+            res.status(404).json({message: 'User not found'});
+        }
+        else{
+            var list = user.groceryList.find((list) => list.id === groceryId);
+            
+            if(!list){
+                res.status(404).json({message: 'Grocary list not found'});
+            }
+            else{
+                list.name = req.body.name;
+                list.groceries = req.body.groceries;
+
+                user.save()
+                .then(() => res.status(200).json({message: 'Grocery list replaced'}));
+            }
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
 });
 
 router.patch('/:id', function(req, res){
