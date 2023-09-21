@@ -1,6 +1,6 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
-const User = require("../models/User");
+const User = require("../../models/User");
 
 router.get('/', (req, res) => {
     //Get all food items in the database
