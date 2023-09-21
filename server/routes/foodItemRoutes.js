@@ -4,7 +4,7 @@ const User = require("../models/User");
 
 router.get('/', (req, res) => {
     //Get all food items in the database
-    const userName = {userName: req.params.username}
+    const userName = { userName: req.params.username }
     User.findOne(userName)
         .then((user) => {
             if (!user) {
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 
 router.get('/:name', (req, res) => {
     //Get food item with specific id
-    const userName = {userName: req.params.username};
+    const userName = { userName: req.params.username };
 
     User.findOne(userName)
         .then((userResult) => {
@@ -33,8 +33,8 @@ router.get('/:name', (req, res) => {
 
                 if (!foodItem) {
                     res.status(404).json({ success: false, msg: "Food item not found" });
-                }else {
-                    res.status(200).json({success: true, msg: "Specific food found", data: foodItem});
+                } else {
+                    res.status(200).json({ success: true, msg: "Specific food found", data: foodItem });
                 }
             }
         })
@@ -46,7 +46,7 @@ router.get('/:name', (req, res) => {
 
 router.post('/', (req, res) => {
     //Create new food item
-    const user = {userName: req.params.username}
+    const user = { userName: req.params.username }
     User.findOne(user)
         .then((userResult) => {
             if (!userResult) {
@@ -69,18 +69,16 @@ router.post('/', (req, res) => {
 
 router.put('/:name', function (req, res) {
     //Replace food with specific name
-    const user = {userName : req.params.username};
-    const foodName =  req.params.name;
+    const user = { userName: req.params.username };
+    const foodName = req.params.name;
 
     User.findOne(user) // Find user by user name
         .then((userResult) => {
-            if (userResult) {
+            if (!userResult) {
                 res.status(404).json({ success: false, msg: "PUT request: User not found" });
             } else {
-                // Find the specific food in food list
-                const foodIndex = userResult.food.findIndex((food)=> food.name === foodName);
-
-                //  const indexRecipe = user.recipe.findIndex((recipe)=> recipe.name ===recipeName);
+                // Find the specific food index in food list
+                const foodIndex = userResult.food.findIndex((food) => food.name === foodName);
                 if (foodIndex === -1) {
                     res.status(404).json({ success: false, msg: "PUT request: Food not found" });
                 } else {
@@ -91,12 +89,11 @@ router.put('/:name', function (req, res) {
                     };
                     userResult.save()
                         .then(() => {
-                            res.status(200).json({ success: true, msg: "PUT request: Food updated" });
+                            res.status(200).json({ success: true, msg: "PUT request: Food is replaced", data: req.body });
                         }).catch((err) => {
                             console.log(err.message);
                             res.status(500).json({ message: err.message })
                         })
-
                 }
             }
         })
@@ -109,13 +106,32 @@ router.put('/:name', function (req, res) {
 
 router.patch('/:name', function (req, res) {
     //Update a specific food item
-    User.findOne(req.params.username)
-        .then(result => {
-            if (!result) {
-                res.status(404).json({ success: false, msg: "User not found", data: result });
+    const user = { userName: req.params.username };
+    const foodName = req.params.name;
+    User.findOne(user)
+        .then(userResult => {
+            if (!userResult) {
+                res.status(404).json({ success: false, msg: "Patch: User not found"});
             } else {
-                //need to add code to actually patch, not just return value
-                res.status(200).json({ success: true, msg: "Food Updated", data: result });
+                // Find the specific food index in food list
+                const foodIndex = userResult.food.findIndex((food) => food.name === foodName);
+                if (foodIndex === -1) {
+                    res.status(404).json({ success: false, msg: "Patch request: Food not found" });
+                } else {
+                    userResult.food[foodIndex] = {
+                        name: req.body.name || userResult.food[foodIndex].name,
+                        description: req.body.description || userResult.food[foodIndex].description,
+                        expiryDate: req.body.expiryDate || userResult.food[foodIndex].expiryDate
+                    };
+                    userResult.save()
+                        .then(() => {
+                            res.status(200).json({ success: true, msg: "Patch request: Food is updated", data: req.body });
+                        }).catch((err) => {
+                            console.log(err.message);
+                            res.status(500).json({ message: err.message })
+                        })
+                }               
+
             }
         })
         .catch((err) => {
