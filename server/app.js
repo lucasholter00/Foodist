@@ -7,7 +7,7 @@ var history = require('connect-history-api-fallback');
 var userRoutes = require('./routes/v1/userRoutes');
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://faizaamjad254:YDqhhAxnyDIY5kWq@cluster0.dtzhud1.mongodb.net/?retryWrites=true&w=majority';
+var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://webdev:123@foodist.dukzvjt.mongodb.net/foodist?retryWrites=true&w=majoritygit';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
