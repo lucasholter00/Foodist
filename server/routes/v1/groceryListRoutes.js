@@ -83,6 +83,7 @@ router.put('/:id', function(req, res){
 router.patch('/:id', function(req, res){
     //Update grocery list with specific name
     var filter = {userName: req.params.username};
+    var groceryId = req.params.id;
 
     User.findOne(filter)
     .then((user) => {
@@ -90,16 +91,14 @@ router.patch('/:id', function(req, res){
             res.status(404).json({message: 'User not found'});
         }
         else{
-            const list = user.groceryList.find((list) => list.id === groceryId);
+            var list = user.groceryList.find((list) => list.id === groceryId);
             
             if(!list){
                 res.status(404).json({message: 'Grocery list not found'});
             }
             else{
-                list = {
-                    name: req.body.name || list.name,
-                    groceries: req.body.groceries || list.groceries
-                };
+                list.name = req.body.name || list.name;
+                list.groceries = req.body.groceries || list.groceries;
                 user.save()
                 .then(() => {
                     res.status(200).json({message: 'Grocery list updated'});
