@@ -5,10 +5,51 @@ const App = require("../../app");
 
 router.get('/', function(req, res){
     //Get all grocery lists for specific user
+    var filter = {userName: req.params.username};
+    
+    User.findOne(filter)
+    .then((user) => {
+        if(!user){
+            res.status(404).json({message: 'User not found'});
+        }
+        else{
+            const groceryLists = user.groceryList;
+            res.status(200).json(groceryLists);
+        }
+
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
 });
 
-router.get('/:name', function(req, res){
+router.get('/:id', function(req, res){
     //Get grocery list with specific name 
+    var filter = {userName: req.params.username};
+    var groceryId = req.params.id;
+
+    User.findOne(filter)
+    .then((user) => {
+        if(!user){
+            res.status(404).json({message: 'User not found'});
+        }
+        else{
+            const groceryList = user.groceryList.find((groceryList) => groceryList.id === groceryId); 
+            
+            if(!groceryList){
+                res.status(404).json({message: 'Recipe not found'});
+            }
+            else{
+                res.status(200).json(groceryList);
+            }
+        }
+
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
 });
 
 router.post('/', function(req, res){
@@ -27,14 +68,19 @@ router.post('/', function(req, res){
                 res.status(201).json({message: 'Grocery list created'});
             })
         }
-     });
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
+    
 });
 
-router.put('/:name', function(req, res){
+router.put('/:id', function(req, res){
     //Replace grocery list with specific name
 });
 
-router.patch('/:name', function(req, res){
+router.patch('/:id', function(req, res){
     //Update grocery list with specific name
 });
 
@@ -42,7 +88,7 @@ router.delete('/', function(req, res){
     //Delete all grocery list for specific user
 });
 
-router.delete('/:name', function(req, res){
+router.delete('/:id', function(req, res){
     //Delete grocery list with specific name
 });
 
