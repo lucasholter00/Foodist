@@ -90,6 +90,35 @@ router.delete('/', function(req, res){
 
 router.delete('/:id', function(req, res){
     //Delete grocery list with specific name
+    var filter = {userName: req.params.username};
+    var groceryId = req.params.id;
+
+    User.findOne(filter)
+    .then((user) => {
+        if(!user){
+            res.status(404).json({message: 'User not found'});
+        }
+        else{
+            var list = user.groceryList.find((groceryList) => groceryList.id === groceryId);
+            if(!list){
+                res.status(404).json({message: 'Grocery list not found'});
+            }
+            else{
+                user.groceryList.pull(list); 
+                user.save()
+                .then(() => {
+                    res.status(200).json({message: 'Grocery list deleted'});
+                });
+            }
+            
+        }
+
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: 'Server error'});
+    });
+
 });
 
 
