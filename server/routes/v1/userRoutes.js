@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
     var existingUser = User.findOne(filter)
     .then((existingUser) => {
         //checks if existing user has the desired username
-        if (existingUser){
+        if (!existingUser){
             res.status(409).json({message: "Username already taken"});
         }
         //if noone has the desired username create a username
