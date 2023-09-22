@@ -38,7 +38,7 @@ router.get('/:id', function(req, res){
             const groceryList = user.groceryList.find((groceryList) => groceryList.id === groceryId); 
             
             if(!groceryList){
-                res.status(404).json({message: 'Recipe not found'});
+                res.status(404).json({message: 'Grocery list not found'});
             }
             else{
                 res.status(200).json(groceryList);
