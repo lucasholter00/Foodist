@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-row align-h="center" align-v="center">
-      <b-col cols="2">
+      <b-col cols="8" sm="4" lg="2">
+        <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         <b-form @submit="onSubmit">
           <b-form-group
             id="username"
@@ -30,7 +31,10 @@
             >
             </b-form-input>
           </b-form-group>
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-row align-h="between">
+            <b-button type="Submit" variant="primary">Submit</b-button>
+            <b-button type="Register" variant="primary">Register</b-button>
+          </b-row>
 
           <p>{{form.username}}</p>
           <p>{{form.password}}</p>
@@ -55,17 +59,36 @@ export default {
         username: '',
         password: ''
       },
-      currentUser: ''
+      currentUser: '',
+      errorMessage: ''
     }
   },
   methods: {
     onSubmit(event) {
+      this.errorMessage = ''
       event.preventDefault()
       Api.get('/v1/users/' + this.form.username)
         .then(response => {
-          this.currentUser = response.data.userName
+          if (response.status === 200) {
+            this.currentUser = response.data.userName
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Username or Password not correct'
+          } else {
+            this.errorMessage = 'Server error'
+          }
         })
     }
   }
 }
 </script>
+
+<style>
+  .errorMessage{
+    color: red;
+    font-size: 14px;
+  }
+
+</style>
