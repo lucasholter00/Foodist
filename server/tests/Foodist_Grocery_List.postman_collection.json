@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "9c5392a6-50ea-4d4c-b593-891d7a32b685",
+		"name": "Foodist Grocery List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29738720"
+	},
+	"item": [
+		{
+			"name": "Create user to test grocery list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"Testbonk\",\n    \"password\": \"123\"\n\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create groceryList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Min matlista\",\n    \"groceries\": [\"Äpplen\", \"Päron\", \"Citron\"],\n    \"_id\": \"650c5cc5ae73a6385851ddb9\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update groceryList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response 'message' equals 'Grocery list updated'\", () => {",
+							"    pm.expect(pm.response.json().message).to.equal('Grocery list updated');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"namn\",\n    \"groceries\": [\"äpple\", \"päron\"]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists/650c5cc5ae73a6385851ddb9",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists",
+						"650c5cc5ae73a6385851ddb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replacecgrocery list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response 'message' equals 'Grocery list replaced'\", () => {",
+							"    pm.expect(pm.response.json().message).to.equal('Grocery list replaced');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"putput\",\n    \"groceries\": [\"äpple\", \"nyttäpple\"]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists/650c5cc5ae73a6385851ddb9",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists",
+						"650c5cc5ae73a6385851ddb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all lists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response JSON contains 'name'\", () => {",
+							"    pm.expect(pm.response.json()).to.have.property(\"name\");",
+							"});",
+							"pm.test(\"Response JSON contains 'groceries'\", () => {",
+							"    pm.expect(pm.response.json()).to.have.property(\"groceries\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists/650c5cc5ae73a6385851ddb9",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists",
+						"650c5cc5ae73a6385851ddb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response 'message' equals 'Grocery list deleted'\", () => {",
+							"    pm.expect(pm.response.json().message).to.equal('Grocery list deleted');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists/650c5cc5ae73a6385851ddb9",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists",
+						"650c5cc5ae73a6385851ddb9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all lists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response 'message' equals 'Grocery lists deleted'\", () => {",
+							"    pm.expect(pm.response.json().message).to.equal('Grocery lists deleted');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk/grocery-lists/",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk",
+						"grocery-lists",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user created to test grocery list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response 'message' equals 'User deleted'\", () => {",
+							"    pm.expect(pm.response.json().message).to.equal('User deleted');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Testbonk",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Testbonk"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
