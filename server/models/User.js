@@ -1,3 +1,4 @@
+const { query } = require("express");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -8,7 +9,7 @@ const foodSchema = new Schema(
             required: true,
         },
         description: {
-            type: [String],
+            type: String,
             required: false,
         },
         expiryDate:{
@@ -17,6 +18,7 @@ const foodSchema = new Schema(
         }
     }
 );
+
 
 const recipeSchema = new Schema(
     {

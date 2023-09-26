@@ -25,7 +25,7 @@ router.get('/', function(req, res){
 });
 
 router.get('/:id', function(req, res){
-    //Get grocery list with specific name 
+    //Get grocery list with specific id 
     var filter = {userName: req.params.username};
     var groceryId = req.params.id;
 
@@ -35,6 +35,7 @@ router.get('/:id', function(req, res){
             res.status(404).json({message: 'User not found'});
         }
         else{
+            //Gets the grocery list that has specific id(can only find one since id is unique)
             const groceryList = user.groceryList.find((groceryList) => groceryList.id === groceryId); 
             
             if(!groceryList){
@@ -61,6 +62,8 @@ router.post('/', function(req, res){
             res.status(404).json({message: 'User not found'});
         }
         else{
+            //The body of the request is formated the same as the object in the database, thus i can create a new object
+            // with the whole body and push it into the user it belongs to
             const newGroceryList = req.body;
             user.groceryList.push(newGroceryList);
             user.save()
@@ -77,7 +80,7 @@ router.post('/', function(req, res){
 });
 
 router.put('/:id', function(req, res){
-    //Replace grocery list with specific name
+    //Replace grocery list with specific id
     var filter = {userName: req.params.username}
     const groceryId = req.params.id;
 
@@ -108,7 +111,7 @@ router.put('/:id', function(req, res){
 });
 
 router.patch('/:id', function(req, res){
-    //Update grocery list with specific name
+    //Update grocery list with specific id
     var filter = {userName: req.params.username};
     var groceryId = req.params.id;
 
@@ -124,6 +127,7 @@ router.patch('/:id', function(req, res){
                 res.status(404).json({message: 'Grocery list not found'});
             }
             else{
+                //Either new value or old value since all attributes needn't be changed with patch
                 list.name = req.body.name || list.name;
                 list.groceries = req.body.groceries || list.groceries;
                 user.save()
@@ -167,7 +171,7 @@ router.delete('/', function(req, res){
 });
 
 router.delete('/:id', function(req, res){
-    //Delete grocery list with specific name
+    //Delete grocery list with specific id
     var filter = {userName: req.params.username};
     var groceryId = req.params.id;
 
