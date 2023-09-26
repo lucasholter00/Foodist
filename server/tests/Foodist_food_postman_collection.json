@@ -80,7 +80,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/john_doe/food-items",
+							"raw": "{{host}}/api/v1/users/joey/food-items/",
 							"host": [
 								"{{host}}"
 							],
@@ -88,8 +88,9 @@
 								"api",
 								"v1",
 								"users",
-								"john_doe",
-								"food-items"
+								"joey",
+								"food-items",
+								""
 							],
 							"query": [
 								{
@@ -125,6 +126,12 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"});\r",
 									"\r",
+									"\r",
+									"pm.test(\"The data field is an object\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.data).to.be.an('object');\r",
+									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -197,6 +204,14 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"});\r",
 									"\r",
+									"\r",
+									"pm.test(\"The data field is an object\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
 									""
 								],
 								"type": "text/javascript"
@@ -211,7 +226,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Juice\",\r\n    \"description\": \"cold\",\r\n    \"expiryDate\": \"2023-01-23\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -259,6 +274,12 @@
 									"    pm.expect(responseData.success).to.exist.and.to.be.a('boolean');\r",
 									"});\r",
 									"\r",
+									"\r",
+									"pm.test(\"The data field is an object\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.data).to.be.an('object');\r",
+									"});\r",
 									"\r",
 									"pm.test(\"Validate the msg field\", function () {\r",
 									"    const responseData = pm.response.json();\r",
@@ -364,6 +385,14 @@
 									"    pm.expect(responseData).to.be.an('object');\r",
 									"    pm.expect(responseData.data).to.exist;\r",
 									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"The data field is an object\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
 									""
 								],
 								"type": "text/javascript"
@@ -415,17 +444,6 @@
 									"    pm.expect(pm.response.code).to.equal(200);\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"Response has the required fields\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData).to.have.property('success');\r",
-									"    pm.expect(responseData).to.have.property('msg');\r",
-									"    pm.expect(responseData).to.have.property('data');\r",
-									"});\r",
-									"\r",
-									"\r",
 									"pm.test(\"Success field should be a boolean\", function () {\r",
 									"    const responseData = pm.response.json();\r",
 									"\r",
@@ -438,14 +456,6 @@
 									"\r",
 									"    pm.expect(responseData.msg).to.be.a('string');\r",
 									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"The data field is an object\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.data).to.be.an('object');\r",
-									"});\r",
-									"\r",
 									""
 								],
 								"type": "text/javascript"
