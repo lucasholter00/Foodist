@@ -177,7 +177,7 @@ router.delete('/', function(req, res){
                 //save changes
                 user.save()
                     .then(() => {
-                        res.status(201).json({ message: 'Recipe deleted successfully' });
+                        res.status(201).json({ message: 'Recipes deleted successfully' });
                     });
             }
         }).catch((err) => {
@@ -194,7 +194,7 @@ router.delete('/:name', function(req, res){
     User.findOne(userName)
         .then((user)=>{
             if (!user){
-                res.status(404).message({message: 'User not found'});
+                return res.status(404).json({ message: 'User not found' });
             }else{
                 //find index of recipe
                 const indexRecipe = user.recipe.findIndex((recipe)=> recipe.name === recipeName);
