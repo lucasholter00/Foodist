@@ -3,6 +3,7 @@
     <b-row align-h="center" align-v="center">
       <b-col cols="8" sm="4" lg="2">
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+        <p class="message" v-if="message">{{message}}</p>
         <b-form @submit="onSubmit">
           <b-form-group
             id="username"
@@ -12,7 +13,7 @@
             <b-form-input
               id="input1"
               placeholder="Enter username"
-              v-model="form.username"
+              v-model="form.userName"
               type="username"
             >
             </b-form-input>
@@ -31,66 +32,69 @@
             >
             </b-form-input>
           </b-form-group>
-          <b-row align-h="between">
-            <b-button type="Submit" variant="primary">Submit</b-button>
-            <router-link to="/register"><b-button type="Register" variant="primary" >Register</b-button></router-link>
+          <b-row align-h="center">
+            <b-button type="Submit" variant="primary">Sign up</b-button>
           </b-row>
 
         </b-form>
       </b-col>
     </b-row>
   </div>
+
 </template>
 
 <script>
-
 import { Api } from '@/Api'
 
 export default {
-  name: 'login',
+  name: 'register',
   data() {
     return {
-      message: 'welcome to the login page',
       form: {
-        username: '',
+        userName: '',
         password: ''
       },
-      currentUser: '',
+      message: '',
       errorMessage: ''
     }
   },
   methods: {
     onSubmit(event) {
-      this.errorMessage = ''
+      this.message = ''
       event.preventDefault()
-      Api.get('/v1/users/' + this.form.username)
-        .then(response => {
-          if (response.status === 200) {
-            this.currentUser = response.data.userName
-            this.emitCurrentUser()
-            this.$router.push({ name: 'home' })
+      Api.post('/v1/users', this.form, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            this.message = 'User created'
+            this.form.userName = ''
+            this.form.password = ''
+            this.message = 'User created'
           }
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'Username or Password incorrect'
+        .catch((err) => {
+          if (err.response.status === 409) {
+            this.errorMessage = 'Username taken'
           } else {
             this.errorMessage = 'Server error'
           }
         })
-    },
-    emitCurrentUser() {
-      const eventData = this.currentUser
-      console.log('Emitting currentUserEvent with data:', eventData)
-      this.$emit('currentUserEvent', eventData)
     }
   }
 }
+
 </script>
 
 <style>
   .errorMessage{
     color: red;
+    font-size: 14px;
+  }
+  .message{
+    color: green;
     font-size: 14px;
   }
 
