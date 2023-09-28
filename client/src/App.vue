@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
+      <router-link to="/create-recipe">CreateRecipe</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>
@@ -17,3 +18,5 @@
   color: #2c3e50;
 }
 </style>
+<script setup>
+</script>
