@@ -4,13 +4,13 @@ import { reactive } from 'vue'
 
 const form = reactive({
   name: '',
-  ingredients: [{ name: '', quantity: '', measure: '' }],
+  ingredients: [{ name: '', quantity: '', unit: '' }],
   description: '',
   errorMessage: ''
 })
 
 const addIngredient = () => {
-  form.ingredients.push({ name: '', quantity: '', measure: '' })
+  form.ingredients.push({ name: '', quantity: '', unit: '' })
 }
 
 const removeIngredient = (index) => {
