@@ -71,6 +71,7 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.currentUser = response.data.userName
+            this.emitCurrentUser()
           }
         })
         .catch((error) => {
@@ -80,6 +81,11 @@ export default {
             this.errorMessage = 'Server error'
           }
         })
+    },
+    emitCurrentUser() {
+      const eventData = this.currentUser
+      console.log('Emitting currentUserEvent with data:', eventData)
+      this.$emit('currentUserEvent', eventData)
     }
   }
 }
