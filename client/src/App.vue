@@ -2,11 +2,13 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/login">Login</router-link>
+      <router-link v-if="!currentUser" to="/login">Login</router-link>
+      <a v-else @click="logout">Log out</a>
     </div>
 
     <!-- Render the content of the current page view -->
     <router-view @currentUserEvent="updateUser"/>
+    <p>{{ currentUser }}</p>
   </div>
 </template>
 
@@ -23,6 +25,9 @@ export default {
       console.log('Event received in parent component:', event)
       this.currentUser = event
       console.log(this.currentUser)
+    },
+    logout() {
+      this.currentUser = null
     }
   }
 }

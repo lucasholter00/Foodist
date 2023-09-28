@@ -72,6 +72,7 @@ export default {
           if (response.status === 200) {
             this.currentUser = response.data.userName
             this.emitCurrentUser()
+            this.$router.push({ name: 'home' })
           }
         })
         .catch((error) => {
