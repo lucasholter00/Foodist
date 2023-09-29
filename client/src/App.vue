@@ -2,12 +2,32 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
+      <router-link to="/login">Login</router-link>
       <router-link to="/create-recipe">CreateRecipe</router-link>
     </div>
+
     <!-- Render the content of the current page view -->
-    <router-view/>
+    <router-view @currentUserEvent="updateUser"/>
   </div>
 </template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      currentUser: null
+    }
+  },
+  methods: {
+    updateUser(event) {
+      console.log('Event received in parent component:', event)
+      this.currentUser = event
+      console.log(this.currentUser)
+    }
+  }
+}
+</script>
 
 <style>
 #app {
@@ -18,5 +38,3 @@
   color: #2c3e50;
 }
 </style>
-<script setup>
-</script>
