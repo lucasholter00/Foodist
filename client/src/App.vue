@@ -7,7 +7,7 @@
     </div>
 
     <!-- Render the content of the current page view -->
-    <router-view @currentUserEvent="updateUser"/>
+    <router-view :currentUser="currentUser" @currentUserEvent="updateUser"/>
   </div>
 </template>
 
