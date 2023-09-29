@@ -1,29 +1,3 @@
-<script setup>
-// import { Api } from '@/Api'; add back when user logic gets merged
-import { reactive } from 'vue'
-
-const form = reactive({
-  name: '',
-  ingredients: [{ name: '', quantity: '', unit: '' }],
-  description: '',
-  errorMessage: ''
-})
-
-const addIngredient = () => {
-  form.ingredients.push({ name: '', quantity: '', unit: '' })
-}
-
-const removeIngredient = (index) => {
-  form.ingredients.splice(index, 1)
-}
-
-const onsubmit = (event) => {
-  event.preventDefault()
-  // Implement submission logic here, need to get the user logic from branch 18
-}
-
-</script>
-
 <template>
   <div>
     <h2>Create a Recipe</h2>
@@ -34,12 +8,12 @@ const onsubmit = (event) => {
           id="RecipeName"
           label="Recipe name"
           label-for="name-input">
-            <b-form-input
-              id="name-input"
-              placeholder="Enter recipe name"
-              v-model="form.name"
-              type="text">
-            </b-form-input>
+          <b-form-input
+            id="name-input"
+            placeholder="Enter recipe name"
+            v-model="form.name"
+            type="text">
+          </b-form-input>
         </b-form-group>
         <div v-for="(ingredient, index) in form.ingredients" :key="index">
           <b-form-group :id="'Ingredient' + index" :label="'Ingredient ' + (index + 1)">
@@ -77,14 +51,76 @@ const onsubmit = (event) => {
             type="text">
           </b-form-input>
         </b-form-group>
+          <!-- Button to Add Ingredients to recipe -->
+          <b-button type="button" variant="primary" @click="addIngredient">Add Ingredient</b-button>
+          <!-- Submit recipe Button -->
+          <b-button type="submit" variant="primary">Submit Recipe!</b-button>
       </b-form>
     </b-row>
-    <!-- Button to Add Ingredients to recipe -->
-    <b-button type="button" variant="primary" @click="addIngredient">Add Ingredient</b-button>
-    <!-- Submit recipe Button -->
-    <b-button type="submit" variant="primary">Submit Recipe!</b-button>
+
+    <p v-if="currentUser">Logged in user: {{currentUser}}</p>
+
   </div>
 </template>
+
+<script>
+// import { Api } from '@/Api'; add back when user logic gets merged
+import { Api } from '@/Api'
+// import currentUser from 'eslint-plugin-vue/lib/meta'
+// const { currentUser } = defineProps(['currentUser'])
+
+export default {
+  name: 'create-recipe',
+  props: {
+
+    currentUser: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      form: {
+        name: '',
+        ingredients: [{ name: '', quantity: '', unit: '' }],
+        description: ''
+      },
+      errorMessage: ''
+    }
+  },
+  methods: {
+    addIngredient() {
+      this.form.ingredients.push({ name: '', quantity: '', unit: '' })
+    },
+    removeIngredient(index) {
+      this.form.ingredients.splice(index, 1)
+    },
+    onsubmit(event) {
+      event.preventDefault()
+      const currentName = this.currentUser
+      const recipeData = this.form
+
+      Api.post('/v1/users/' + currentName + '/recipes', recipeData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((response) => {
+          if (response.status === 201) {
+            this.errorMessage = 'Recipe saved successfully!'
+          } else {
+            this.errorMessage = 'Error saving recipe. Please try again.'
+          }
+        })
+        .catch((error) => {
+          this.errorMessage = 'An error occurred. Please try again later.'
+          console.error(error)
+        })
+    }
+
+  }
+}
+
+</script>
 
 <style scoped>
 
