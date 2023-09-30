@@ -12,7 +12,7 @@
             <b-form-input
               id="input1"
               placeholder="Enter username"
-              v-model="form.username"
+              v-model="form.userName"
               type="username"
             >
             </b-form-input>
@@ -52,7 +52,7 @@ export default {
     return {
       message: 'welcome to the login page',
       form: {
-        username: '',
+        userName: '',
         password: ''
       },
       currentUser: '',
@@ -63,16 +63,22 @@ export default {
     onSubmit(event) {
       this.errorMessage = ''
       event.preventDefault()
-      Api.get('/v1/users/' + this.form.username)
+      console.log(this.form.userName)
+      console.log(this.form.password)
+      Api.post('/v1/users/authentication', this.form, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           if (response.status === 200) {
-            this.currentUser = response.data.userName
+            this.currentUser = this.form.userName
             this.emitCurrentUser()
             this.$router.push({ name: 'home' })
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if ((error.response.status === 404) || (error.response.status === 401)) {
             this.errorMessage = 'Username or Password incorrect'
           } else {
             this.errorMessage = 'Server error'
