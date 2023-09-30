@@ -3,6 +3,7 @@
     <b-row align-h="center" align-v="center">
       <b-col cols="8" sm="4" lg="2">
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+        <p class="message" v-if="message">{{message}}</p>
         <b-form @submit="onSubmit">
           <b-form-group
             id="listName"
@@ -77,13 +78,15 @@ export default {
       this.errorMessage = ''
       event.preventDefault()
       console.log(this.currentUser)
-      Api.post('/v1/users/' + this.currentUser + '/groceryList', this.form, {
+      Api.post('/v1/users/' + this.currentUser + '/grocery-lists', this.form, {
         headers: {
           'Content-Type': 'application/json'
         }
       })
         .then(response => {
-          if (response.status === 200) {
+          if (response.status === 201) {
+            this.form.groceries = ['']
+            this.form.name = ''
             this.message = 'Grocery list added'
           }
         })
@@ -118,6 +121,10 @@ export default {
 <style>
   .errorMessage{
     color: red;
+    font-size: 14px;
+  }
+  .message{
+    color: green;
     font-size: 14px;
   }
 
