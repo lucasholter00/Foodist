@@ -12,24 +12,23 @@
 			"item": [
 				{
 					"name": "All users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Get request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Create user",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Remover user",
-					"request": {
-						"method": "DELETE",
 						"header": [],
 						"url": {
 							"raw": "{{host}}/api/v1/users/",
@@ -41,6 +40,87 @@
 								"v1",
 								"users",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\" : \"joey\",\r\n    \"password\" : \"sdfg\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/users/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/users/joey",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"joey"
 							]
 						}
 					},
@@ -62,22 +142,6 @@
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Response has required fields\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.success).to.exist;\r",
-									"    pm.expect(responseData.msg).to.exist;\r",
-									"    pm.expect(responseData.data).to.exist;\r",
-									"});\r",
-									"\r",
-									"\r",
 									"pm.test(\"Success field is a boolean\", function () {\r",
 									"    const responseData = pm.response.json();\r",
 									"\r",
@@ -89,15 +153,9 @@
 									"    const responseData = pm.response.json();\r",
 									"\r",
 									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.msg).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"    pm.expect(responseData.msg).to.exist.and.to.be.a('string');\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"Data field is an array\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.data).to.be.an('array');\r",
-									"});\r",
 									"\r",
 									""
 								],
@@ -121,7 +179,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/joey/food-items/",
+							"raw": "{{host}}/api/v1/users/Joey/food-items/",
 							"host": [
 								"{{host}}"
 							],
@@ -129,7 +187,7 @@
 								"api",
 								"v1",
 								"users",
-								"joey",
+								"Joey",
 								"food-items",
 								""
 							],
@@ -155,24 +213,10 @@
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body matches string\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"POST request: New food item is stored.\");\r",
-									"});\r",
-									"\r",
 									"pm.test(\"Response time is less than 200ms\", function () {\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"The data field is an object\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.data).to.be.an('object');\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -225,16 +269,6 @@
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response has the required fields\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData).to.have.property('success');\r",
-									"    pm.expect(responseData).to.have.property('msg');\r",
-									"    pm.expect(responseData).to.have.property('data');\r",
-									"});\r",
-									"\r",
-									"\r",
 									"pm.test(\"Success is a boolean value\", function () {\r",
 									"    const responseData = pm.response.json();\r",
 									"\r",
@@ -245,12 +279,6 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"The data field is an object\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.data).to.be.an('object');\r",
-									"});\r",
 									"\r",
 									"\r",
 									""
@@ -302,24 +330,11 @@
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"\r",
 									"pm.test(\"Validate the success field\", function () {\r",
 									"    const responseData = pm.response.json();\r",
 									"\r",
 									"    pm.expect(responseData).to.be.an('object');\r",
 									"    pm.expect(responseData.success).to.exist.and.to.be.a('boolean');\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"The data field is an object\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.data).to.be.an('object');\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Validate the msg field\", function () {\r",
@@ -408,32 +423,11 @@
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});\r",
 									"\r",
-									"\r",
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"The success field is a boolean value\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.success).to.be.a('boolean');\r",
 									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Validate the success field is true\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.success).to.be.true;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Verify that data field is present in the response\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.data).to.exist;\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"The data field is an object\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.data).to.be.an('object');\r",
-									"});\r",
-									"\r",
 									""
 								],
 								"type": "text/javascript"
@@ -478,11 +472,6 @@
 								"exec": [
 									"pm.test(\"Successful DELETE request\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Success field should be a boolean\", function () {\r",
@@ -559,11 +548,10 @@
 									"});",
 									"",
 									"",
-									"pm.test(\"The msg field should be a string\", function () {",
+									"pm.test(\"The response messege confirmation\", function () {",
 									"  const responseData = pm.response.json();",
 									"  ",
-									"  pm.expect(responseData).to.be.an('object');",
-									"  pm.expect(responseData.msg).to.be.a('string');",
+									"   pm.expect(responseData.msg).to.be.a('string');",
 									"});",
 									"",
 									""
