@@ -14,6 +14,7 @@ import { Api } from '@/Api'
 
 export default {
   name: 'home',
+
   data() {
     return {
       message: 'none'
@@ -34,7 +35,7 @@ export default {
 </script>
 
 <style>
-.btn_message {
-  margin-bottom: 1em;
-}
+  .btn_message {
+    margin-bottom: 1em;
+  }
 </style>
