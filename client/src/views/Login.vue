@@ -63,8 +63,6 @@ export default {
     onSubmit(event) {
       this.errorMessage = ''
       event.preventDefault()
-      console.log(this.form.userName)
-      console.log(this.form.password)
       Api.post('/v1/users/authentication', this.form, {
         headers: {
           'Content-Type': 'application/json'

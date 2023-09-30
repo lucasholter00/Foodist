@@ -5,38 +5,47 @@
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         <b-form @submit="onSubmit">
           <b-form-group
-            id="username"
-            label="Username"
-            label-for="input-1"
+            id="listName"
+            label="Grocery List"
           >
             <b-form-input
               id="input1"
-              placeholder="Enter username"
-              v-model="form.userName"
-              type="username"
+              placeholder="Enter list name"
+              type="listName"
+              v-model="form.name"
             >
             </b-form-input>
           </b-form-group>
 
           <b-form-group
-            id="password"
-            label="Password"
-            label-for="input-2"
+            v-for="(groceries, index) in form.groceries"
+            :key="index"
+            :id="'grocery' + index"
+            :label="'Grocery ' + (index+1)"
           >
             <b-form-input
-              id="input2"
-              placeholder="Enter password"
-              v-model="form.password"
-              type="password"
+              v-model="form.groceries[index]"
+              :id="'grocery' + index"
+              placeholder="Enter grocery name"
+              type="groceryName"
             >
             </b-form-input>
+            <b-row align-h="center">
+              <a @click="removeField(index)">Remove</a>
+            </b-row>
+            <b-row align-h="center">
+              <b-button v-if="index === (form.groceries.length-1)" type="field" variant="outline-primary" @click="addField">Add field</b-button>
+            </b-row>
           </b-form-group>
           <b-row align-h="between">
             <b-button type="Submit" variant="primary">Submit</b-button>
-            <router-link to="/register"><b-button type="Register" variant="primary" >Register</b-button></router-link>
+            <b-button type="Reset" @click="resetForm" variant="danger">Reset</b-button>
           </b-row>
 
         </b-form>
+        <p>{{form.name}}</p>
+        <p>{{form.groceries}}</p>
+        <p>{{currentUser}}</p>
       </b-col>
     </b-row>
   </div>
@@ -44,13 +53,64 @@
 
 <script>
 
-// import { Api } from '@/Api'
+import { Api } from '@/Api'
 
 export default {
   name: 'CreateGroceryList',
+  props: {
+    currentUser: {
+      type: String
+    }
+  },
   data() {
+    return {
+      errorMessage: '',
+      message: '',
+      form: {
+        name: '',
+        groceries: ['']
+      }
+    }
   },
   methods: {
+    onSubmit() {
+      this.errorMessage = ''
+      event.preventDefault()
+      console.log(this.currentUser)
+      Api.post('/v1/users/' + this.currentUser + '/groceryList', this.form, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 200) {
+            this.message = 'Grocery list added'
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'User not found'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
+    },
+    addField(event) {
+      event.preventDefault()
+      this.form.groceries.push('')
+    },
+    removeField(index) {
+      if (this.form.groceries.length > 1) {
+        this.form.groceries.splice(index, 1)
+      } else {
+        this.errorMessage = "Can't remove more groceries"
+      }
+    },
+    resetForm(event) {
+      event.preventDefault()
+      this.form.name = ''
+      this.form.groceries = ['']
+    }
   }
 }
 </script>
