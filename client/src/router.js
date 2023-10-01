@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import CreateGroceryList from './views/CreateGroceryList.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
+import GroceryLists from './views/GroceryList.vue'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
       path: '/groceryList/create',
       name: 'Create grocery list',
       component: CreateGroceryList
+    },
+    {
+      path: '/groceryList',
+      name: 'Grocery list',
+      component: GroceryLists
     },
     {
       path: '/login',

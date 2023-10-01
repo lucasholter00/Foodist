@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/"> Home </router-link>
+      <router-link to="/groceryList"> Grocery List </router-link>
       <router-link to="/groceryList/create"> Create Grocery List </router-link>
       <router-link v-if="!currentUser" to="/login"> Login </router-link>
       <a v-else @click="logout">Log out</a>
