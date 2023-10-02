@@ -67,7 +67,11 @@ router.post('/', function(req, res){
                     // Create a new recipe based on the request body
                     const newRecipe = {
                         name: req.body.name,
-                        ingredients: req.body.ingredients,
+                        ingredients: req.body.ingredients.map((ingredient) => ({
+                            name: ingredient.name,
+                            quantity: ingredient.quantity,
+                            measure: ingredient.unit,
+                        })),
                         description: req.body.description,
                     };
 
@@ -106,7 +110,11 @@ router.put('/:name', function(req, res){
                 // Update the recipe data with the new data from the request body
                 user.recipe[indexRecipe] = {
                     name: req.body.name,
-                    ingredients: req.body.ingredients,
+                    ingredients: req.body.ingredients.map((ingredient) => ({
+                        name: ingredient.name,
+                        quantity: ingredient.quantity,
+                        measure: ingredient.unit,
+                    })),
                     description: req.body.description,
                 };
 
@@ -144,7 +152,12 @@ router.patch('/:name', function(req, res){
                 // Update the recipe data with the new data from the request body, or keep the data already in the database
                 user.recipe[indexRecipe] = {
                     name: req.body.name || user.recipe[indexRecipe].name,
-                    ingredients: req.body.ingredients || user.recipe[indexRecipe].ingredients,
+                    ingredients: req.body.ingredients.map((ingredient) => ({
+                    name: ingredient.name,
+                    quantity: ingredient.quantity,
+                    measure: ingredient.unit,
+                })) || user.recipe[indexRecipe].ingredients,
+
                     description: req.body.description || user.recipe[indexRecipe].description,
                 };
 

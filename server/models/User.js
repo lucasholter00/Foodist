@@ -19,6 +19,21 @@ const foodSchema = new Schema(
     }
 );
 
+const ingredientSchema = new Schema(
+    {
+        name:{
+            type: String,
+            required: true
+        },
+        quantity:{
+            type: String
+        },
+        unit:{
+            type: String
+        }
+    }
+)
+
 
 const recipeSchema = new Schema(
     {
@@ -26,10 +41,7 @@ const recipeSchema = new Schema(
             type: String,
             required: true
         },
-        ingredients: {
-            type: [String],
-            required: true
-        },
+        ingredients: [ingredientSchema],
         description: {
             type: String,
         }
