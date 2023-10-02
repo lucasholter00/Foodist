@@ -1,26 +1,37 @@
-<template>
-  <div>
+ <!-- <div>
     <h2>Recipes</h2>
+
     <div v-if="!selectedRecipe">
       <div class="recipe-cards">
         <div v-for="(recipe, index) in recipes" :key="index" class="recipe-card">
-          <router-link :to="'/recipes/' + recipe._id">
-            <div class="recipe-card-title" @click="setSelectedRecipe(recipe)">{{ recipe.name }}</div>
-          </router-link>
+          <div class="recipe-card-title" @click="setSelectedRecipe(recipe)">{{ recipe.name }}</div>
         </div>
       </div>
     </div>
 
     <div v-if="selectedRecipe">
       <button @click="goBackToRecipes">Back to Recipes</button>
-      <h3>{{ selectedRecipe.name }}</h3>
-      <p>{{ selectedRecipe.description }}</p>
+
+      <card :displayData="selectedRecipe" @removeEvent="removeList" />
     </div>
   </div>
-</template>
+  -->
+  <template>
+    <b-container>
+      <b-row align-h="center">
+        <b-button @click="$router.push({name:'create-recipe'})" variant="primary">Add new recipe</b-button>
+      </b-row>
+      <b-row class="border">
+        <b-col class="border" v-for="(recipe, index) in recipes" :key="index" cols="3">
+          <card @removeEvent="removeList" class="border" :displayData="recipe" />
+        </b-col>
+      </b-row>
+    </b-container>
+  </template>
 
 <script>
 import { Api } from '@/Api'
+import Card from '@/components/Card.vue'
 
 export default {
   name: 'recipes',
@@ -28,6 +39,9 @@ export default {
     currentUser: {
       type: String
     }
+  },
+  components: {
+    card: Card
   },
   data() {
     return {
@@ -46,7 +60,15 @@ export default {
           }
         })
     },
-    setSelectedRecipe(recipe) {
+    removeList(event) {
+      const recipe = this.recipes.find((recipe) => recipe._id === event)
+      console.log(recipe)
+      Api.delete('v1/users/' + this.currentUser + '/recipes/' + recipe.name)
+        .then((res) => {
+          this.recipes = res.data.recipes
+        })
+    }
+    /* setSelectedRecipe(recipe) {
       event.preventDefault()
       this.selectedRecipe = recipe
     },
@@ -55,6 +77,8 @@ export default {
       // Clear the selectedRecipe to go back to the recipes list
       this.selectedRecipe = null
     }
+
+     */
   },
   created() {
     this.getRecipes()
