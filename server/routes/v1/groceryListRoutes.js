@@ -189,7 +189,7 @@ router.delete('/:id', function(req, res){
                 user.groceryList.pull(list); 
                 user.save()
                 .then(() => {
-                    res.status(200).json({message: 'Grocery list deleted'});
+                    res.status(200).json({message: 'Grocery list deleted', lists: user.groceryList});
                 });
             }
             
