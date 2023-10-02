@@ -4,10 +4,14 @@
       <b-form @submit="onSubmit">
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
-            <label :for="foodname">Food Name:</label>
+            <label :for="foodName">Food Name:</label>
           </b-col>
           <b-col sm="4">
-            <b-form-input :id="foodName" v-model="form.foodname"  placeholder="Enter food name"></b-form-input>
+            <b-form-input
+            :id="foodName"
+            v-model="form.foodName"
+            placeholder="Enter food name">
+          </b-form-input>
           </b-col>
         </b-row>
 
@@ -16,24 +20,29 @@
             <label :for="foodDescription">Food Description:</label>
           </b-col>
           <b-col sm="4">
-            <b-form-input :id="foodDescription" v-model="form.foodDescription" placeholder="Enter food description"></b-form-input>
+            <b-form-input
+            :id="foodDescription"
+            v-model="form.foodDescription"
+            placeholder="Enter food description">
+          </b-form-input>
           </b-col>
         </b-row>
 
-        <b-row class="my-1" align-h="center" align-v="center" v-for="type in types" :key="type">
+        <b-row class="my-1" align-h="center" align-v="center">
           <b-col sm="2">
-            <label :for="`type-${type}`">Expiry Date:</label>
+            <label for="expiryDate">Expiry Date:</label>
           </b-col>
           <b-col sm="4">
-            <b-form-input :id="`type-${type}`" v-model="form.expiryDate" :type="type"></b-form-input>
+            <b-form-input
+            id="expiryDate"
+            v-model="form.expiryDate"
+            type='date'>
+            </b-form-input>
           </b-col>
         </b-row>
-        <b-button type="Submit" variant="success">Save</b-button>
-  </b-form>
-  </b-container>
-  <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
+        <button type="submit" variant="success">Add Food</button>
+      </b-form>
+    </b-container>
   </div>
 </template>
 
@@ -41,26 +50,47 @@
 import { Api } from '@/Api'
 
 export default {
+  name: 'AddFood',
+  props: {
+    currentUser: String
+  },
   data() {
     return {
       types: [
         'date'
       ],
       form: {
-        foodname: '',
+        foodName: '',
         foodDescription: '',
         expiryDate: ''
       }
     }
   },
   methods: {
-    methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
-        Api.post('/v1/users/username/fooditems')
-      }
+    onSubmit(event) {
+      event.preventDefault()
+      alert(JSON.stringify(this.form))
+      Api.post('/v1/users/' + this.currentUser + '/fooditems',
+        this.form, { Headers: { 'Content-Type': 'application/json' } })
+        .then(Response => {
+          if (Response.status === 200) {
+            this.form.foodName = ''
+            this.form.foodDescription = ''
+            this.form.expiryDate = ''
+            this.message = 'Food is added.'
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
     }
   }
 }
 </script>
+<style scoped>
+
+</style>
