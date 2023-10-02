@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/addFood">Add Food</router-link>
+      <router-link to="/Foods">Foods</router-link>
+      <router-link to="/AddFood">ADD Food</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>
@@ -17,4 +18,5 @@
   text-align: center;
   color: #2c3e50;
 }
+
 </style>

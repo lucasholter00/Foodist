@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import { Api } from '@/Api'
 
 export default {
   name: 'AddFood',
@@ -64,30 +63,28 @@ export default {
     }
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
-      Api.post('/v1/users/' + this.currentUser + '/fooditems',
-        this.form, { Headers: { 'Content-Type': 'application/json' } })
-        .then(Response => {
-          if (Response.status === 200) {
-            this.form.foodName = ''
-            this.form.foodDescription = ''
-            this.form.expiryDate = ''
-            this.message = 'Food is added.'
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'Ooops! Food is not added.'
-          } else {
-            this.errorMessage = 'Server error'
-          }
-        })
+    onSubmit(e) {
+      e.preventDefault()
+
+      if (!this.text) {
+        alert('Please add a food')
+        return
+      }
+      const newFood = {
+        foodName: this.foodName,
+        foodDescription: this.foodDescription,
+        expiryDate: this.expiryDate
+      }
+
+      this.$emit('add-food', newFood)
+      this.foodName = ''
+      this.foodDescription = ''
+      this.expiryDate = ''
     }
   }
 }
 </script>
+
 <style scoped>
 .container {
   max-width: 1000px;

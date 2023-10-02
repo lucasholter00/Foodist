@@ -1,19 +1,10 @@
 <template>
-  <div>
-    <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
-    </b-jumbotron>
-    <Foods  @delete-food="deleteFood" :foods="foods"/>
-    <AddFood @add-food="addFood"/>
-  </div>
+ <AddFood/>
+
 </template>
 
 <script>
-// @ is an alias to /src
-// import { Api } from '@/Api'
-import Foods from '../components/Foods'
+
 import AddFood from '../components/AddFood'
 
 export default {
@@ -22,9 +13,7 @@ export default {
     currentUser: String
   },
   components: {
-    Foods,
     AddFood
-
   },
   data() {
     return {
@@ -70,9 +59,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .btn_message {
-    margin-bottom: 1em;
-  }
-</style>
