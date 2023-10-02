@@ -40,7 +40,7 @@ export default new Router({
       component: Recipes
     },
     {
-      path: '/create-recipe',
+      path: '/recipes/create-recipe',
       name: 'create-recipe',
       component: CreateRecipe
     },
