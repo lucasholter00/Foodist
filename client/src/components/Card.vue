@@ -9,6 +9,10 @@
         <p v-for="(entry, index) in field" :key="index">{{entry}}</p>
       </div>
     </b-container>
+    <b-row align-h="center">
+      <b-button variant="danger" @click="removeCurrent">Remove</b-button>
+    </b-row>
+
   </div>
 </template>
 
@@ -21,13 +25,15 @@ export default {
   },
   data() {
     return {
-      type: true,
-      message: 'Hej'
     }
   },
   methods: {
     capitalizeFirst(toBeCapitalized) {
       return toBeCapitalized.charAt(0).toUpperCase() + toBeCapitalized.slice(1)
+    },
+    removeCurrent() {
+      const eventData = this.displayData._id
+      this.$emit('removeEvent', eventData)
     }
   }
 }

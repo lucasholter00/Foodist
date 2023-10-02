@@ -1,8 +1,11 @@
 <template>
   <b-container>
+    <b-row align-h="center">
+      <b-button @click="$router.push({name:'Create grocery list'})" variant="primary">Add new list</b-button>
+    </b-row>
     <b-row class="border">
       <b-col ckass="border" v-for="(entry, index) in groceryLists" :key="index" cols="3">
-        <card class="border" :displayData="entry" />
+        <card @removeEvent="removeList" class="border" :displayData="entry" />
       </b-col>
     </b-row>
   </b-container>
@@ -41,6 +44,14 @@ export default {
           this.errorMessage = 'Server error'
         }
       })
+  },
+  methods: {
+    removeList(event) {
+      Api.delete('v1/users/' + this.currentUser + '/grocery-lists/' + event)
+        .then((res) => {
+          this.groceryLists = res.data.lists
+        })
+    }
   }
 
 }
