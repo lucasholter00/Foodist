@@ -70,7 +70,7 @@ router.post('/', function(req, res){
                         ingredients: req.body.ingredients.map((ingredient) => ({
                             name: ingredient.name,
                             quantity: ingredient.quantity,
-                            measure: ingredient.unit,
+                            unit: ingredient.unit,
                         })),
                         description: req.body.description,
                     };
@@ -113,7 +113,7 @@ router.put('/:name', function(req, res){
                     ingredients: req.body.ingredients.map((ingredient) => ({
                         name: ingredient.name,
                         quantity: ingredient.quantity,
-                        measure: ingredient.unit,
+                        unit: ingredient.unit,
                     })),
                     description: req.body.description,
                 };
@@ -155,7 +155,7 @@ router.patch('/:name', function(req, res){
                     ingredients: req.body.ingredients.map((ingredient) => ({
                     name: ingredient.name,
                     quantity: ingredient.quantity,
-                    measure: ingredient.unit,
+                    unit: ingredient.unit,
                 })) || user.recipe[indexRecipe].ingredients,
 
                     description: req.body.description || user.recipe[indexRecipe].description,
