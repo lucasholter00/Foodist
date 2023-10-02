@@ -31,9 +31,9 @@
                 type="text">
               </b-form-input>
               <b-form-input
-                :id="'measure-input-' + index"
-                placeholder="Measure"
-                v-model="ingredient.measure"
+                :id="'unit-input-' + index"
+                placeholder="Unit"
+                v-model="ingredient.unit"
                 type="text">
               </b-form-input>
             </div>
