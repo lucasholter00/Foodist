@@ -1,21 +1,4 @@
- <!-- <div>
-    <h2>Recipes</h2>
 
-    <div v-if="!selectedRecipe">
-      <div class="recipe-cards">
-        <div v-for="(recipe, index) in recipes" :key="index" class="recipe-card">
-          <div class="recipe-card-title" @click="setSelectedRecipe(recipe)">{{ recipe.name }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="selectedRecipe">
-      <button @click="goBackToRecipes">Back to Recipes</button>
-
-      <card :displayData="selectedRecipe" @removeEvent="removeList" />
-    </div>
-  </div>
-  -->
   <template>
     <b-container>
       <b-row align-h="center">
