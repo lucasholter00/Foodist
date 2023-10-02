@@ -30,7 +30,6 @@ export default {
     }
   },
   created() {
-    console.log('Här i created')
     Api.get('/v1/users/' + this.currentUser + '/grocery-lists')
       .then((res) => {
         if (res.status === 200) {

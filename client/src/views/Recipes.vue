@@ -51,17 +51,6 @@ export default {
           this.recipes = res.data.recipes
         })
     }
-    /* setSelectedRecipe(recipe) {
-      event.preventDefault()
-      this.selectedRecipe = recipe
-    },
-    goBackToRecipes(event) {
-      event.preventDefault(event)
-      // Clear the selectedRecipe to go back to the recipes list
-      this.selectedRecipe = null
-    }
-
-     */
   },
   created() {
     this.getRecipes()
