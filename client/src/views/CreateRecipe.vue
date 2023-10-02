@@ -84,7 +84,8 @@ export default {
         ingredients: [{ name: '', quantity: '', unit: '' }],
         description: ''
       },
-      errorMessage: ''
+      errorMessage: '',
+      message: ''
     }
   },
   methods: {
@@ -106,7 +107,9 @@ export default {
       })
         .then((response) => {
           if (response.status === 201) {
-            this.errorMessage = 'Recipe saved successfully!'
+            this.message = 'Recipe successfully saved!'
+          }else if (response.status === 409){
+            this.errorMessage = 'Recipe name already taken!'
           } else {
             this.errorMessage = 'Error saving recipe. Please try again.'
           }
