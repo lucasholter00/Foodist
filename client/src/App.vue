@@ -37,7 +37,6 @@ export default {
       } else {
         this.editObject = event
         console.log(this.editObject)
-        this.$router.push({ name: 'edit-recipe' })
       }
     },
     logout() {
