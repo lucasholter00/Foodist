@@ -96,6 +96,8 @@ export default {
       this.form.ingredients.splice(index, 1)
     },
     onsubmit(event) {
+      this.message = ''
+      this.errorMessage = ''
       event.preventDefault()
       const currentName = this.currentUser
       const recipeData = this.form
@@ -108,7 +110,7 @@ export default {
         .then((response) => {
           if (response.status === 201) {
             this.message = 'Recipe successfully saved!'
-          }else if (response.status === 409){
+          } else if (response.status === 409) {
             this.errorMessage = 'Recipe name already taken!'
           } else {
             this.errorMessage = 'Error saving recipe. Please try again.'
