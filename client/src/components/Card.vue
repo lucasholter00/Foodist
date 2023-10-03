@@ -24,6 +24,7 @@
     </b-container>
     <b-row align-h="center">
       <b-button variant="danger" @click="removeCurrent">Remove</b-button>
+      <b-button variant="danger" @click="emitEdit">Edit</b-button>
     </b-row>
   </div>
 </template>
@@ -46,6 +47,10 @@ export default {
     removeCurrent() {
       const eventData = this.displayData._id
       this.$emit('removeEvent', eventData)
+    },
+    emitEdit() {
+      const eventData = this.displayData._id
+      this.$emit('editEvent', eventData)
     }
   }
 }
