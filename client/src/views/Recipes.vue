@@ -43,14 +43,11 @@ export default {
         })
     },
     editRecipe(event) {
-      console.log('här')
       const recipe = this.recipes.find((recipe) => recipe._id === event)
-
       this.$emit('editEvent', recipe)
     },
     removeList(event) {
       const recipe = this.recipes.find((recipe) => recipe._id === event)
-      console.log(recipe)
       Api.delete('v1/users/' + this.currentUser + '/recipes/' + recipe.name)
         .then((res) => {
           this.recipes = res.data.recipes
