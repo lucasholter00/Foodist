@@ -65,10 +65,7 @@
 </template>
 
 <script>
-// import { Api } from '@/Api'; add back when user logic gets merged
 import { Api } from '@/Api'
-// import currentUser from 'eslint-plugin-vue/lib/meta'
-// const { currentUser } = defineProps(['currentUser'])
 
 export default {
   name: 'create-recipe',
@@ -128,7 +125,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style>
