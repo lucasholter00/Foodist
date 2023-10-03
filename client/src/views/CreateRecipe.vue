@@ -2,6 +2,7 @@
   <div>
     <h2>Create a Recipe</h2>
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+    <p class="message" v-if="message">{{message}}</p>
     <b-row align-h="center" align-v="center">
       <b-form @submit="onsubmit">
         <b-form-group
@@ -111,22 +112,32 @@ export default {
           if (response.status === 201) {
             this.message = 'Recipe successfully saved!'
           } else if (response.status === 409) {
-            this.errorMessage = 'Recipe name already taken!'
-          } else {
-            this.errorMessage = 'Error saving recipe. Please try again.'
+            this.errorMessage = 'Recipe name already taken! Try another name'
           }
+          console.log(response.status)
         })
         .catch((error) => {
-          this.errorMessage = 'An error occurred. Please try again later.'
-          console.error(error)
+          console.error(error.response.status)
+          if (error.response.status === 409) {
+            // this does not show, don't know why. Fix later
+            this.errorMessage = 'Recipe name already taken! Try another name'
+          } else {
+            this.errorMessage = 'An error occurred. Please try again later.'
+          }
         })
     }
-
   }
 }
 
 </script>
 
-<style scoped>
-
+<style>
+.errorMessage{
+  color: red;
+  font-size: 14px;
+}
+.message{
+  color: darkgreen;
+  font-size: 14px;
+}
 </style>
