@@ -7,6 +7,7 @@ import Login from './views/Login.vue'
 import Recipes from '@/views/Recipes.vue'
 import Register from './views/Register.vue'
 import GroceryLists from './views/GroceryList.vue'
+import EditRecipe from '@/views/EditRecipe.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,7 @@ export default new Router({
       path: '/recipes',
       name: 'recipes',
       component: Recipes
+
     },
     {
       path: '/recipes/create-recipe',
@@ -45,9 +47,14 @@ export default new Router({
       component: CreateRecipe
     },
     {
+      path: '/recipes/edit-recipe',
+      name: 'edit-recipe',
+      component: EditRecipe
+    },
+    {
       path: '/register',
       name: 'register',
       component: Register
-    },
+    }
   ]
 })
