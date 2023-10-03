@@ -1,4 +1,3 @@
-
   <template>
     <b-container>
       <b-row align-h="center">
@@ -6,7 +5,7 @@
       </b-row>
       <b-row class="border">
         <b-col class="border" v-for="(recipe, index) in recipes" :key="index" cols="3">
-          <card @removeEvent="removeList" class="border" :displayData="recipe" />
+          <card @removeEvent="removeList" @editEvent="editRecipe" class="border" :displayData="recipe" />
         </b-col>
       </b-row>
     </b-container>
@@ -42,6 +41,12 @@ export default {
             this.recipes = response.data
           }
         })
+    },
+    editRecipe(event) {
+      console.log('här')
+      const recipe = this.recipes.find((recipe) => recipe._id === event)
+
+      this.$emit('editEvent', recipe)
     },
     removeList(event) {
       const recipe = this.recipes.find((recipe) => recipe._id === event)
