@@ -73,8 +73,9 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit(event) {
       this.errorMessage = ''
+      this.form.name = this.form.name.trim()
       event.preventDefault()
       console.log(this.currentUser)
       const editId = this.editObject._id
@@ -108,7 +109,7 @@ export default {
         this.errorMessage = "Can't remove more groceries"
       }
     },
-    reset() {
+    reset(event) {
       event.preventDefault()
       this.form = JSON.parse(JSON.stringify(this.editObject))
     }

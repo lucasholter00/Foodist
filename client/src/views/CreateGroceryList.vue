@@ -74,7 +74,8 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit(event) {
+      this.form.name = this.form.name.trim()
       this.errorMessage = ''
       event.preventDefault()
       console.log(this.currentUser)

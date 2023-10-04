@@ -100,6 +100,7 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault()
+      this.form.name = this.form.name.trim()
       this.message = ''
       this.errorMessage = ''
       const currentName = this.currentUser

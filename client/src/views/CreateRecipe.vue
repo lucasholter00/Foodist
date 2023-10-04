@@ -94,6 +94,7 @@ export default {
       this.form.ingredients.splice(index, 1)
     },
     onsubmit(event) {
+      this.form.name = this.form.name.trim()
       this.message = ''
       this.errorMessage = ''
       event.preventDefault()
