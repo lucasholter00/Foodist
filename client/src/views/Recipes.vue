@@ -45,6 +45,7 @@ export default {
     editRecipe(event) {
       const recipe = this.recipes.find((recipe) => recipe._id === event)
       this.$emit('editEvent', recipe)
+      this.$router.push({ name: 'edit-recipe' })
     },
     removeList(event) {
       const recipe = this.recipes.find((recipe) => recipe._id === event)

@@ -24,6 +24,13 @@ export default {
       editObject: null
     }
   },
+  watch: {
+    currentUser(currentUser) {
+      if (this.currentUser === (null && '')) {
+        this.directLogin()
+      }
+    }
+  },
   methods: {
     updateUser(event) {
       console.log('Event received in parent component:', event)
@@ -37,11 +44,18 @@ export default {
       } else {
         this.editObject = event
         console.log(this.editObject)
-        this.$router.push({ name: 'edit-recipe' })
       }
     },
     logout() {
       this.currentUser = null
+    },
+    directLogin() {
+      this.$router.push({ name: 'login' })
+    }
+  },
+  created() {
+    if (this.$route.name !== 'login') {
+      this.$router.push({ name: 'login' })
     }
   }
 }
