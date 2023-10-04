@@ -4,26 +4,28 @@
       <b-form @submit="onSubmit">
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
-            <label :for="foodName">Food Name:</label>
+            <label for="foodName">Food Name:</label>
           </b-col>
           <b-col sm="4">
             <b-form-input
-            :id="foodName"
+            id="foodName"
             v-model="form.foodName"
-            placeholder="Enter food name">
+            placeholder="Enter food name"
+            type="text">
           </b-form-input>
           </b-col>
         </b-row>
 
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
-            <label :for="foodDescription">Food Description:</label>
+            <label for="foodDescription">Food Description:</label>
           </b-col>
           <b-col sm="4">
             <b-form-input
-            :id="foodDescription"
+            id="foodDescription"
             v-model="form.foodDescription"
-            placeholder="Enter food description">
+            placeholder="Enter food description"
+            type="text">
           </b-form-input>
           </b-col>
         </b-row>
@@ -40,7 +42,7 @@
             </b-form-input>
           </b-col>
         </b-row>
-        <button class= 'btn' type="submit" variant="success">Add Food</button>
+        <b-button class= 'btn' type="submit" variant="success">Add Food</b-button>
       </b-form>
     </b-container>
   </div>
@@ -50,9 +52,6 @@
 
 export default {
   name: 'AddFood',
-  props: {
-    currentUser: String
-  },
   data() {
     return {
       form: {
@@ -66,20 +65,16 @@ export default {
     onSubmit(e) {
       e.preventDefault()
 
-      if (!this.text) {
-        alert('Please add a food')
-        return
-      }
       const newFood = {
-        foodName: this.foodName,
-        foodDescription: this.foodDescription,
-        expiryDate: this.expiryDate
+        name: this.form.foodName,
+        description: this.form.foodDescription,
+        expiryDate: this.form.expiryDate
       }
 
       this.$emit('add-food', newFood)
-      this.foodName = ''
-      this.foodDescription = ''
-      this.expiryDate = ''
+      this.form.foodName = ''
+      this.form.foodDescription = ''
+      this.form.expiryDate = ''
     }
   }
 }

@@ -2,8 +2,7 @@
     <div>
       <div v-for="food in foods"
     :key="food.id">
-      <h3>{{ food.name }}</h3>
-        <Food
+      <Food
         @delete-food="$emit('delete-food', food.id)"
       :food="food"/>
     </div>

@@ -5,74 +5,31 @@
       <p>Message from the server:<br/>
       {{ message }}</p>
     </b-jumbotron>
-    <Foods  @delete-food="deleteFood" :foods="foods"/>
-    <AddFood @add-food="addFood"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import { Api } from '@/Api'
-import Foods from '../components/Foods'
-import AddFood from '../components/AddFood'
+import { Api } from '@/Api'
 
 export default {
-  name: 'Food',
-  props: {
-    currentUser: String
-  },
-  components: {
-    Foods,
-    AddFood
-
-  },
+  name: 'home',
   data() {
     return {
-      foods: []
+      message: 'none'
     }
   },
   methods: {
-    async addFood(food) {
-      const res = await fetch('/v1/users/' + this.currentUser + '/fooditems', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(food)
-      })
-      const data = await res.json()
-      this.foods = [...this.foods, data]
-    },
-    async deleteFood(foodName) {
-      if (confirm('Are you sure?')) {
-        const res = await fetch('/v1/users/' + this.currentUser + `/fooditems/${foodName}`, {
-          method: 'DELETE'
+    getMessage() {
+      Api.get('/')
+        .then(response => {
+          this.message = response.data.message
         })
-
-        res.status === 200
-          ? (this.foods = this.foods.filter((food) => food.name !== foodName))
-          : alert('Error deleting food')
-      }
-    },
-    async fetchFoods() {
-      const res = await fetch('/v1/users/' + this.currentUser + '/fooditems')
-      const data = await res.json()
-      return data
-    },
-    async fetchFood(foodName) {
-      const res = await fetch('/v1/users/' + this.currentUser + `/fooditems/${foodName}`)
-      const data = await res.json()
-      return data
-    },
-    async created() {
-      this.foods = await this.fetchFoods()
+        .catch(error => {
+          this.message = error
+        })
     }
   }
 }
-</script>
 
-<style>
-  .btn_message {
-    margin-bottom: 1em;
-  }
-</style>
+</script>

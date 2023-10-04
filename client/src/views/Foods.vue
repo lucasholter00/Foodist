@@ -1,61 +1,54 @@
 <template>
- <AddFood/>
-
-</template>
+ <div>
+    <AddFood @add-food="addFood"/>
+      <b-row class="border">
+        <b-col class="border" v-for="food in foods" :key=food.id cols="3">
+          <card @removeEvent="removeList" class="border" :displayData="food" />
+        </b-col>
+      </b-row>
+  </div>
+ </template>
 
 <script>
-
-import AddFood from '../components/AddFood'
+import { Api } from '@/Api'
+import AddFood from '../components/AddFood.vue'
+import Card from '../components/Card.vue'
 
 export default {
-  name: 'Food',
+  name: 'Foods',
   props: {
     currentUser: String
   },
   components: {
-    AddFood
+    AddFood,
+    Card
   },
   data() {
     return {
-      foods: []
+      foods: [],
+      errorMessage: '',
+      message: ''
     }
   },
-  methods: {
-    async addFood(food) {
-      const res = await fetch('/v1/users/' + this.currentUser + '/fooditems', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(food)
+  created() {
+    Api.get('/v1/users/' + this.currentUser + '/food-items')
+      .then((res) => {
+        if (res.status === 200) {
+          this.foods = res.data
+        }
       })
-      const data = await res.json()
-      this.foods = [...this.foods, data]
-    },
-    async deleteFood(foodName) {
-      if (confirm('Are you sure?')) {
-        const res = await fetch('/v1/users/' + this.currentUser + `/fooditems/${foodName}`, {
-          method: 'DELETE'
-        })
-
-        res.status === 200
-          ? (this.foods = this.foods.filter((food) => food.name !== foodName))
-          : alert('Error deleting food')
-      }
-    },
-    async fetchFoods() {
-      const res = await fetch('/v1/users/' + this.currentUser + '/fooditems')
-      const data = await res.json()
-      return data
-    },
-    async fetchFood(foodName) {
-      const res = await fetch('/v1/users/' + this.currentUser + `/fooditems/${foodName}`)
-      const data = await res.json()
-      return data
-    },
-    async created() {
-      this.foods = await this.fetchFoods()
-    }
+      .catch((error) => {
+        if (error.response.status === 404) {
+          this.errorMessage = 'Not found'
+        } else {
+          this.errorMessage = 'Server error'
+        }
+      })
   }
 }
 </script>
+<style scoped>
+  .border {
+    border: 1px solid;
+  }
+</style>

@@ -1,7 +1,7 @@
 <template>
     <div class="food">
       <h3>
-      {{ food.foodName }}
+      {{ food.name }}
       <i @click="$emit('delete-food', food.id)" class="fas fa-times"></i>
     </h3>
     <p>{{ food.expiryDate }}</p>
@@ -29,7 +29,7 @@ export default {
   cursor: pointer;
 }
 
-.task.reminder {
+.food.reminder {
   border-left: 5px solid green;
 }
 

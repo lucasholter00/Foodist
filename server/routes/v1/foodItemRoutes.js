@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
             if (!user) {
                 res.status(404).json({ success: false, msg: "User not found" });
             } else {
-                res.status(200).json({ success: true, msg: "Food List", data: user.food });
+                res.status(200).json({data: user.food });
             }
         })
         .catch((err) => {
@@ -57,7 +57,7 @@ router.post('/', (req, res) => {
                 userResult.food.push(newFood);
                 userResult.save()
                     .then(() => {
-                        res.status(200).json({ success: true, msg: "POST request: New food item is stored.", data: userResult });
+                        res.status(200).json({ success: true, msg: "POST request: New food item is stored.", data: userResult.food });
                     })
             }
         })

@@ -4,26 +4,30 @@
       <b-form @submit="onSubmit">
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
-            <label :for="foodName">Food Name:</label>
+            <label for="name">Food Name:</label>
           </b-col>
           <b-col sm="4">
             <b-form-input
-            :id="foodName"
-            v-model="form.foodName"
-            placeholder="Enter food name">
+            id="name"
+            v-model="form.name"
+            placeholder="Enter food name"
+            type="text"
+            aria-required="true">
           </b-form-input>
           </b-col>
         </b-row>
 
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
-            <label :for="foodDescription">Food Description:</label>
+            <label for="description">Food Description:</label>
           </b-col>
           <b-col sm="4">
             <b-form-input
-            :id="foodDescription"
-            v-model="form.foodDescription"
-            placeholder="Enter food description">
+            id="description"
+            v-model="form.description"
+            placeholder="Enter food description"
+            type="text"
+            aria-required="false">
           </b-form-input>
           </b-col>
         </b-row>
@@ -36,12 +40,15 @@
             <b-form-input
             id="expiryDate"
             v-model="form.expiryDate"
-            type='date'>
+            type='date'
+            aria-required="true">
             </b-form-input>
           </b-col>
         </b-row>
-        <button class= 'btn' type="submit" variant="success">Add Food</button>
+        <b-button class= 'btn' type="submit" variant="success">Add Food</b-button>
       </b-form>
+      <p v-if="errorMessage">{{errorMessage}}</p>
+      <p v-if="message">{{message}}</p>
     </b-container>
   </div>
 </template>
@@ -52,27 +59,33 @@ import { Api } from '@/Api'
 export default {
   name: 'AddFood',
   props: {
-    currentUser: String
+    currentUser: {
+      type: String
+    }
   },
   data() {
     return {
       form: {
-        foodName: '',
-        foodDescription: '',
+        name: '',
+        description: '',
         expiryDate: ''
-      }
+      },
+      errorMessage: '',
+      message: ''
     }
   },
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      alert(JSON.stringify(this.form))
-      Api.post('/v1/users/' + this.currentUser + '/fooditems',
-        this.form, { Headers: { 'Content-Type': 'application/json' } })
-        .then(Response => {
-          if (Response.status === 200) {
-            this.form.foodName = ''
-            this.form.foodDescription = ''
+
+      console.log(this.form)
+
+      Api.post('/v1/users/' + this.currentUser + '/food-items',
+        this.form, { headers: { 'Content-Type': 'application/json' } })
+        .then((response) => {
+          if (response.status === 200) {
+            this.form.name = ''
+            this.form.description = ''
             this.form.expiryDate = ''
             this.message = 'Food is added.'
           }
@@ -121,8 +134,4 @@ export default {
   transform: scale(0.98);
 }
 
-.btn-block {
-  display: block;
-  width: 100%;
-}
 </style>
