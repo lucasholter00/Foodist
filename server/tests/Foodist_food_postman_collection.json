@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "User",
+			"name": "Food",
 			"item": [
 				{
 					"name": "All users",
@@ -27,9 +27,22 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{host}}/api/v1/users/",
 							"host": [
@@ -52,7 +65,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful DELETE request\", function () {\r",
+									"pm.test(\"Successful POST request\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
 									"});"
 								],
@@ -88,49 +101,6 @@
 					},
 					"response": []
 				},
-				{
-					"name": "Remover user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful DELETE request\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/api/v1/users/joey",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"joey"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Food",
-			"item": [
 				{
 					"name": "Food List",
 					"event": [
@@ -179,7 +149,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/Joey/food-items/",
+							"raw": "{{host}}/api/v1/users/joey/food-items/",
 							"host": [
 								"{{host}}"
 							],
@@ -187,7 +157,7 @@
 								"api",
 								"v1",
 								"users",
-								"Joey",
+								"joey",
 								"food-items",
 								""
 							],
@@ -500,7 +470,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/joey/food-items/cheez",
+							"raw": "{{host}}/api/v1/users/joey/food-items/Big Cabage",
 							"host": [
 								"{{host}}"
 							],
@@ -510,7 +480,7 @@
 								"users",
 								"joey",
 								"food-items",
-								"cheez"
+								"Big Cabage"
 							]
 						}
 					},
@@ -575,6 +545,44 @@
 								"joey",
 								"food-items",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    {\r\n    \"userName\" : \"joey\",\r\n    \"password\" : \"sdfg\"\r\n}\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/users/joey",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"joey"
 							]
 						}
 					},
