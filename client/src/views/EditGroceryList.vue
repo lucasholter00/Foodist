@@ -1,7 +1,5 @@
 <template>
   <div>
-    <p>{{editObject}}</p>
-    <p>{{form}}</p>
     <b-row align-h="center" align-v="center">
       <b-col cols="8" sm="4" lg="2">
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
@@ -47,9 +45,6 @@
           </b-row>
 
         </b-form>
-        <p>{{form.name}}</p>
-        <p>{{form.groceries}}</p>
-        <p>{{currentUser}}</p>
       </b-col>
     </b-row>
   </div>
