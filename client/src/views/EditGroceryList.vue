@@ -41,7 +41,7 @@
           </b-form-group>
           <b-row align-h="between">
             <b-button type="Submit" variant="primary">Submit</b-button>
-            <b-button type="Reset" @click="reset" variant="danger">Reset</b-button>
+            <b-button @click="reset" variant="danger">Reset</b-button>
           </b-row>
 
         </b-form>
@@ -109,8 +109,7 @@ export default {
         this.errorMessage = "Can't remove more groceries"
       }
     },
-    reset(event) {
-      event.preventDefault()
+    reset() {
       this.form = JSON.parse(JSON.stringify(this.editObject))
     }
   },
