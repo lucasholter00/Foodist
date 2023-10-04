@@ -5,7 +5,7 @@
     </b-row>
     <b-row class="border">
       <b-col ckass="border" v-for="(entry, index) in groceryLists" :key="index" cols="3">
-        <card @removeEvent="removeList" class="border" :displayData="entry" />
+        <card @removeEvent="removeList" class="border" :displayData="entry" @editEvent="emitEdit"/>
       </b-col>
     </b-row>
   </b-container>
@@ -50,6 +50,11 @@ export default {
         .then((res) => {
           this.groceryLists = res.data.lists
         })
+    },
+    emitEdit(event) {
+      const editList = this.groceryLists.find((list) => list._id === event)
+      this.$emit('editEvent', editList)
+      this.$router.push({ name: 'edit-groceryList' })
     }
   }
 

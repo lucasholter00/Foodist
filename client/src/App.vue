@@ -6,13 +6,13 @@
       <router-link to="/AddFood">ADD Food</router-link>
       <router-link to="/recipes">Recipes</router-link>
       <router-link to="/groceryList"> Grocery List </router-link>
-      <router-link to="/login">Login</router-link>
       <router-link v-if="!currentUser" to="/login"> Login </router-link>
       <a v-else @click="logout">Log out</a>
     </div>
 
     <!-- Render the content of the current page view -->
-    <router-view :currentUser="currentUser" @currentUserEvent="updateUser"/>
+    <router-view :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
+
     <p>{{ currentUser }}</p>
   </div>
 </template>
@@ -22,7 +22,15 @@
 export default {
   data() {
     return {
-      currentUser: null
+      currentUser: null,
+      editObject: null
+    }
+  },
+  watch: {
+    currentUser(currentUser) {
+      if (this.currentUser === (null && '')) {
+        this.directLogin()
+      }
     }
   },
   methods: {
@@ -31,8 +39,25 @@ export default {
       this.currentUser = event
       console.log(this.currentUser)
     },
+    updateEditObject(event) {
+      console.log('Event received in parent component:', event)
+      if (this.editObject === event) {
+        console.log('The same object are set again for edit!')
+      } else {
+        this.editObject = event
+        console.log(this.editObject)
+      }
+    },
     logout() {
       this.currentUser = null
+    },
+    directLogin() {
+      this.$router.push({ name: 'login' })
+    }
+  },
+  created() {
+    if (this.$route.name !== 'login') {
+      this.$router.push({ name: 'login' })
     }
   }
 }
