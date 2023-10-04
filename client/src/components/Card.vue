@@ -1,9 +1,11 @@
 <template>
   <div>
-    <b-container v-for="(field, name) in displayData" :key="name" align-h="center">
-      <div v-if="!Array.isArray(field)">
-        <component v-if="name!=='_id'" :is="name==='name' ? 'h1' : 'p'">{{field}}</component>
-      </div>
+    <b-container class="border" v-for="(field, name) in displayData" :key="name" align-h="center">
+      <b-row v-if="!Array.isArray(field)">
+        <b-col cols="12" align-h="center">
+          <component v-if="name!=='_id'" :is="name==='name' ? 'h1' : 'p'">{{field}}</component>
+        </b-col>
+      </b-row>
       <div v-else>
 
         <h3>{{capitalizeFirst(name)}}</h3>
@@ -12,10 +14,10 @@
             <p>{{entry}}</p>
            </b-row>
           <b-row v-else>
-            <b-col v-for="(fields, name) in entry" :key="name">
+            <b-col cols="4" align-h="center" v-for="(fields, name) in entry" :key="name">
               <div v-if="name !== '_id'">
-                <p v-if="index === 0"> <strong>{{name}}</strong> {{fields}} </p>
-                <p v-else>{{fields}}</p>
+                <p v-if="index === 0"> <strong>{{name}}</strong> </p>
+                <p>{{fields}}</p>
               </div>
             </b-col>
           </b-row>
@@ -56,5 +58,4 @@ export default {
 }
 </script>
 <style>
-
 </style>
