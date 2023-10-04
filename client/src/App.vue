@@ -3,7 +3,6 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/Foods">Foods</router-link>
-      <router-link to="/AddFood">ADD Food</router-link>
       <router-link to="/recipes">Recipes</router-link>
       <router-link to="/groceryList"> Grocery List </router-link>
       <router-link v-if="!currentUser" to="/login"> Login </router-link>

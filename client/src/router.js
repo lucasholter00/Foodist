@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import AddFood from './views/AddFood.vue'
 import Foods from './views/Foods.vue'
 import CreateRecipe from './views/CreateRecipe.vue'
 import CreateGroceryList from './views/CreateGroceryList.vue'
@@ -22,11 +21,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/addfood',
-      name: 'addFood',
-      component: AddFood
     },
     {
       path: '/foods',
