@@ -2,7 +2,7 @@
  <div>
     <AddFood @add-food="addFood"/>
       <b-row class="border">
-        <b-col class="border" v-for="food in foods" :key=food.id cols="3">
+        <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
           <card @removeEvent="removeList" class="border" :displayData="food" />
         </b-col>
       </b-row>
@@ -31,19 +31,50 @@ export default {
     }
   },
   created() {
-    Api.get('/v1/users/' + this.currentUser + '/food-items')
-      .then((res) => {
-        if (res.status === 200) {
-          this.foods = res.data
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          this.errorMessage = 'Not found'
-        } else {
-          this.errorMessage = 'Server error'
-        }
-      })
+    this.getFood()
+  },
+  methods: {
+    addFood(food) {
+      Api.post('/v1/users/' + this.currentUser + '/food-items',
+        food, { headers: { 'Content-Type': 'application/json' } })
+        .then((res) => {
+          if (res.status === 200) {
+            this.message = 'Food is added'
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
+    },
+    getFood() {
+      Api.get('/v1/users/' + this.currentUser + '/food-items')
+        .then((res) => {
+          if (res.status === 200) {
+            this.foods = res.data
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
+    },
+    removeList(event) {
+      const food = this.foods.find((food) => food._id === event)
+      Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
+        .then((res) => {
+          this.updateFoodList(res)
+        })
+    },
+    updateFoodList(res) {
+      this.foods = res.data.food
+    }
   }
 }
 </script>
