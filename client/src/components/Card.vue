@@ -1,16 +1,15 @@
 <template>
   <div>
-    <b-container class="border" v-for="(field, name) in displayData" :key="name" align-h="center">
+    <b-container v-for="(field, name) in displayData" :key="name" align-h="center">
       <b-row v-if="!Array.isArray(field)">
         <b-col cols="12" align-h="center">
           <component v-if="name!=='_id'" :is="name==='name' ? 'h1' : 'p'">{{field}}</component>
         </b-col>
       </b-row>
       <div v-else>
-
         <h3>{{capitalizeFirst(name)}}</h3>
         <div v-for="(entry, index) in field" :key="index">
-          <b-row  v-if="typeof entry !== 'object'">
+          <b-row  v-if="typeof entry !== 'object'" align-h="center">
             <p>{{entry}}</p>
            </b-row>
           <b-row v-else>
