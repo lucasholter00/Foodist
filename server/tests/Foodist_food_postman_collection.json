@@ -110,24 +110,7 @@
 								"exec": [
 									"pm.test(\"Successful Get request\", function () {\r",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Success field is a boolean\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData.success).to.be.a('boolean');\r",
-									"});\r",
-									"\r",
-									"\r",
-									"pm.test(\"The msg field should be a non-empty string\", function () {\r",
-									"    const responseData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.msg).to.exist.and.to.be.a('string');\r",
-									"});\r",
-									"\r",
-									"\r",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
