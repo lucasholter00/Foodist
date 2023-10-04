@@ -40,6 +40,7 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             this.message = 'Food is added'
+            this.getFood()
           }
         })
         .catch((error) => {
@@ -69,11 +70,9 @@ export default {
       const food = this.foods.find((food) => food._id === event)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
-          this.updateFoodList(res)
+          this.foods = res.data.food
+          this.getFood()
         })
-    },
-    updateFoodList(res) {
-      this.foods = res.data.food
     }
   }
 }
