@@ -84,14 +84,15 @@ export default {
       this.toggleEditFood()
     },
     toggleEditFood() {
-      this.showEditFood = !this.showEditFood
+      this.showEditFood = true
     },
     editFood(food) {
-      Api.put('/v1/users/' + this.currentUser + '/food-items/' + this.food.name,
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + food.name,
         food, { headers: { 'Content-Type': 'application/json' } })
         .then((res) => {
           if (res.status === 200) {
             this.message = 'Food has been saved.'
+            this.showEditFood = false
             this.getFood()
           }
         })
@@ -108,6 +109,7 @@ export default {
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
           this.foods = res.data.food
+          this.message = 'Food has been removed.'
         })
     }
   }

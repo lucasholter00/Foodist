@@ -88,7 +88,7 @@ export default {
         expiryDate: this.form.expiryDate
       }
 
-      this.$emit('edit-food', this.editObject.name, newFood)
+      this.$emit('edit-food', newFood)
       this.form.foodName = ''
       this.form.foodDescription = ''
       this.form.expiryDate = ''
