@@ -1,9 +1,16 @@
 <template>
  <div>
-    <AddFood @add-food="addFood"/>
+  <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+    <p class="message" v-if="message">{{message}}</p>
+    <div v-show= "showAddFood">
+      <AddFood @add-food="addFood"/>
+    </div>
+    <div v-show="showEditFood">
+      <EditFood @edit-food="editFood"/>
+    </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <card @removeEvent="removeList" class="border" :displayData="food" />
+          <card  class="border" :displayData="food" @removeEvent="removeFood" @editEvent="handleEditFood"/>
         </b-col>
       </b-row>
   </div>
@@ -12,20 +19,25 @@
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
+import EditFood from '../components/EditFood.vue'
 import Card from '../components/Card.vue'
 
 export default {
   name: 'Foods',
   props: {
-    currentUser: String
+    currentUser: String,
+    food: Object
   },
   components: {
     AddFood,
+    EditFood,
     Card
   },
   data() {
     return {
       foods: [],
+      showAddFood: false,
+      showEditFood: false,
       errorMessage: '',
       message: ''
     }
@@ -66,12 +78,36 @@ export default {
           }
         })
     },
-    removeList(event) {
+    handleEditFood(event) {
+      const food = this.foods.find((food) => food._id === event)
+      this.$emit('editEvent', food)
+      this.toggleEditFood()
+    },
+    toggleEditFood() {
+      this.showEditFood = !this.showEditFood
+    },
+    editFood(food) {
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + this.food.name,
+        food, { headers: { 'Content-Type': 'application/json' } })
+        .then((res) => {
+          if (res.status === 200) {
+            this.message = 'Food has been saved.'
+            this.getFood()
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
+    },
+    removeFood(event) {
       const food = this.foods.find((food) => food._id === event)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
           this.foods = res.data.food
-          this.getFood()
         })
     }
   }
