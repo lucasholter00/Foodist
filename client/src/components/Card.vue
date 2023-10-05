@@ -24,8 +24,6 @@
       </div>
     </b-container>
     <b-row align-h="center">
-      <b-button variant="danger" @click="removeCurrent">Remove</b-button>
-      <b-button variant="danger" @click="emitEdit">Edit</b-button>
     </b-row>
   </div>
 </template>
@@ -42,17 +40,32 @@ export default {
     }
   },
   methods: {
+    setObjectType() {
+      this.objectType = this.displayData.type
+    },
     capitalizeFirst(toBeCapitalized) {
       return toBeCapitalized.charAt(0).toUpperCase() + toBeCapitalized.slice(1)
     },
-    removeCurrent() {
+    showDeleteModal() {
+      this.$bvModal.show('deleteItemModal') // Show the modal
+    },
+
+    confirmDelete() {
+      this.$bvModal.hide('deleteItemModal') // Hide the modal
       const eventData = this.displayData._id
       this.$emit('removeEvent', eventData)
+    },
+
+    cancelDelete() {
+      this.$bvModal.hide('deleteItemModal') // Hide the modal without deleting
     },
     emitEdit() {
       const eventData = this.displayData._id
       this.$emit('editEvent', eventData)
     }
+  },
+  created() {
+    this.setObjectType()
   }
 }
 </script>
