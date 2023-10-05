@@ -65,6 +65,11 @@ export default {
     onSubmit(e) {
       e.preventDefault()
 
+      if (!this.form.foodName || !this.form.expiryDate) {
+        alert('Food Name and Expiry date needs to be filled in.')
+        return
+      }
+
       const newFood = {
         name: this.form.foodName,
         description: this.form.foodDescription,
