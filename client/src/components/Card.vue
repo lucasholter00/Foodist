@@ -14,7 +14,8 @@
           <b-row v-else>
             <b-col v-for="(fields, name) in entry" :key="name">
               <div v-if="name !== '_id'">
-                <p v-if="index === 0"> <strong>{{name}}</strong> {{ formatField(fields) }} </p>
+                <p v-if="index === 0"> <strong>{{name}}</strong> {{fields}} </p>
+                <p v-else>{{fields}}</p>
               </div>
             </b-col>
           </b-row>
@@ -50,13 +51,6 @@ export default {
     emitEdit() {
       const eventData = this.displayData._id
       this.$emit('editEvent', eventData)
-    },
-    formatField(fieldValue) {
-      if (fieldValue instanceof Date) {
-        // Format the Date field
-        return fieldValue.toDateString()
-      }
-      return fieldValue
     }
   }
 }
