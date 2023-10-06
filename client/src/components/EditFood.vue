@@ -48,19 +48,23 @@
           </b-row>
           <b-button class= 'btn' type="submit" variant="success">Save</b-button>
         </b-form>
+        <Card v-show= false @editEvent="fillExistingForm"/>
       </b-container>
     </div>
   </template>
 
 <script>
-
+import Card from './Card.vue'
 export default {
   name: 'EditFood',
   props: {
     currentUser: {
       type: String
     },
-    editObject: {}
+    existingFood: {}
+  },
+  components: {
+    Card
   },
   data() {
     return {
@@ -72,13 +76,19 @@ export default {
     }
   },
   created() {
-    if (this.editObject) {
-      this.form.foodName = this.editObject.name
-      this.form.foodDescription = this.editObject.description
-      this.form.expiryDate = this.editObject.expiryDate
+    if (this.existingFood) {
+      this.form.foodName = this.existingFood.name
+      this.form.foodDescription = this.existingFood.description
+      this.form.expiryDate = this.existingFood.expiryDate
     }
   },
   methods: {
+    // fillExistingForm(existingFood) {
+    //   this.form.foodName = existingFood.name
+    //   this.form.foodDescription = existingFood.description
+    //   this.form.expiryDate = existingFood.expiryDate
+    //   this.$emit('editEvent', existingFood)
+    // },
     onSubmit(e) {
       e.preventDefault()
 
@@ -92,6 +102,7 @@ export default {
       this.form.foodName = ''
       this.form.foodDescription = ''
       this.form.expiryDate = ''
+      this.$emit('close-edit')
     }
   },
   emits: ['editEvent']

@@ -6,11 +6,11 @@
       <AddFood @add-food="addFood"/>
     </div>
     <div v-show="showEditFood">
-      <EditFood @edit-food="editFood"/>
+      <EditFood @edit-food="editFood" @close-edit="toggleEditFood"/>
     </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <card  class="border" :displayData="food" @removeEvent="removeFood" @editEvent="handleEditFood"/>
+          <card  class="border" :displayData="food" @removeEvent="removeFood" @editEvent="handleEditFood" />
         </b-col>
       </b-row>
   </div>
@@ -78,13 +78,13 @@ export default {
           }
         })
     },
-    handleEditFood(event) {
-      const food = this.foods.find((food) => food._id === event)
+    handleEditFood(id) {
+      const food = this.foods.find((food) => food._id === id)
       this.$emit('editEvent', food)
       this.toggleEditFood()
     },
     toggleEditFood() {
-      this.showEditFood = true
+      this.showEditFood = !this.showAddFood
     },
     editFood(food) {
       Api.put('/v1/users/' + this.currentUser + '/food-items/' + food.name,
