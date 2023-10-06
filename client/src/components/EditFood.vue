@@ -48,7 +48,7 @@
           </b-row>
           <b-button class= 'btn' type="submit" variant="success">Save</b-button>
         </b-form>
-        <Card v-show= false @editEvent="fillExistingForm"/>
+        <Card v-show= false @editEvent="fillExistingForm" :card="card"/>
       </b-container>
     </div>
   </template>
@@ -61,6 +61,9 @@ export default {
     currentUser: {
       type: String
     },
+    name: String,
+    description: String,
+    expiryDate: Date,
     existingFood: {}
   },
   components: {
@@ -69,19 +72,19 @@ export default {
   data() {
     return {
       form: {
-        foodName: '',
-        foodDescription: '',
-        expiryDate: ''
+        foodName: this.name || '',
+        foodDescription: this.description || '',
+        expiryDate: this.expiryDate || ''
       }
     }
   },
-  created() {
-    if (this.existingFood) {
-      this.form.foodName = this.existingFood.name
-      this.form.foodDescription = this.existingFood.description
-      this.form.expiryDate = this.existingFood.expiryDate
-    }
-  },
+  // created() {
+  //   if (this.existingFood) {
+  //     this.form.foodName = this.existingFood.name
+  //     this.form.foodDescription = this.existingFood.description
+  //     this.form.expiryDate = this.existingFood.expiryDate
+  //   }
+  // },
   methods: {
     // fillExistingForm(existingFood) {
     //   this.form.foodName = existingFood.name
