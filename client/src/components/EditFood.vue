@@ -9,7 +9,7 @@
             <b-col sm="4">
               <b-form-input
               id="foodName"
-              v-model="form.foodName"
+              v-model="form.name"
               placeholder="Food name required"
               type="text"
               >
@@ -24,7 +24,7 @@
             <b-col sm="4">
               <b-form-input
               id="foodDescription"
-              v-model="form.foodDescription"
+              v-model="form.description"
               placeholder="Enter food description"
               type="text"
               >
@@ -48,62 +48,42 @@
           </b-row>
           <b-button class= 'btn' type="submit" variant="success">Save</b-button>
         </b-form>
-        <Card v-show= false @editEvent="fillExistingForm" :card="card"/>
       </b-container>
     </div>
   </template>
 
 <script>
-import Card from './Card.vue'
+
 export default {
   name: 'EditFood',
   props: {
     currentUser: {
       type: String
     },
-    name: String,
-    description: String,
-    expiryDate: Date,
-    existingFood: {}
-  },
-  components: {
-    Card
+    editObject: {}
   },
   data() {
     return {
       form: {
-        foodName: this.name || '',
-        foodDescription: this.description || '',
-        expiryDate: this.expiryDate || ''
+        name: this.editObject.name,
+        description: this.editObject.description,
+        expiryDate: this.editObject.expiryDate
       }
     }
   },
-  // created() {
-  //   if (this.existingFood) {
-  //     this.form.foodName = this.existingFood.name
-  //     this.form.foodDescription = this.existingFood.description
-  //     this.form.expiryDate = this.existingFood.expiryDate
-  //   }
-  // },
   methods: {
-    // fillExistingForm(existingFood) {
-    //   this.form.foodName = existingFood.name
-    //   this.form.foodDescription = existingFood.description
-    //   this.form.expiryDate = existingFood.expiryDate
-    //   this.$emit('editEvent', existingFood)
-    // },
     onSubmit(e) {
       e.preventDefault()
 
       const newFood = {
-        name: this.form.foodName,
-        description: this.form.foodDescription,
+        name: this.form.name,
+        description: this.form.description,
         expiryDate: this.form.expiryDate
       }
 
-      this.$emit('edit-food', newFood)
-      this.form.foodName = ''
-      this.form.foodDescription = ''
+      this.$emit('edit-food', this.editObject.name, newFood)
+      this.form.name = ''
+      this.form.description = ''
       this.form.expiryDate = ''
       this.$emit('close-edit')
     }

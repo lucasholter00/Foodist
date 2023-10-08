@@ -25,8 +25,7 @@ import Card from '../components/Card.vue'
 export default {
   name: 'Foods',
   props: {
-    currentUser: String,
-    food: Object
+    currentUser: String
   },
   components: {
     AddFood,
@@ -86,14 +85,15 @@ export default {
     toggleEditFood() {
       this.showEditFood = !this.showAddFood
     },
-    editFood(food) {
-      Api.put('/v1/users/' + this.currentUser + '/food-items/' + food.name,
+    editFood(name, food) {
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + name,
         food, { headers: { 'Content-Type': 'application/json' } })
         .then((res) => {
           if (res.status === 200) {
             this.message = 'Food has been saved.'
             this.showEditFood = false
             this.getFood()
+            this.toggleEditFood()
           }
         })
         .catch((error) => {
