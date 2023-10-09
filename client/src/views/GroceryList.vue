@@ -55,6 +55,11 @@ export default {
       })
   },
   methods: {
+    emitEdit(event) {
+      const editList = this.groceryLists.find((list) => list._id === event)
+      this.$emit('editEvent', editList)
+      this.$router.push({ name: 'edit-groceryList' })
+    },
     removeList(event) {
       Api.delete('v1/users/' + this.currentUser + '/grocery-lists/' + event)
         .then((res) => {
