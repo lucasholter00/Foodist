@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark"  style="background-color: mediumseagreen">
+    <b-navbar toggleable="lg" sticky type="dark"  style="background-color: mediumseagreen">
       <b-navbar-brand to="/">
         <span class="app-name">Foodist - <span class="tagline">track your food</span></span>
       </b-navbar-brand>
@@ -109,6 +109,9 @@ export default {
 .nav-link:hover {
   text-decoration: underline !important; /* Remove underline on hover */
   color: lightgray; /* Change link color on hover */
+}
+body{
+  background-color: #def7dc !important;
 }
 
 </style>
