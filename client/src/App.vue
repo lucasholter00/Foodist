@@ -30,11 +30,8 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
     <!-- Render the content of the current page view -->
     <router-view :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
-
-    <p>{{ currentUser }}</p>
   </div>
 </template>
 
