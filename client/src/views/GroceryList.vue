@@ -5,7 +5,7 @@
     </b-row>
     <b-row class="border">
       <b-col class="border" v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
-        <card @showDeleteModal="showDeleteModal" class="border" :displayData="entry"/>
+        <card @showDeleteModal="showDeleteModal" @editEvent="emitEdit" class="border" :displayData="entry"/>
       </b-col>
     </b-row>
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -23,7 +23,6 @@
 <script>
 import BCard from '../components/BCard.vue'
 import { Api } from '@/Api'
-
 export default {
   name: 'GroceryLists',
   props: {
