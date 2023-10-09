@@ -15,6 +15,28 @@ const foodSchema = new Schema(
         expiryDate:{
             type: Date,
             required: true,
+        },
+        leftexpiryDays: {
+            type: Number,
+            default: function() {
+                // Calculate the difference in milliseconds between the expiryDate and now
+                const timeDifference = this.expiryDate.getTime() - Date.now();
+
+                // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
+                const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+
+                return leftDays;
+            }
+        },
+        reminder: {
+            type: Boolean,
+            default: function () {
+                if(this.leftexpiryDays < 15) {
+                    reminder = true
+                }else {
+                    reminder = false
+                }
+            }
         }
     }
 );

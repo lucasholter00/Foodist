@@ -32,6 +32,7 @@ export default {
   },
   created() {
     this.getFood()
+    this.sortExpiryingFood()
   },
   methods: {
     addFood(food) {
@@ -57,6 +58,7 @@ export default {
           if (res.status === 200) {
             this.foods = res.data
           }
+          this.sortExpiryingFood()
         })
         .catch((error) => {
           if (error.response.status === 404) {
@@ -73,6 +75,15 @@ export default {
           this.foods = res.data.food
           this.getFood()
         })
+    },
+    sortExpiryingFood() {
+      const shortExpiryDate = []
+      this.foods.forEach(food => {
+        if (food.reminder) {
+          shortExpiryDate.push(food)
+        }
+      })
+      return shortExpiryDate
     }
   }
 }
