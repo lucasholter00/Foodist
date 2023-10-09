@@ -9,6 +9,8 @@
             class="p-3"
             id="username"
             label="Username:"
+            label-size="lg"
+            label-align="left"
             label-for="input-1"
           >
             <b-form-input
@@ -24,6 +26,8 @@
             class="p-3"
             id="password"
             label="Password:"
+            label-size="lg"
+            label-align="left"
             label-for="input-2"
           >
             <b-form-input

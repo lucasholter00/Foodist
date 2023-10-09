@@ -5,10 +5,13 @@
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         <p class="message" v-if="message">{{message}}</p>
         <b-form @submit="onSubmit">
-          <h1 class="p-3">Registration</h1> <b-form-group
+          <h1 class="p-3">Registration</h1>
+          <b-form-group
             class="p-3"
             id="username"
             label="Username:"
+            label-size="lg"
+            label-align="left"
             label-for="input-1"
           >
             <b-form-input
@@ -24,6 +27,8 @@
             class="p-3"
             id="password"
             label="Password:"
+            label-size="lg"
+            label-align="left"
             label-for="input-2"
           >
             <b-form-input
