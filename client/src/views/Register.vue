@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <b-container-fluid class="p-5">
     <b-row align-h="center" align-v="center">
-      <b-col cols="8" sm="4" lg="2">
+      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white round">
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         <p class="message" v-if="message">{{message}}</p>
         <b-form @submit="onSubmit">
-          <b-form-group
+          <h1 class="p-3">Registration</h1> <b-form-group
+            class="p-3"
             id="username"
-            label="Username"
+            label="Username:"
             label-for="input-1"
           >
             <b-form-input
@@ -20,8 +21,9 @@
           </b-form-group>
 
           <b-form-group
+            class="p-3"
             id="password"
-            label="Password"
+            label="Password:"
             label-for="input-2"
           >
             <b-form-input
@@ -32,14 +34,17 @@
             >
             </b-form-input>
           </b-form-group>
+          <b-row align-h="center" class="p-4">
+            <b-button type="Submit" pill class="w-100" variant="success">Sign up</b-button>
+          </b-row>
           <b-row align-h="center">
-            <b-button type="Submit" variant="primary">Sign up</b-button>
+            <p>Already have an account? <router-link to="/login">Log in</router-link></p>
           </b-row>
 
         </b-form>
       </b-col>
     </b-row>
-  </div>
+  </b-container-fluid>
 
 </template>
 
@@ -73,6 +78,7 @@ export default {
             this.form.userName = ''
             this.form.password = ''
             this.message = 'User created'
+            this.$router.push({ name: 'login' })
           }
         })
         .catch((err) => {
@@ -96,6 +102,10 @@ export default {
   .message{
     color: green;
     font-size: 14px;
+  }
+  .round{
+    border-radius: 7% !important;
+    overflow: hidden !important;
   }
 
 </style>

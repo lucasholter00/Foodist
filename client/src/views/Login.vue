@@ -1,10 +1,12 @@
 <template>
-  <b-container-fluid>
-    <b-row align-h="center" align-v="center" class="border">
-      <b-col cols="10" sm="6" md="4" lg="3" class="bg-success rounded">
+  <b-container-fluid class="p-5">
+    <b-row align-h="center">
+      <b-col cols="10" md="6" lg="3" class="bg-white round">
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         <b-form @submit="onSubmit">
+          <h1 class="p-3">Login form</h1>
           <b-form-group
+            class="p-3"
             id="username"
             label="Username:"
             label-for="input-1"
@@ -19,6 +21,7 @@
           </b-form-group>
 
           <b-form-group
+            class="p-3"
             id="password"
             label="Password:"
             label-for="input-2"
@@ -31,9 +34,11 @@
             >
             </b-form-input>
           </b-form-group>
-          <b-row class="p-2" align-h="between">
-            <b-button type="Submit" variant="primary">Submit</b-button>
-            <router-link to="/register"><b-button type="Register" variant="primary" >Register</b-button></router-link>
+          <b-row class="p-4" align-h="between">
+            <b-button class="w-100" type="Submit" pill variant="success">Log in</b-button>
+          </b-row>
+          <b-row align-h="center">
+            <p>Not a member? Register <router-link to="/register">here</router-link></p>
           </b-row>
 
         </b-form>
@@ -97,8 +102,10 @@ export default {
     color: red;
     font-size: 14px;
   }
-  #loginForm{
-    background-color: green !important;
+
+  .round{
+    border-radius: 7% !important;
+    overflow: hidden !important;
   }
 
 </style>
