@@ -8,7 +8,7 @@
       </b-row>
    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
      <div>
-       <p>Are you sure you want to delete this recipe?</p>
+       <p>Are you sure you want to delete this food item?</p>
      </div>
      <b-row align-h="end" class="justify-content-around">
        <b-button variant="danger" @click="confirmDelete">Delete</b-button>
