@@ -1,17 +1,17 @@
 <template>
   <div>
   <b-col v-for="(recipe, index) in sortedRecipes" :key="index">
-    <recommendationCard class="border" :displayData="recipe" />
+    <BCardRec class="border" :foodItems="foodItems" :displayData="recipe" />
   </b-col>
   </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
-import recommendationCard from '@/components/recommendationCard.vue'
+import BCardRec from '@/components/BCardRec.vue'
 export default {
   name: 'recommendation',
-  components: { recommendationCard },
+  components: { BCardRec },
   props: {
     currentUser: {
       type: String

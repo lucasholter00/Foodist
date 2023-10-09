@@ -1,3 +1,4 @@
+<!-- This card is BCard but without buttons, will be used as a component in other pages -->
 <script>
 export default {
   name: 'Card',
@@ -19,15 +20,6 @@ export default {
       } else {
         return value
       }
-    },
-    showDeleteModal(itemId) {
-      // You can implement modal logic here or in the parent component
-      // For now, you can emit an event to trigger modal display in the parent component
-      this.$emit('showDeleteModal', itemId)
-    },
-    emitEdit() {
-      const eventData = this.displayData._id
-      this.$emit('editEvent', eventData)
     }
   }
 }
@@ -38,19 +30,7 @@ export default {
     <!-- Header slot -->
     <template #header>
       <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <b-button class="editButton" variant="link" @click="emitEdit">Edit</b-button>
-        </div>
         <div>{{ displayData.name }}</div>
-        <div>
-          <b-button
-              class="delete-button"
-              alt="Remove"
-              @click="showDeleteModal(displayData._id)"
-          >
-            <span>&#128465;</span>
-          </b-button>
-        </div>
       </div>
     </template>
     <template #default>
@@ -65,9 +45,7 @@ export default {
             <b-list-group-item v-else>
               <p>{{entry}}</p>
             </b-list-group-item>
-
           </b-list-group>
-
         </b-col>
         <!-- Non array slot -->
         <b-col v-else>
@@ -79,20 +57,5 @@ export default {
 </template>
 
 <style>
-.editButton {
-  color: grey !important;
-  text-decoration: underline !important;
-}
 
-.editButton:hover {
-  color: dimgrey !important;
-}
-
-.delete-button {
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0;
-  cursor: pointer;
-  font-size: 24px;
-}
 </style>

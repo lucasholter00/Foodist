@@ -3,7 +3,7 @@
     <AddFood @add-food="addFood"/>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <card @removeEvent="removeList" class="border" :displayData="food" />
+          <BCard @removeEvent="removeList" class="border" :displayData="food" />
         </b-col>
       </b-row>
   </div>
@@ -12,7 +12,7 @@
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
-import Card from '../components/Card.vue'
+import BCard from '../components/BCard.vue'
 
 export default {
   name: 'Foods',
@@ -21,7 +21,7 @@ export default {
   },
   components: {
     AddFood,
-    Card
+    BCard
   },
   data() {
     return {

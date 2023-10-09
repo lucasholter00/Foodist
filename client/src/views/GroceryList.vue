@@ -4,15 +4,15 @@
       <b-button @click="$router.push({name:'Create grocery list'})" variant="primary">Add new list</b-button>
     </b-row>
     <b-row class="border">
-      <b-col ckass="border" v-for="(entry, index) in groceryLists" :key="index" cols="3">
-        <card @removeEvent="removeList" class="border" :displayData="entry" @editEvent="emitEdit"/>
+      <b-col class="border" v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
+        <card @removeEvent="removeList" class="border" :displayData="entry"/>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import Card from '../components/Card.vue'
+import BCard from '../components/BCard.vue'
 import { Api } from '@/Api'
 
 export default {
@@ -21,7 +21,7 @@ export default {
     currentUser: String
   },
   components: {
-    card: Card
+    card: BCard
   },
   data() {
     return {
@@ -50,11 +50,6 @@ export default {
         .then((res) => {
           this.groceryLists = res.data.lists
         })
-    },
-    emitEdit(event) {
-      const editList = this.groceryLists.find((list) => list._id === event)
-      this.$emit('editEvent', editList)
-      this.$router.push({ name: 'edit-groceryList' })
     }
   }
 

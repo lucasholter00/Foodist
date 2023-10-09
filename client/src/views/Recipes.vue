@@ -4,7 +4,7 @@
       <b-button @click="$router.push({ name: 'create-recipe' })" variant="primary">Add new recipe</b-button>
     </b-row>
     <b-row class="border">
-      <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" cols-sm="6" cols-md="4" class="mb-3">
+      <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" sm="6" md="4" class="mb-3">
         <div class="card-wrapper">
           <bcard @showDeleteModal="showDeleteModal" @editEvent="editRecipe" class="border" :displayData="recipe" />
         </div>
@@ -94,14 +94,7 @@ export default {
 </script>
 
 <style>
-.card-wrapper {
-  margin: 1%;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .card-wrapper {
-    width: calc(50% - 2%);
-  }
+.border {
+  border: 1px solid;
 }
 </style>
