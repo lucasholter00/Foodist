@@ -82,21 +82,19 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault()
-
+      const foodName = this.editObject.name
       const newFood = {
         name: this.form.name,
         description: this.form.description,
         expiryDate: this.form.expiryDate
       }
 
-      this.$emit('edit-food', newFood)
+      this.$emit('edit-food', foodName, newFood)
       this.form.name = ''
       this.form.description = ''
       this.form.expiryDate = ''
-      this.$emit('close-edit')
     }
   },
-  emits: ['editEvent'],
   created() {
     this.form = JSON.parse(JSON.stringify(this.editObject))
     this.form.expiryDate = this.form.expiryDate.split('T')[0]
