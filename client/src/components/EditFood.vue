@@ -1,5 +1,7 @@
 <template>
     <div>
+    <p>{{form}}</p>
+    <p>{{editObject}}</p>
       <b-container fluid class="container">
         <b-form  @submit="onSubmit">
           <b-row class = "my-1" align-h="center" align-v="center">
@@ -9,8 +11,8 @@
             <b-col sm="4">
               <b-form-input
               id="foodName"
-              v-model="form.name"
               placeholder="Food name required"
+              v-model="form.name"
               type="text"
               >
             </b-form-input>
@@ -39,8 +41,8 @@
             <b-col sm="4">
               <b-form-input
               id="expiryDate"
-              v-model="form.expiryDate"
               placeholder="Food description required"
+              v-model="form.expiryDate"
               type='date'
               >
               </b-form-input>
@@ -71,12 +73,10 @@ export default {
       }
     }
   },
-  created() {
-    this.form = JSON.parse(JSON.stringify(this.editObject))
-  },
   methods: {
     onSubmit(e) {
       e.preventDefault()
+      const foodName = this.editObject.name
 
       const newFood = {
         name: this.form.name,
@@ -84,12 +84,15 @@ export default {
         expiryDate: this.form.expiryDate
       }
 
-      this.$emit('edit-food', newFood)
+      this.$emit('edit-food', foodName, newFood)
       this.form.name = ''
       this.form.description = ''
       this.form.expiryDate = ''
-      this.$emit('close-edit')
     }
+  },
+  created() {
+    this.form = JSON.parse(JSON.stringify(this.editObject))
+    this.form.expiryDate = this.form.expiryDate.split('T')[0]
   }
 }
 </script>

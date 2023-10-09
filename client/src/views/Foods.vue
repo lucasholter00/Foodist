@@ -6,7 +6,7 @@
       <AddFood @add-food="addFood"/>
     </div>
     <div v-show="showEditFood">
-      <EditFood :editObject="editObject" @edit-food="editFood" @close-edit="toggleEditFood"/>
+      <EditFood :editObject="editObject" @edit-food="editFood" />
     </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
@@ -84,17 +84,15 @@ export default {
       this.toggleEditFood()
     },
     toggleEditFood() {
-      this.showEditFood = !this.showAddFood
+      this.showEditFood = !this.showEditFood
     },
-    editFood(food) {
-      Api.put('/v1/users/' + this.currentUser + '/food-items/' + food.name,
+    editFood(name, food) {
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + name,
         food, { headers: { 'Content-Type': 'application/json' } })
         .then((res) => {
           if (res.status === 200) {
             this.message = 'Food has been saved.'
-            this.showEditFood = false
             this.getFood()
-            this.toggleEditFood()
           }
         })
         .catch((error) => {
@@ -104,6 +102,7 @@ export default {
             this.errorMessage = 'Server error'
           }
         })
+      this.toggleEditFood()
     },
     removeFood(event) {
       const food = this.foods.find((food) => food._id === event)
