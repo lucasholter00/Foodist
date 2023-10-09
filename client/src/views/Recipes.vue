@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row align-h="end">
-      <b-button pill @click="$router.push({ name: 'create-recipe' })" variant="primary">
+      <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({ name: 'create-recipe' })" variant="primary">
         <span class="plus-sign">+</span> Add Recipe
       </b-button>
     </b-row>
@@ -96,6 +96,15 @@ export default {
 </script>
 
 <style>
+.buttonStyle {
+  background-color: #80a28b !important;
+  border: #80a28b !important;
+}
+
+.buttonStyle:hover {
+  background-color: #80b095 !important;
+  border: #80b095 !important;
+}
 .border {
 }
 </style>
