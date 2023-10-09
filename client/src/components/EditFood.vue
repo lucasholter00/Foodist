@@ -71,6 +71,9 @@ export default {
       }
     }
   },
+  created() {
+    this.form = JSON.parse(JSON.stringify(this.editObject))
+  },
   methods: {
     onSubmit(e) {
       e.preventDefault()
@@ -87,8 +90,7 @@ export default {
       this.form.expiryDate = ''
       this.$emit('close-edit')
     }
-  },
-  emits: ['editEvent']
+  }
 }
 </script>
 
@@ -125,8 +127,4 @@ export default {
     transform: scale(0.98);
   }
 
-  .btn-block {
-    display: block;
-    width: 100%;
-  }
   </style>
