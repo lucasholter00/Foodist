@@ -3,9 +3,18 @@
     <AddFood @add-food="addFood"/>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <BCard @removeEvent="removeList" class="border" :displayData="food" />
+          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" class="border" :displayData="food" />
         </b-col>
       </b-row>
+   <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+     <div>
+       <p>Are you sure you want to delete this recipe?</p>
+     </div>
+     <b-row align-h="end" class="justify-content-around">
+       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+     </b-row>
+   </b-modal>
   </div>
  </template>
 
@@ -26,6 +35,7 @@ export default {
   data() {
     return {
       foods: [],
+      showModal: false,
       errorMessage: '',
       message: ''
     }
@@ -73,6 +83,25 @@ export default {
           this.foods = res.data.food
           this.getFood()
         })
+    },
+    showDeleteModal(item) {
+      // Set the selected item and show the modal
+      this.selectedItem = item
+      this.showModal = true
+    },
+    confirmDelete() {
+      this.removeList(this.selectedItem)
+      this.hideModal()
+    },
+    cancelDelete() {
+      // Handle cancel deletion logic here
+      // Hide the modal without performing any deletion
+      this.hideModal()
+    },
+    hideModal() {
+      // Hide the modal and clear the selected item
+      this.showModal = false
+      this.selectedItem = null
     }
   }
 }
