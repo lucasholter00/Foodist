@@ -25,6 +25,7 @@ export default {
       Api.delete('v1/users/' + this.currentUser)
         .then((res) => {
           if (res.status === 200) {
+            this.$emit('currentUserEvent', '')
             this.errorMessage = ''
             this.$router.push({ name: 'login' })
           } else if (res.status === 500) {
@@ -44,7 +45,7 @@ export default {
       }).then((res) => {
         if (res.status === 200) {
           this.errorMessage = ''
-          this.$router.push({ name: 'login' })
+          this.$router.push({ name: 'home' })
         } else if (res.status === 500) {
           this.errorMessage = 'Server error, please try again'
         } else {
@@ -69,7 +70,7 @@ export default {
           .catch((error) => {
             console.log('error')
             if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Username or Password incorrect'
+              this.errorMessage = 'Password incorrect'
             } else {
               this.errorMessage = 'Server error'
             }
@@ -98,11 +99,11 @@ export default {
 <template>
   <div class="d-flex justify-content-center align-items-center">
     <div>
-      <b-card @click="openChangePasswordModal" class="text-center mx-2" style="cursor: pointer; max-width: 18rem;">
+      <b-card @click="openChangePasswordModal" class="text-center mx-2 mt-5" style="cursor: pointer; max-width: 18rem;">
         <span style="font-size: 48px;">&#9881;</span> <!-- Unicode for cogwheel icon -->
         <b-card-text class="mt-2">Change Password</b-card-text>
       </b-card>
-      <b-card @click="deleteAccount" class="text-center mx-2" style="cursor: pointer; max-width: 18rem;">
+      <b-card @click="deleteAccount" class="text-center mx-2 mt-3" style="cursor: pointer; max-width: 18rem;">
         <span style="font-size: 48px;">&#128465;</span> <!-- Unicode for trash can icon -->
         <b-card-text class="mt-2">Delete My Account</b-card-text>
       </b-card>
