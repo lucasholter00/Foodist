@@ -42,7 +42,7 @@
             </b-form-input>
           </b-col>
         </b-row>
-        <b-button class= 'btn' type="submit" variant="success">Add Food</b-button>
+        <b-button class= 'btn' type="submit" variant="success">Save Food</b-button>
       </b-form>
     </b-container>
   </div>
