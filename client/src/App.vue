@@ -21,7 +21,7 @@
           <template v-else>
             <b-nav-item-dropdown right>
               <template #button-content>
-                <em>User</em>
+                <em>{{ currentUser }}</em>
               </template>
               <b-dropdown-item to="/user-settings">Profile</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
