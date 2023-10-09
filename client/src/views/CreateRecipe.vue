@@ -1,67 +1,88 @@
 <template>
-  <div>
-    <h2>Create a Recipe</h2>
+  <b-container-fluid class="p-5">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
     <b-row align-h="center" align-v="center">
-      <b-form @submit="onsubmit">
-        <b-form-group
-          id="RecipeName"
-          label="Recipe name"
-          label-for="name-input">
-          <b-form-input
-            id="name-input"
-            placeholder="Enter recipe name"
-            v-model="form.name"
-            type="text">
-          </b-form-input>
-        </b-form-group>
-        <div v-for="(ingredient, index) in form.ingredients" :key="index">
-          <b-form-group :id="'Ingredient' + index" :label="'Ingredient ' + (index + 1)">
-            <div class="ingredient-inputs">
-              <b-form-input
-                :id="'ingredient-name-input-' + index"
-                placeholder="Ingredient Name"
-                v-model="ingredient.name"
-                type="text">
-              </b-form-input>
-              <b-form-input
-                :id="'quantity-input-' + index"
-                placeholder="Quantity"
-                v-model="ingredient.quantity"
-                type="text">
-              </b-form-input>
-              <b-form-input
-                :id="'unit-input-' + index"
-                placeholder="Unit"
-                v-model="ingredient.unit"
-                type="text">
-              </b-form-input>
-            </div>
-            <v-button type="button" variant="primary" @click="removeIngredient(index)">Remove</v-button>
+      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer">
+        <b-form @submit="onsubmit">
+          <h2 class="p-3">Create a Recipe</h2>
+          <b-form-group
+            class="p-3"
+            id="RecipeName"
+            label="Recipe name:"
+            label-for="name-input"
+            label-size="lg"
+            label-align="left"
+          >
+            <b-form-input
+              id="name-input"
+              placeholder="Enter recipe name"
+              v-model="form.name"
+              type="text">
+            </b-form-input>
           </b-form-group>
-        </div>
-        <b-form-group
-          id="RecipeDescription"
-          label="Recipe Description"
-          label-for="description-input">
-          <b-form-input
-            id="description-input"
-            placeholder="Enter the description needed to create the recipe!"
-            v-model="form.description"
-            type="text">
-          </b-form-input>
-        </b-form-group>
-          <!-- Button to Add Ingredients to recipe -->
-          <b-button type="button" variant="primary" @click="addIngredient">Add Ingredient</b-button>
-          <!-- Submit recipe Button -->
-          <b-button type="submit" variant="primary">Submit Recipe!</b-button>
-      </b-form>
+          <div class="p-3" v-for="(ingredient, index) in form.ingredients" :key="index">
+            <b-form-group
+              :id="'Ingredient' + index"
+              :label="'Ingredient ' + (index + 1) + ':'"
+              label-size="lg"
+              label-align="left"
+            >
+              <div class="ingredient-inputs">
+                <b-form-input
+                  :id="'ingredient-name-input-' + index"
+                  placeholder="Ingredient Name"
+                  v-model="ingredient.name"
+                  type="text">
+                </b-form-input>
+                <b-form-input
+                  :id="'quantity-input-' + index"
+                  placeholder="Quantity"
+                  v-model="ingredient.quantity"
+                  type="text">
+                </b-form-input>
+                <b-form-input
+                  :id="'unit-input-' + index"
+                  placeholder="Unit"
+                  v-model="ingredient.unit"
+                  type="text">
+                </b-form-input>
+              </div>
+              <a class="removeButton" type="button" variant="primary" @click="removeIngredient(index)">Remove</a>
+              <b-row align-h="center">
+                <b-button v-if="index === (form.ingredients.length-1)" class="mt-5 grayText rounded-circle" type="field" variant="light" size="sm" @click="addIngredient">+</b-button>
+              </b-row>
+
+            </b-form-group>
+          </div>
+          <b-form-group
+            class="p-3"
+            id="RecipeDescription"
+            label="Recipe Description:"
+            label-for="description-input"
+            label-size="lg"
+            label-align="left"
+          >
+            <b-form-input
+              id="description-input"
+              placeholder="Enter the description needed to create the recipe!"
+              v-model="form.description"
+              type="text">
+            </b-form-input>
+          </b-form-group>
+            <!-- Button to Add Ingredients to recipe -->
+            <b-button type="button" variant="primary" @click="addIngredient">Add Ingredient</b-button>
+            <!-- Submit recipe Button -->
+          <b-row class="p-4">
+            <b-button class="w-100" type="submit" variant="success">Create</b-button>
+          </b-row>
+        </b-form>
+      </b-col>
     </b-row>
 
     <p v-if="currentUser">Logged in user: {{currentUser}}</p>
 
-  </div>
+  </b-container-fluid>
 </template>
 
 <script>

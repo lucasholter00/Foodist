@@ -1,7 +1,7 @@
 <template>
   <b-container-fluid class="p-5">
     <b-row align-h="center" align-v="center">
-      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white round">
+      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer">
         <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         <p class="message" v-if="message">{{message}}</p>
         <b-form @submit="onSubmit">
@@ -108,9 +108,4 @@ export default {
     color: green;
     font-size: 14px;
   }
-  .round{
-    border-radius: 7% !important;
-    overflow: hidden !important;
-  }
-
 </style>
