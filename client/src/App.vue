@@ -6,6 +6,7 @@
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
+        <template v-if="currentUser">
         <b-navbar-nav style="color: white">
           <router-link to="/" class="nav-link">Home</router-link>
           <router-link to="/Foods" class="nav-link">Foods</router-link>
@@ -13,7 +14,7 @@
           <router-link to="/groceryList" class="nav-link">Grocery List</router-link>
           <router-link to="/recipes/recommendation" class="nav-link">Recipes rec</router-link>
         </b-navbar-nav>
-
+        </template>
         <b-navbar-nav class="ml-auto">
           <template v-if="!currentUser">
             <router-link to="/login" class="nav-link">Login</router-link>
