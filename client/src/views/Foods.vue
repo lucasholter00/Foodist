@@ -6,7 +6,7 @@
       <AddFood @add-food="addFood"/>
     </div>
     <div v-show="showEditFood">
-      <EditFood @edit-food="editFood" @close-edit="toggleEditFood"/>
+      <EditFood :editObject="editObject" @edit-food="editFood" @close-edit="toggleEditFood"/>
     </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
@@ -25,7 +25,8 @@ import Card from '../components/Card.vue'
 export default {
   name: 'Foods',
   props: {
-    currentUser: String
+    currentUser: String,
+    editObject: {}
   },
   components: {
     AddFood,

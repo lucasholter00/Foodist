@@ -1,5 +1,8 @@
 <template>
     <div>
+    <p>{{form.expiryDate.toLocaleDateString}}</p>
+    <p>{{form}}</p>
+    <p>{{editObject}}</p>
       <b-container fluid class="container">
         <b-form  @submit="onSubmit">
           <b-row class = "my-1" align-h="center" align-v="center">
@@ -9,8 +12,8 @@
             <b-col sm="4">
               <b-form-input
               id="foodName"
-              v-model="form.name"
               placeholder="Food name required"
+              v-model="form.name"
               type="text"
               >
             </b-form-input>
@@ -39,8 +42,8 @@
             <b-col sm="4">
               <b-form-input
               id="expiryDate"
-              v-model="form.expiryDate"
               placeholder="Food description required"
+              v-model="form.expiryDate"
               type='date'
               >
               </b-form-input>
@@ -88,7 +91,11 @@ export default {
       this.$emit('close-edit')
     }
   },
-  emits: ['editEvent']
+  emits: ['editEvent'],
+  created() {
+    this.form = JSON.parse(JSON.stringify(this.editObject))
+    // this.form.expiryDate = this.form.expiryDate.toLocaleDateString()
+  }
 }
 </script>
 
