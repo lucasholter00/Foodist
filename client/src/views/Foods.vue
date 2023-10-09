@@ -8,9 +8,6 @@
     <div v-show="showEditFood">
       <EditFood :editObject="editObject" @edit-food="editFood" />
     </div>
-    <div>
-      <ExpiryFood/>
-    </div>
     <b-row class="border">
       <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
         <card  class="border" :displayData="food" @removeEvent="removeFood" @editEvent="handleEditFood" />
@@ -24,7 +21,6 @@ import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import EditFood from '../components/EditFood.vue'
 import Card from '../components/Card.vue'
-import ExpiryFood from '../components/ExpiryFood.vue'
 
 export default {
   name: 'Foods',
@@ -35,8 +31,7 @@ export default {
   components: {
     AddFood,
     EditFood,
-    Card,
-    ExpiryFood
+    Card
   },
   data() {
     return {
