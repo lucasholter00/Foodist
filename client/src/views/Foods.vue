@@ -1,6 +1,11 @@
 <template>
  <div>
-    <AddFood @add-food="addFood"/>
+    <Btn @btn-click="toggleAddFood"
+    :text="showAddFood ? 'Close' : 'Add Food'"
+    :color="showAddFood ? 'red' : 'green' " />
+    <div v-show="showAddFood">
+      <AddFood @add-food="addFood"/>
+    </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
           <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" class="border" :displayData="food" />
@@ -22,6 +27,7 @@
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
+import Btn from '../components/Btn.vue'
 
 export default {
   name: 'Foods',
@@ -30,12 +36,14 @@ export default {
   },
   components: {
     AddFood,
-    BCard
+    BCard,
+    Btn
   },
   data() {
     return {
       foods: [],
       showModal: false,
+      showAddFood: false,
       errorMessage: '',
       message: ''
     }
@@ -44,6 +52,9 @@ export default {
     this.getFood()
   },
   methods: {
+    toggleAddFood() {
+      this.showAddFood = !this.showAddFood
+    },
     addFood(food) {
       Api.post('/v1/users/' + this.currentUser + '/food-items',
         food, { headers: { 'Content-Type': 'application/json' } })
