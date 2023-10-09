@@ -1,9 +1,15 @@
 <template>
-    <div>
-      <p>{{ foods }}</p>
+  <div>
+    <!-- <p>{{ expiryFood }}</p> -->
+    <div :key="food._id" v-for="food in expiryFood">
+      <Food
+        @delete-food="$emit('delete-food', food._id)"
+        :food="food"/>
     </div>
+  </div>
 </template>
 <script>
+import Food from './Food.vue'
 
 export default {
   name: 'ExpiryFood',
@@ -11,27 +17,35 @@ export default {
     currentUser: String,
     foods: Array
   },
+  components: {
+    Food
+  },
+  data() {
+    return {
+      expiryFood: []
+    }
+  },
   created() {
-    // this.sortExpiryFood()
+    this.sortExpiryingFood()
   },
   methods: {
-    sortExpiryFood() {
+    sortExpiryingFood() {
       const expired = {}
-      const expiryingFoodList = {}
       this.foods.forEach(food => {
-        const timeDifference = food.expiryDate.getTime() - Date.now()
+        const exprDate = new Date(food.expiryDate)
+        const timeDifference = exprDate - new Date()
         if (timeDifference < 0) {
           expired.push(food)
-        }
-        // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
-        const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
-
-        if (leftDays < 15) {
-          expiryingFoodList.push(food)
+        } else {
+          // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
+          const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
+          if (leftDays < 15) {
+            this.expiryFood.push(food)
+          }
         }
       })
-      return expiryingFoodList
     }
-  }
+  },
+  emits: ['delete-food']
 }
 </script>

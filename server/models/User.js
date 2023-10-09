@@ -16,28 +16,30 @@ const foodSchema = new Schema(
             type: Date,
             required: true,
         },
-        leftexpiryDays: {
-            type: Number,
-            default: function() {
-                // Calculate the difference in milliseconds between the expiryDate and now
-                const timeDifference = this.expiryDate.getTime() - Date.now();
-
-                // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
-                const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
-
-                return leftDays;
-            }
-        },
-        reminder: {
-            type: Boolean,
-            default: function () {
-                if(this.leftexpiryDays < 15) {
-                    reminder = true
-                }else {
-                    reminder = false
-                }
-            }
-        }
+        // leftexpiryDays: {
+        //     type: Number,
+        //     default: function() {
+        //         const exprDate = new Date(food.expiryDate)
+        //         const timeDifference = exprDate - new Date()
+        //         if (timeDifference < 0) {
+        //             this.expired = true
+        //         } else {
+        //             // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
+        //             const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
+        //             if (leftDays < 15) {
+        //                 this.reminder = true
+        //             }
+        //         }
+        //     }
+        // },
+        // reminder: {
+        //     type: Boolean,
+        //     default: false
+        // },
+        // expired: {
+        //     type: Boolean,
+        //     default: false
+        // }
     }
 );
 

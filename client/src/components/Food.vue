@@ -1,11 +1,10 @@
 <template>
-  <div
-    :class="[food.reminder ? 'reminder' : '', 'food']"
-  >
+  <div :class="[food.reminder ? 'reminder' : '', 'food']">
     <h3>
       {{ food.name }}
-      <i @click="$emit('delete-food', food.id)" class="fas fa-times"></i>
+      <i @click="$emit('delete-food', food._id)" class="fas fa-times"></i>
     </h3>
+    <p>{{ food.description }}</p>
     <p>{{ food.expiryDate }}</p>
   </div>
 </template>

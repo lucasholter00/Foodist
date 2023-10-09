@@ -2,11 +2,12 @@
  <div>
     <AddFood @add-food="addFood"/>
     <div>
-      <ExpiryFoodList :foods="foods"/>
+      <ExpiryFoodList :foods="foods"
+      @delete-food="deleteFood"/>
     </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <card @removeEvent="removeList" class="border" :displayData="food" />
+          <card @removeEvent="deleteFood" class="border" :displayData="food" />
         </b-col>
       </b-row>
   </div>
@@ -37,7 +38,6 @@ export default {
   },
   created() {
     this.getFood()
-    this.sortExpiryingFood()
   },
   methods: {
     addFood(food) {
@@ -61,9 +61,9 @@ export default {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
           if (res.status === 200) {
+            console.log('Result ' + res.data)
             this.foods = res.data
           }
-          this.sortExpiryingFood()
         })
         .catch((error) => {
           if (error.response.status === 404) {
@@ -73,22 +73,15 @@ export default {
           }
         })
     },
-    removeList(event) {
-      const food = this.foods.find((food) => food._id === event)
+    deleteFood(id) {
+      const food = this.foods.find((food) => food._id === id)
+      console.log('food ' + food)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
+          console.log('deleted')
           this.foods = res.data.food
           this.getFood()
         })
-    },
-    sortExpiryingFood() {
-      const shortExpiryDate = []
-      this.foods.forEach(food => {
-        if (food.reminder) {
-          shortExpiryDate.push(food)
-        }
-      })
-      return shortExpiryDate
     }
   }
 }
