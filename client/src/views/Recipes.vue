@@ -7,8 +7,8 @@
     </b-row>
     <b-row class="border">
       <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
-        <div class="card-wrapper">
-          <bcard @showDeleteModal="showDeleteModal" @editEvent="editRecipe" class="border" :displayData="recipe" />
+        <div class="card-wrapper rounded" >
+          <bcard class="shadow-lg rounded-lg border-0" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
         </div>
       </b-col>
     </b-row>
@@ -96,6 +96,8 @@ export default {
 </script>
 
 <style>
-.border {
+
+.rounded {
+  border-radius: 100% !important;
 }
 </style>

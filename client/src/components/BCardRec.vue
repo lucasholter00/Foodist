@@ -26,10 +26,10 @@ export default {
 </script>
 
 <template>
-  <b-card class="mx-auto my-12" max-width="374">
+  <b-card class="mx-auto my-12 custom-rounded-card" rounded max-width="374">
     <!-- Header slot -->
     <template #header>
-      <div class="d-flex justify-content-between align-items-center">
+      <div>
         <div>{{ displayData.name }}</div>
       </div>
     </template>
@@ -57,5 +57,9 @@ export default {
 </template>
 
 <style>
+.custom-rounded-card {
+  border-radius: 100% !important;
+  border: none;
+}
 
 </style>
