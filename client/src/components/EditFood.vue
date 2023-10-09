@@ -65,9 +65,9 @@ export default {
   data() {
     return {
       form: {
-        name: this.editObject.name,
-        description: this.editObject.description,
-        expiryDate: this.editObject.expiryDate
+        name: '',
+        description: '',
+        expiryDate: ''
       }
     }
   },
@@ -81,7 +81,7 @@ export default {
         expiryDate: this.form.expiryDate
       }
 
-      this.$emit('edit-food', this.editObject.name, newFood)
+      this.$emit('edit-food', newFood)
       this.form.name = ''
       this.form.description = ''
       this.form.expiryDate = ''

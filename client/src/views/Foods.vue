@@ -85,8 +85,8 @@ export default {
     toggleEditFood() {
       this.showEditFood = !this.showAddFood
     },
-    editFood(name, food) {
-      Api.put('/v1/users/' + this.currentUser + '/food-items/' + name,
+    editFood(food) {
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + food.name,
         food, { headers: { 'Content-Type': 'application/json' } })
         .then((res) => {
           if (res.status === 200) {
