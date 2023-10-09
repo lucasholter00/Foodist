@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <p>{{ expiryFood }}</p> -->
+    <p>{{ expiryFood }}</p>
     <div :key="food._id" v-for="food in expiryFood">
       <Food
         @delete-food="$emit('delete-food', food._id)"

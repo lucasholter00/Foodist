@@ -78,7 +78,6 @@ export default {
   },
   data() {
     return {
-      putName: '',
       form: {
         name: '',
         ingredients: [{ name: '', quantity: '', unit: '' }],
