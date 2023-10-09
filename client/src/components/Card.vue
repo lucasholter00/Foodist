@@ -115,7 +115,7 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 480px) {
   .delete-button {
     font-size: 16px;
     width: 16px;
