@@ -1,7 +1,7 @@
 <template>
     <div>
-    <p>{{form}}</p>
-    <p>{{editObject}}</p>
+    <p>form: {{form}}</p>
+    <p>editObject: {{editObject}}</p>
       <b-container fluid class="container">
         <b-form  @submit="onSubmit">
           <b-row class = "my-1" align-h="center" align-v="center">
@@ -73,10 +73,15 @@ export default {
       }
     }
   },
+  watch: {
+    editObject(newVal, oldVal) {
+      this.form = JSON.parse(JSON.stringify(newVal))
+      this.form.expiryDate = this.form.expiryDate.split('T')[0]
+    }
+  },
   methods: {
     onSubmit(e) {
       e.preventDefault()
-      const foodName = this.editObject.name
 
       const newFood = {
         name: this.form.name,
@@ -84,12 +89,14 @@ export default {
         expiryDate: this.form.expiryDate
       }
 
-      this.$emit('edit-food', foodName, newFood)
+      this.$emit('edit-food', newFood)
       this.form.name = ''
       this.form.description = ''
       this.form.expiryDate = ''
+      this.$emit('close-edit')
     }
   },
+  emits: ['editEvent'],
   created() {
     this.form = JSON.parse(JSON.stringify(this.editObject))
     this.form.expiryDate = this.form.expiryDate.split('T')[0]
@@ -130,4 +137,8 @@ export default {
     transform: scale(0.98);
   }
 
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
   </style>
