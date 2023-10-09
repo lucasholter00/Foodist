@@ -23,7 +23,7 @@
               <template #button-content>
                 <em>User</em>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item to="/user-settings">Profile</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
@@ -43,7 +43,7 @@
 export default {
   data() {
     return {
-      currentUser: '',
+      currentUser: 'Cornelia',
       editObject: null
     }
   },

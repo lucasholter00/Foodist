@@ -11,6 +11,7 @@ import GroceryLists from './views/GroceryList.vue'
 import EditRecipe from '@/views/EditRecipe.vue'
 import EditGroceryList from '@/views/EditGroceryList'
 import RecommendedRecipes from './views/RecommendedRecipes.vue'
+import UserSettings from "@/views/UserSettings.vue";
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/user-settings',
+      name: 'user-settings',
+      component: UserSettings
     },
     {
       path: '/recipes',
