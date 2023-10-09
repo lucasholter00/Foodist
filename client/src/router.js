@@ -11,7 +11,7 @@ import GroceryLists from './views/GroceryList.vue'
 import EditRecipe from '@/views/EditRecipe.vue'
 import EditGroceryList from '@/views/EditGroceryList'
 import RecommendedRecipes from './views/RecommendedRecipes.vue'
-import UserSettings from "@/views/UserSettings.vue";
+import UserSettings from '@/views/UserSettings.vue'
 
 Vue.use(Router)
 
