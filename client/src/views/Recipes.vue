@@ -6,7 +6,7 @@
     <b-row class="border">
       <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" cols-sm="6" cols-md="4" class="mb-3">
         <div class="card-wrapper">
-          <card @showDeleteModal="showDeleteModal" @editEvent="editRecipe" class="border" :displayData="recipe" />
+          <bcard @showDeleteModal="showDeleteModal" @editEvent="editRecipe" class="border" :displayData="recipe" />
         </div>
       </b-col>
     </b-row>
@@ -24,7 +24,7 @@
 
 <script>
 import { Api } from '@/Api'
-import Card from '@/components/Card.vue'
+import BCard from '@/components/BCard.vue'
 
 export default {
   name: 'recipes',
@@ -34,7 +34,7 @@ export default {
     }
   },
   components: {
-    card: Card
+    bcard: BCard
   },
   data() {
     return {
