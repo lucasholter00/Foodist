@@ -21,7 +21,7 @@
           <template v-else>
             <b-nav-item-dropdown right>
               <template #button-content>
-                <em>User</em>
+                <em>{{ currentUser }}</em>
               </template>
               <b-dropdown-item to="/user-settings">Profile</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
@@ -30,11 +30,8 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
     <!-- Render the content of the current page view -->
     <router-view :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
-
-    <p>{{ currentUser }}</p>
   </div>
 </template>
 
