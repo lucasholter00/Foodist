@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center" align-v="center">
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onSubmit">
@@ -56,7 +56,7 @@
     <p>{{form.name}}</p>
     <p>{{form.groceries}}</p>
     <p>{{currentUser}}</p>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
@@ -85,26 +85,30 @@ export default {
       this.form.name = this.form.name.trim()
       this.errorMessage = ''
       event.preventDefault()
-      console.log(this.currentUser)
-      Api.post('/v1/users/' + this.currentUser + '/grocery-lists', this.form, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => {
-          if (response.status === 201) {
-            this.form.groceries = ['']
-            this.form.name = ''
-            this.message = 'Grocery list added'
+      if (this.formValidation()) {
+        console.log(this.currentUser)
+        Api.post('/v1/users/' + this.currentUser + '/grocery-lists', this.form, {
+          headers: {
+            'Content-Type': 'application/json'
           }
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'User not found'
-          } else {
-            this.errorMessage = 'Server error'
-          }
-        })
+          .then(response => {
+            if (response.status === 201) {
+              this.form.groceries = ['']
+              this.form.name = ''
+              this.message = 'Grocery list added'
+            }
+          })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.errorMessage = 'User not found'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      } else {
+        this.errorMessage = 'Fields can not be left empty'
+      }
     },
     addField(event) {
       event.preventDefault()
@@ -121,6 +125,18 @@ export default {
       event.preventDefault()
       this.form.name = ''
       this.form.groceries = ['']
+    },
+    formValidation() {
+      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.groceries))
+    },
+    isArrayNotEmpty(arr) {
+      if (!Array.isArray(arr)) {
+        return false // Not an array
+      }
+      arr.every((item) => {
+        return !(typeof item !== 'string' || item.trim().length === 0)
+        // Check if item is not an empty string after trimming
+      })
     }
   }
 }
@@ -136,7 +152,7 @@ export default {
     font-size: 14px;
   }
   .grayText{
-    color: gray !important;
+    color: rgb(128, 128, 128) !important;
   }
 
 </style>
