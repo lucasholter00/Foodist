@@ -1,4 +1,5 @@
 <template>
+  <b-container>
  <div>
     <Btn @btn-click="toggleAddFood"
     :text="showAddFood ? 'Close' : 'Add Food'"
@@ -6,9 +7,9 @@
     <div v-show="showAddFood">
       <AddFood @add-food="addFood"/>
     </div>
-      <b-row class="border">
-        <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" class="border" :displayData="food" />
+      <b-row>
+        <b-col v-for="(food,index) in foods" :key="index" cols="3">
+          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
         </b-col>
       </b-row>
    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -21,6 +22,7 @@
      </b-row>
    </b-modal>
   </div>
+  </b-container>
  </template>
 
 <script>
