@@ -4,9 +4,9 @@
       <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({name:'Create grocery list'})" variant="primary">+ Add new grocery list</b-button>
 
     </b-row>
-    <b-row class="border">
-      <b-col class="border" v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
-        <card @showDeleteModal="showDeleteModal" @editEvent="emitEdit" class="border" :displayData="entry"/>
+    <b-row>
+      <b-col v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
+        <card @showDeleteModal="showDeleteModal" @editEvent="emitEdit" :displayData="entry"/>
       </b-col>
     </b-row>
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -14,7 +14,7 @@
         <p>Are you sure you want to delete this grocery list?</p>
       </div>
       <b-row align-h="end" class="justify-content-around">
-        <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+        <b-button class="buttonStyle" @click="confirmDelete">Delete</b-button>
         <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
       </b-row>
     </b-modal>

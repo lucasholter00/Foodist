@@ -5,10 +5,10 @@
         <span class="plus-sign">+</span> Add Recipe
       </b-button>
     </b-row>
-    <b-row class="border">
+    <b-row class="border-0">
       <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
-        <div class="card-wrapper">
-          <bcard @showDeleteModal="showDeleteModal" @editEvent="editRecipe" class="border" :displayData="recipe" />
+        <div class="rounded" >
+          <bcard class="shadow-lg border-0 mb-2" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
         </div>
       </b-col>
     </b-row>
