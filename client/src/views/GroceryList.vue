@@ -1,7 +1,8 @@
 <template>
   <b-container>
-    <b-row align-h="center">
-      <b-button @click="$router.push({name:'Create grocery list'})" variant="primary">Add new list</b-button>
+    <b-row align-h="end">
+      <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({name:'Create grocery list'})" variant="primary">+ Add new grocery list</b-button>
+
     </b-row>
     <b-row class="border">
       <b-col class="border" v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
@@ -90,6 +91,15 @@ export default {
 
 </script>
 <style scoped>
+.buttonStyle {
+  background-color: #80a28b !important;
+  border: #80a28b !important;
+}
+
+.buttonStyle:hover {
+  background-color: #80b095 !important;
+  border: #80b095 !important;
+}
   .border {
     border: 1px solid;
   }

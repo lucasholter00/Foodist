@@ -1,9 +1,17 @@
 <template>
   <b-container>
  <div>
-    <Btn @btn-click="toggleAddFood"
-    :text="showAddFood ? 'Close' : 'Add Food'"
-    :color="showAddFood ? 'red' : 'green' " />
+   <b-row align-h="end">
+     <b-button
+         pill
+         class="mt-2 mb-2 mx-1 buttonStyle"
+         :class="{redText: showAddFood}"
+         @click="toggleAddFood"
+         @keydown.enter.prevent
+     >
+       {{ showAddFood ? 'Close' : '+ Add Food' }}
+     </b-button>
+   </b-row>
     <div v-show="showAddFood">
       <AddFood @add-food="addFood"/>
     </div>
@@ -23,13 +31,12 @@
    </b-modal>
   </div>
   </b-container>
- </template>
+</template>
 
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
-import Btn from '../components/Btn.vue'
 
 export default {
   name: 'Foods',
@@ -38,8 +45,7 @@ export default {
   },
   components: {
     AddFood,
-    BCard,
-    Btn
+    BCard
   },
   data() {
     return {
@@ -120,4 +126,19 @@ export default {
 }
 </script>
 <style scoped>
+.buttonStyle {
+  background-color: #80a28b !important;
+  border: #80a28b !important;
+}
+
+.buttonStyle:hover {
+  background-color: #80b095 !important;
+  border: #80b095 !important;
+}
+  .redText{
+    background-color: red !important;
+  }
+  .redText:hover{
+    background-color: darkred !important;
+  }
 </style>
