@@ -16,7 +16,8 @@ export default {
       errorMessage: '',
       oldPassword: '',
       newerPassword: '',
-      changePasswordModal: false
+      changePasswordModal: false,
+      deleteAccountModal: false
     }
   },
   methods: {
@@ -88,6 +89,12 @@ export default {
       this.oldPassword = ''
       this.newPassword = ''
       this.errorMessage = ''
+    },
+    openDeleteAccountModal() {
+      this.deleteAccountModal = true
+    },
+    closeDeleteAccountModal() {
+      this.deleteAccountModal = false
     }
   },
   created() {
@@ -103,7 +110,7 @@ export default {
         <span style="font-size: 48px;">&#9881;</span> <!-- Unicode for cogwheel icon -->
         <b-card-text class="mt-2">Change Password</b-card-text>
       </b-card>
-      <b-card @click="deleteAccount" class="text-center mx-2 mt-3" style="cursor: pointer; max-width: 18rem;">
+      <b-card @click="openDeleteAccountModal" class="text-center mx-2 mt-3" style="cursor: pointer; max-width: 18rem;">
         <span style="font-size: 48px;">&#128465;</span> <!-- Unicode for trash can icon -->
         <b-card-text class="mt-2">Delete My Account</b-card-text>
       </b-card>
@@ -122,6 +129,15 @@ export default {
         <b-row align-h="end" class="justify-content-around">
           <b-button variant="primary" @click="savePassword">Save Password</b-button>
           <b-button variant="secondary" @click="closeChangePasswordModal">Cancel</b-button>
+        </b-row>
+      </b-modal>
+    </div>
+    <div>
+      <b-modal v-model="deleteAccountModal" title="Delete account?" hide-footer @hidden="closeDeleteAccountModal">
+        <p>Are you sure that you want to delete your account?</p>
+        <b-row align-h="end" class="justify-content-around">
+        <b-button class="buttonStyle" variant="primary" @click="deleteAccount">Delete account!</b-button>
+        <b-button variant="secondary" @click="closeDeleteAccountModal">Cancel</b-button>
         </b-row>
       </b-modal>
     </div>
