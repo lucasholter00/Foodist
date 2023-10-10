@@ -24,10 +24,11 @@ color: red;
 }
 
 .food {
-background: #f4f4f4;
+background: #cff5d4;
 margin: 5px;
 padding: 10px 20px;
 cursor: pointer;
+border: 2px solid mediumseagreen;
 }
 
 .food.reminder {
