@@ -83,6 +83,7 @@ export default {
   methods: {
     onSubmit(event) {
       this.form.name = this.form.name.trim()
+      this.message = ''
       this.errorMessage = ''
       event.preventDefault()
       if (this.formValidation()) {
@@ -122,17 +123,17 @@ export default {
       }
     },
     formValidation() {
-      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.groceries))
+      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.groceries))
     },
     isArrayNotEmpty(arr) {
       if (!Array.isArray(arr)) {
         return false // Not an array
       }
-      arr.every((item) => {
+      return arr.every((item) => {
         return !(typeof item !== 'string' || item.trim().length === 0)
-        // Check if item is not an empty string after trimming
       })
     }
+
   }
 }
 </script>
