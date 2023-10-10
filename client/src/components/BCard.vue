@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template>
-  <b-card class="mx-auto my-12 shadow-lg custom-rounded-card" rounded max-width="374">
+  <b-card class="shadow-lg custom-rounded-card" rounded max-width="374">
     <!-- Header slot -->
     <template #header>
       <div class="d-flex justify-content-between align-items-center">
