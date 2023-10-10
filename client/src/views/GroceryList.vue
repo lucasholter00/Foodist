@@ -14,7 +14,7 @@
         <p>Are you sure you want to delete this grocery list?</p>
       </div>
       <b-row align-h="end" class="justify-content-around">
-        <b-button variant="buttonStyle" @click="confirmDelete">Delete</b-button>
+        <b-button class="buttonStyle" @click="confirmDelete">Delete</b-button>
         <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
       </b-row>
     </b-modal>
