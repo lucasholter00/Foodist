@@ -127,8 +127,8 @@ export default {
           </b-form-group>
         </div>
         <b-row align-h="end" class="justify-content-around">
-          <b-button variant="primary" @click="savePassword">Save Password</b-button>
-          <b-button variant="secondary" @click="closeChangePasswordModal">Cancel</b-button>
+          <b-button pill class="buttonStyle" variant="primary" @click="savePassword">Save Password</b-button>
+          <b-button pill variant="secondary" @click="closeChangePasswordModal">Cancel</b-button>
         </b-row>
       </b-modal>
     </div>
@@ -136,8 +136,8 @@ export default {
       <b-modal v-model="deleteAccountModal" title="Delete account?" hide-footer @hidden="closeDeleteAccountModal">
         <p>Are you sure that you want to delete your account?</p>
         <b-row align-h="end" class="justify-content-around">
-        <b-button class="buttonStyle" variant="primary" @click="deleteAccount">Delete account!</b-button>
-        <b-button variant="secondary" @click="closeDeleteAccountModal">Cancel</b-button>
+        <b-button pill class="buttonStyle" variant="primary" @click="deleteAccount">Delete account!</b-button>
+        <b-button pill variant="secondary" @click="closeDeleteAccountModal">Cancel</b-button>
         </b-row>
       </b-modal>
     </div>
