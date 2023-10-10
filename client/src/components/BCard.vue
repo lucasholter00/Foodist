@@ -88,8 +88,9 @@ export default {
   color: dimgrey !important;
 }
 .custom-rounded-card {
-  border-radius: 5% !important;
+  border-radius: 100px !important;
   border: none;
+  overflow: hidden;
 }
 
 .delete-button {
