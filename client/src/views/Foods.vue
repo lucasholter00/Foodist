@@ -1,8 +1,9 @@
 <template>
  <div>
-    <Btn @btn-click="toggleAddFood"
+    <Btn class="btn"
+    @btn-click="toggleAddFood"
     :text="showAddFood ? 'Close' : 'Add Food'"
-    :color="showAddFood ? 'red' : 'green' " />
+    :color="showAddFood ? 'red' : 'mediumseagreen' " />
     <div v-show="showAddFood">
       <AddFood @add-food="addFood"/>
     </div>
@@ -12,7 +13,9 @@
     </div>
       <b-row class="border">
         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="deleteFood" class="border" :displayData="food" />
+          <BCard @showDeleteModal="showDeleteModal"
+          @removeEvent="deleteFood" class="border"
+          :displayData="food" />
         </b-col>
       </b-row>
    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -129,5 +132,11 @@ export default {
 <style scoped>
   .border {
     border: 1px solid;
+  }
+
+  .btn {
+    padding: auto;
+    margin-top: 20px ;
+    color: aliceblue;
   }
 </style>
