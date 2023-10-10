@@ -72,7 +72,7 @@
             </b-form-input>
           </b-form-group>
           <b-row class="p-4">
-            <b-button @click="navRecipe" class="w-100" type="submit" variant="success">Edit</b-button>
+            <b-button class="w-100" type="submit" variant="success">Edit</b-button>
           </b-row>
           <b-row align-h="center" class="px-4 pb-4">
             <b-button @click="setExistingIngredient" class="w-100" variant="danger">Reset</b-button>
@@ -137,6 +137,7 @@ export default {
             this.errorMessage = 'User not found'
           } else if (response.status === 200) {
             this.message = 'Recipe edited successfully'
+            this.navRecipe()
           }
         })
         .catch((error) => {
