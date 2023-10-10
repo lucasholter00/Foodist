@@ -12,6 +12,11 @@
         </div>
       </b-col>
     </b-row>
+
+    <b-modal v-model="showCardModal" scrollable size="md">
+      <bcardrec :displayData="recipes[2]" />
+    </b-modal>
+
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
       <div>
         <p>Are you sure you want to delete this recipe?</p>
@@ -27,6 +32,7 @@
 <script>
 import { Api } from '@/Api'
 import BCard from '@/components/BCard.vue'
+import BCardrec from '@/components/BCardRec.vue'
 
 export default {
   name: 'recipes',
@@ -36,7 +42,8 @@ export default {
     }
   },
   components: {
-    bcard: BCard
+    bcard: BCard,
+    bcardrec: BCardrec
   },
   data() {
     return {
@@ -44,7 +51,8 @@ export default {
       selectedRecipe: null,
       showModal: false, // To control the visibility of the modal
       selectedItem: null,
-      errorMessage: ''
+      errorMessage: '',
+      showCardModal: true
     }
   },
   methods: {
@@ -73,6 +81,9 @@ export default {
       // Set the selected item and show the modal
       this.selectedItem = item
       this.showModal = true
+    },
+    cardModal() {
+      this.showCardModal = true
     },
     confirmDelete() {
       this.removeList(this.selectedItem)
