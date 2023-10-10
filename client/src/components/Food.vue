@@ -5,7 +5,7 @@
       <i @click="$emit('delete-food', food._id)" class="fas fa-times"></i>
     </h3>
     <p>{{ food.description }}</p>
-    <p>{{ food.expiryDate }}</p>
+    <p>{{ expiryDate() }}</p>
   </div>
 </template>
 
@@ -14,6 +14,13 @@ export default {
   name: 'Food',
   props: {
     food: Object
+  },
+  methods: {
+    expiryDate() {
+      const date = new Date(this.food.expiryDate)
+      const options = { day: 'numeric', month: 'short', year: 'numeric' }
+      return 'Expiry date: ' + date.toLocaleDateString(undefined, options)
+    }
   }
 }
 </script>
