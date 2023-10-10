@@ -3,7 +3,7 @@
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
     <b-row align-h="center" align-v="center">
-      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer">
+      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onsubmit">
           <h2 class="p-3">Create a Recipe</h2>
           <b-form-group
@@ -71,7 +71,6 @@
             </b-form-input>
           </b-form-group>
             <!-- Button to Add Ingredients to recipe -->
-            <b-button type="button" variant="primary" @click="addIngredient">Add Ingredient</b-button>
             <!-- Submit recipe Button -->
           <b-row class="p-4">
             <b-button class="w-100" type="submit" variant="success">Create</b-button>
