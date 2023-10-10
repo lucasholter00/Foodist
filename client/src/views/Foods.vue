@@ -19,20 +19,6 @@
        <FoodList :foods="foods"
        @delete-food="deleteFood"/>
      </div>
-      <b-row>
-        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
-        </b-col>
-      </b-row>
-   <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
-     <div>
-       <p>Are you sure you want to delete this food item?</p>
-     </div>
-     <b-row align-h="end" class="justify-content-around">
-       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
-       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
-     </b-row>
-   </b-modal>
   </div>
   </b-container>
 </template>
@@ -40,7 +26,6 @@
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
-import BCard from '../components/BCard.vue'
 import FoodList from '../components/FoodList.vue'
 
 export default {
@@ -50,7 +35,6 @@ export default {
   },
   components: {
     AddFood,
-    BCard,
     FoodList
   },
   data() {

@@ -40,10 +40,12 @@ border: 2px solid mediumseagreen;
 
 .food.reminder {
 border-left: 10px solid green;
+border-right: 10px solid green;
 }
 
 .food.expired {
-  border-left: 10px solid red;
+border-left: 10px solid red;
+border-right: 10px solid red;
 }
 
 .food h3 {
