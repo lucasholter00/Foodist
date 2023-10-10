@@ -124,5 +124,9 @@ body{
 .removeButton:hover{
   color: #9fa19f !important;
 }
-
+.custom-rounded-card {
+  border-radius: 20px !important;
+  border: none;
+  overflow: hidden;
+}
 </style>
