@@ -87,11 +87,6 @@ export default {
 .editButton:hover {
   color: dimgrey !important;
 }
-.custom-rounded-card {
-  border-radius: 20px !important;
-  border: none;
-  overflow: hidden;
-}
 
 .delete-button {
   background-color: transparent !important;

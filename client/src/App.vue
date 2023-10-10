@@ -133,5 +133,10 @@ body{
   background-color: #80b095 !important;
   border: #80b095 !important;
 }
+.custom-rounded-card {
+  border-radius: 20px !important;
+  border: none;
+  overflow: hidden;
+}
 
 </style>

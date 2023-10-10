@@ -57,9 +57,5 @@ export default {
 </template>
 
 <style>
-.custom-rounded-card {
-  border-radius: 5% !important;
-  border: none;
-}
 
 </style>
