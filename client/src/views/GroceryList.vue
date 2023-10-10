@@ -91,15 +91,6 @@ export default {
 
 </script>
 <style scoped>
-.buttonStyle {
-  background-color: #80a28b !important;
-  border: #80a28b !important;
-}
-
-.buttonStyle:hover {
-  background-color: #80b095 !important;
-  border: #80b095 !important;
-}
   .border {
     border: 1px solid;
   }
