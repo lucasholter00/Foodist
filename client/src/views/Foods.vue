@@ -1,41 +1,41 @@
 <template>
- <div>
-    <Btn class="btn"
-    @btn-click="toggleAddFood"
-    :text="showAddFood ? 'Close' : 'Add Food'"
-    :color="showAddFood ? 'red' : 'mediumseagreen' " />
-    <div v-show="showAddFood">
-      <AddFood @add-food="addFood"/>
-    </div>
-    <div class="Expiry">
-      <ExpiryFoodList :foods="foods"
-      @delete-food="deleteFood"/>
-    </div>
-      <b-row class="border">
-        <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-          <BCard @showDeleteModal="showDeleteModal"
-          @removeEvent="deleteFood" class="border"
-          :displayData="food" />
-        </b-col>
-      </b-row>
-   <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
-     <div>
-       <p>Are you sure you want to delete this food item?</p>
+  <div>
+     <Btn class="btn"
+     @btn-click="toggleAddFood"
+     :text="showAddFood ? 'Close' : 'Add Food'"
+     :color="showAddFood ? 'red' : 'mediumseagreen' " />
+     <div v-show="showAddFood">
+       <AddFood @add-food="addFood"/>
      </div>
-     <b-row align-h="end" class="justify-content-around">
-       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
-       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
-     </b-row>
-   </b-modal>
-  </div>
- </template>
+     <div class="Expiry">
+       <FoodList :foods="foods"
+       @delete-food="deleteFood"/>
+     </div>
+       <b-row class="border">
+         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
+           <BCard @showDeleteModal="showDeleteModal"
+           @removeEvent="deleteFood" class="border"
+           :displayData="food" />
+         </b-col>
+       </b-row>
+    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+      <div>
+        <p>Are you sure you want to delete this food item?</p>
+      </div>
+      <b-row align-h="end" class="justify-content-around">
+        <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+        <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+      </b-row>
+    </b-modal>
+   </div>
+  </template>
 
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
 import Btn from '../components/Btn.vue'
-import ExpiryFoodList from '../components/ExpiryFoodList.vue'
+import FoodList from '../components/FoodList.vue'
 
 export default {
   name: 'Foods',
@@ -46,7 +46,7 @@ export default {
     AddFood,
     BCard,
     Btn,
-    ExpiryFoodList
+    FoodList
   },
   data() {
     return {
@@ -85,7 +85,9 @@ export default {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
           if (res.status === 200) {
-            this.foods = res.data
+            console.log('Result ' + res.data)
+
+            this.foods = this.checkExpiryDates(res.data)
           }
         })
         .catch((error) => {
@@ -103,6 +105,23 @@ export default {
           this.foods = res.data.food
           this.getFood()
         })
+    },
+    checkExpiryDates(foods) {
+      foods.forEach(food => {
+        const exprDate = new Date(food.expiryDate)
+        const timeDifference = exprDate - new Date()
+        if (timeDifference < 0) {
+          food.expired = true
+        } else {
+          // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
+          const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
+          if (leftDays < 15) {
+            food.reminder = true
+          }
+        }
+      }
+      )
+      return foods
     },
     showDeleteModal(item) {
       // Set the selected item and show the modal

@@ -16,30 +16,14 @@ const foodSchema = new Schema(
             type: Date,
             required: true,
         },
-        // leftexpiryDays: {
-        //     type: Number,
-        //     default: function() {
-        //         const exprDate = new Date(food.expiryDate)
-        //         const timeDifference = exprDate - new Date()
-        //         if (timeDifference < 0) {
-        //             this.expired = true
-        //         } else {
-        //             // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
-        //             const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
-        //             if (leftDays < 15) {
-        //                 this.reminder = true
-        //             }
-        //         }
-        //     }
-        // },
-        // reminder: {
-        //     type: Boolean,
-        //     default: false
-        // },
-        // expired: {
-        //     type: Boolean,
-        //     default: false
-        // }
+        reminder: {
+            type: Boolean,
+            default: false
+        },
+        expired: {
+            type: Boolean,
+            default: false
+        }
     }
 );
 

@@ -1,5 +1,5 @@
 <template>
-  <div :class="[food.reminder ? 'reminder' : '', 'food']">
+  <div :class="[food.reminder ? 'reminder' : '', 'food', food.expired ? 'expired' : '']">
     <h3>
       {{ food.name }}
       <i @click="$emit('delete-food', food._id)" class="fas fa-times"></i>
@@ -31,7 +31,11 @@ cursor: pointer;
 }
 
 .food.reminder {
-border-left: 5px solid green;
+border-left: 10px solid green;
+}
+
+.food.expired {
+  border-left: 10px solid red;
 }
 
 .food h3 {
