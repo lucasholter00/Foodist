@@ -14,7 +14,7 @@
         <p>Are you sure you want to delete this grocery list?</p>
       </div>
       <b-row align-h="end" class="justify-content-around">
-        <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+        <b-button variant="buttonStyle" @click="confirmDelete">Delete</b-button>
         <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
       </b-row>
     </b-modal>
@@ -91,13 +91,7 @@ export default {
 
 </script>
 <style scoped>
-.buttonStyle {
-  background-color: #80a28b !important;
-  border: #80a28b !important;
-}
-
-.buttonStyle:hover {
-  background-color: #80b095 !important;
-  border: #80b095 !important;
-}
+  .border {
+    border: 1px solid;
+  }
 </style>

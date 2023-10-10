@@ -126,19 +126,10 @@ export default {
 }
 </script>
 <style scoped>
-.buttonStyle {
-  background-color: #80a28b !important;
-  border: #80a28b !important;
-}
-
-.buttonStyle:hover {
-  background-color: #80b095 !important;
-  border: #80b095 !important;
-}
   .redText{
-    background-color: red !important;
+    background-color: #a82a2a !important;
   }
   .redText:hover{
-    background-color: darkred !important;
+    background-color: #833131 !important;
   }
 </style>
