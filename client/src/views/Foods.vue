@@ -1,40 +1,46 @@
 <template>
-  <div>
-     <Btn class="btn"
-     @btn-click="toggleAddFood"
-     :text="showAddFood ? 'Close' : 'Add Food'"
-     :color="showAddFood ? 'red' : 'mediumseagreen' " />
-     <div v-show="showAddFood">
-       <AddFood @add-food="addFood"/>
-     </div>
-     <div class="Expiry">
+  <b-container>
+ <div>
+   <b-row align-h="end">
+     <b-button
+         pill
+         class="mt-2 mb-2 mx-1 buttonStyle"
+         :class="{redText: showAddFood}"
+         @click="toggleAddFood"
+         @keydown.enter.prevent
+     >
+       {{ showAddFood ? 'Close' : '+ Add Food' }}
+     </b-button>
+   </b-row>
+    <div v-show="showAddFood">
+      <AddFood @add-food="addFood"/>
+    </div>
+    <div class="Expiry">
        <FoodList :foods="foods"
        @delete-food="deleteFood"/>
      </div>
-       <b-row class="border">
-         <b-col class="border" v-for="(food,index) in foods" :key="index" cols="3">
-           <BCard @showDeleteModal="showDeleteModal"
-           @removeEvent="deleteFood" class="border"
-           :displayData="food" />
-         </b-col>
-       </b-row>
-    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
-      <div>
-        <p>Are you sure you want to delete this food item?</p>
-      </div>
-      <b-row align-h="end" class="justify-content-around">
-        <b-button variant="danger" @click="confirmDelete">Delete</b-button>
-        <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+      <b-row>
+        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
+          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
+        </b-col>
       </b-row>
-    </b-modal>
-   </div>
-  </template>
+   <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+     <div>
+       <p>Are you sure you want to delete this food item?</p>
+     </div>
+     <b-row align-h="end" class="justify-content-around">
+       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+     </b-row>
+   </b-modal>
+  </div>
+  </b-container>
+</template>
 
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
-import Btn from '../components/Btn.vue'
 import FoodList from '../components/FoodList.vue'
 
 export default {
@@ -45,7 +51,6 @@ export default {
   components: {
     AddFood,
     BCard,
-    Btn,
     FoodList
   },
   data() {
@@ -146,13 +151,11 @@ export default {
 }
 </script>
 <style scoped>
-  .border {
-    border: 1px solid;
+  .redText{
+    background-color: #a82a2a !important;
+  }
+  .redText:hover{
+    background-color: #833131 !important;
   }
 
-  .btn {
-    padding: auto;
-    margin-top: 20px ;
-    color: aliceblue;
-  }
 </style>

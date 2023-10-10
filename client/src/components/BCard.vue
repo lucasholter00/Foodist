@@ -34,14 +34,14 @@ export default {
 </script>
 
 <template>
-  <b-card class="mx-auto my-12" max-width="374">
+  <b-card class="shadow-lg custom-rounded-card" rounded max-width="374">
     <!-- Header slot -->
     <template #header>
       <div class="d-flex justify-content-between align-items-center">
         <div>
           <b-button class="editButton" variant="link" @click="emitEdit">Edit</b-button>
         </div>
-        <div>{{ displayData.name }}</div>
+        <p>{{ displayData.name }}</p>
         <div>
           <b-button
               class="delete-button"
@@ -57,7 +57,7 @@ export default {
       <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
         <!-- Array slot -->
         <b-col v-if="Array.isArray(field)">
-          <b-list-group v-for="(entry, index) in field" :key="index" >
+          <b-list-group class="list-group-flush custom-list-item" v-for="(entry, index) in field" :key="index" >
             <b-list-group-item v-if="typeof entry ==='object'">
               <p v-if="name === 'ingredients'"><strong>{{ entry.name }}:</strong> {{ entry.quantity }} {{ entry.unit }}</p>
             </b-list-group-item>
