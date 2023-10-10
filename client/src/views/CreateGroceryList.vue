@@ -121,11 +121,6 @@ export default {
         this.errorMessage = "Can't remove more groceries"
       }
     },
-    resetForm(event) {
-      event.preventDefault()
-      this.form.name = ''
-      this.form.groceries = ['']
-    },
     formValidation() {
       return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.groceries))
     },
