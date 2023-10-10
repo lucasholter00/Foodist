@@ -110,5 +110,18 @@ export default {
 body{
   background-color: #def7dc !important;
 }
+.roundContainer{
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+.grayText{
+  color: grey !important;
+}
+.removeButton{
+  color: #acadac !important;
+}
+.removeButton:hover{
+  color: #9fa19f !important;
+}
 
 </style>

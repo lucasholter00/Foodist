@@ -4,6 +4,9 @@
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onSubmit">
           <h2 class="p-3">Edit Recipe</h2>
+          <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+          <p class="message" v-if="message">{{message}}</p>
+
           <b-form-group
               class="p-3"
               id="RecipeName"
@@ -108,7 +111,11 @@ export default {
       this.form.ingredients.push({ name: '', quantity: '', unit: '' })
     },
     removeIngredient(index) {
-      this.form.ingredients.splice(index, 1)
+      if (this.form.ingredients.length > 1) {
+        this.form.ingredients.splice(index, 1)
+      } else {
+        this.errorMessage = "Can't remove more ingredients"
+      }
     },
     setExistingIngredient() {
       this.form = JSON.parse(JSON.stringify(this.editObject))
