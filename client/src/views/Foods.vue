@@ -16,7 +16,7 @@
       <AddFood @add-food="addFood"/>
     </div>
       <b-row>
-        <b-col v-for="(food,index) in foods" :key="index" cols="3">
+        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
           <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
         </b-col>
       </b-row>
