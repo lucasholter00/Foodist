@@ -28,6 +28,9 @@ export default {
     emitEdit() {
       const eventData = this.displayData._id
       this.$emit('editEvent', eventData)
+    },
+    emitModal() {
+      this.$emit('modalEvent')
     }
   }
 }
@@ -54,26 +57,28 @@ export default {
       </div>
     </template>
     <template #default>
-      <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
-        <!-- Array slot -->
-        <b-col v-if="Array.isArray(field)">
-          <b-list-group class="list-group-flush custom-list-item" v-for="(entry, index) in field" :key="index" >
-            <b-list-group-item v-if="typeof entry ==='object'">
-              <p v-if="name === 'ingredients'"><strong>{{ entry.name }}:</strong> {{ entry.quantity }} {{ entry.unit }}</p>
-            </b-list-group-item>
-            <!-- -->
-            <b-list-group-item v-else>
-              <p>{{entry}}</p>
-            </b-list-group-item>
+      <div @click="emitModal">
+        <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
+          <!-- Array slot -->
+          <b-col v-if="Array.isArray(field)">
+            <b-list-group class="list-group-flush custom-list-item" v-for="(entry, index) in field" :key="index" >
+              <b-list-group-item v-if="typeof entry ==='object'">
+                <p v-if="name === 'ingredients'"><strong>{{ entry.name }}:</strong> {{ entry.quantity }} {{ entry.unit }}</p>
+              </b-list-group-item>
+              <!-- -->
+              <b-list-group-item v-else>
+                <p>{{entry}}</p>
+              </b-list-group-item>
 
-          </b-list-group>
+            </b-list-group>
 
-        </b-col>
-        <!-- Non array slot -->
-        <b-col v-else>
-          <b-card-text v-if="name !== 'name' && name !=='_id'">{{formatField(name, field)}}</b-card-text>
-        </b-col>
-      </b-row>
+          </b-col>
+          <!-- Non array slot -->
+          <b-col v-else>
+            <b-card-text v-if="name !== 'name' && name !=='_id'">{{formatField(name, field)}}</b-card-text>
+          </b-col>
+        </b-row>
+      </div>
     </template>
   </b-card>
 </template>
@@ -86,11 +91,6 @@ export default {
 
 .editButton:hover {
   color: dimgrey !important;
-}
-.custom-rounded-card {
-  border-radius: 20px !important;
-  border: none;
-  overflow: hidden;
 }
 
 .delete-button {

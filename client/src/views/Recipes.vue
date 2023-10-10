@@ -7,14 +7,14 @@
     </b-row>
     <b-row class="border-0">
       <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
-        <div class="rounded" >
-          <bcard class="shadow-lg border-0 mb-2" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
+        <div class="rounded">
+          <bcard class="shadow-lg border-0 mb-2" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
         </div>
       </b-col>
     </b-row>
 
-    <b-modal v-model="showCardModal" scrollable size="md">
-      <bcardrec :displayData="recipes[2]" />
+    <b-modal hide-header v-model="showCardModal" scrollable size="md">
+      <bcardrec :displayData="recipes[cardDisplay]" />
     </b-modal>
 
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -52,7 +52,8 @@ export default {
       showModal: false, // To control the visibility of the modal
       selectedItem: null,
       errorMessage: '',
-      showCardModal: true
+      showCardModal: false,
+      cardDisplay: -1
     }
   },
   methods: {
@@ -82,8 +83,9 @@ export default {
       this.selectedItem = item
       this.showModal = true
     },
-    cardModal() {
+    cardModal(index) {
       this.showCardModal = true
+      this.cardDisplay = index
     },
     confirmDelete() {
       this.removeList(this.selectedItem)
