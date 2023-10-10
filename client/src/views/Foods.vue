@@ -7,7 +7,7 @@
     <div v-show="showAddFood">
       <AddFood @add-food="addFood"/>
     </div>
-    <div>
+    <div class="Expiry">
       <ExpiryFoodList :foods="foods"
       @delete-food="deleteFood"/>
     </div>
@@ -85,7 +85,6 @@ export default {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
           if (res.status === 200) {
-            console.log('Result ' + res.data)
             this.foods = res.data
           }
         })
@@ -99,10 +98,8 @@ export default {
     },
     deleteFood(id) {
       const food = this.foods.find((food) => food._id === id)
-      console.log('food ' + food)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
-          console.log('deleted')
           this.foods = res.data.food
           this.getFood()
         })

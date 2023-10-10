@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{ expiryFood }}</p>
+    <!-- <p>{{ expiryFood }}</p> -->
     <div :key="food._id" v-for="food in expiryFood">
       <Food
         @delete-food="$emit('delete-food', food._id)"
@@ -25,12 +25,26 @@ export default {
       expiryFood: []
     }
   },
+  watch: {
+    foods(newArray, oldArray) {
+      console.log('new array ' + newArray)
+      console.log('old array ' + oldArray)
+      for (let i = 0; i < oldArray.length; i++) {
+        if (newArray[i] === oldArray[i]) {
+          return
+        } else {
+          newArray.splice(i, 0, oldArray[i])
+          // newArray[i].push(oldArray[i])
+        }
+      }
+    }
+  },
   created() {
     this.sortExpiryingFood()
   },
   methods: {
     sortExpiryingFood() {
-      const expired = {}
+      const expired = []
       this.foods.forEach(food => {
         const exprDate = new Date(food.expiryDate)
         const timeDifference = exprDate - new Date()
