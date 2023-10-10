@@ -32,7 +32,7 @@ export default {
   components: {
     BCard
   },
-  emits: ['delete-food', 'showDeleteModal']
+  emits: ['showDeleteModal', 'editEvent']
 }
 </script>
 <style scope>
