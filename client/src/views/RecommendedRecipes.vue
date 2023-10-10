@@ -1,8 +1,10 @@
 <template>
   <div>
-  <b-col v-for="(recipe, index) in sortedRecipes" :key="index">
-    <BCardRec class="border" :foodItems="foodItems" :displayData="recipe" />
+    <b-row class="mt-2">
+  <b-col v-for="(recipe, index) in sortedRecipes" :key="index" cols="3" class="border-0">
+    <BCardRec class="border-0" :foodItems="foodItems" :displayData="recipe" />
   </b-col>
+    </b-row>
   </div>
 </template>
 

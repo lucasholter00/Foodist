@@ -26,7 +26,7 @@ export default {
 </script>
 
 <template>
-  <b-card class="mx-auto my-12 custom-rounded-card" rounded max-width="374">
+  <b-card class="mx-auto mx-2 my-12 custom-rounded-card shadow-lg" rounded max-width="374">
     <!-- Header slot -->
     <template #header>
       <div>
@@ -58,7 +58,7 @@ export default {
 
 <style>
 .custom-rounded-card {
-  border-radius: 100% !important;
+  border-radius: 5% !important;
   border: none;
 }
 

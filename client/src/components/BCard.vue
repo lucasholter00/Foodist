@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template>
-  <b-card class="mx-auto my-12 shadow-lg" max-width="374">
+  <b-card class="mx-auto my-12 shadow-lg custom-rounded-card" rounded max-width="374">
     <!-- Header slot -->
     <template #header>
       <div class="d-flex justify-content-between align-items-center">
@@ -87,12 +87,9 @@ export default {
 .editButton:hover {
   color: dimgrey !important;
 }
-.custom-list-item:nth-child(odd) {
-  background-color: lightgreen !important; /* Apply light green background to odd list items */
-}
-
-.custom-list-item:nth-child(even) {
-  background-color: lightgray; /* Apply light gray background to even list items */
+.custom-rounded-card {
+  border-radius: 5% !important;
+  border: none;
 }
 
 .delete-button {
