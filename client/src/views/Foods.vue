@@ -17,7 +17,9 @@
     </div>
     <div class="Expiry">
        <FoodList :foods="foods"
-       @delete-food="deleteFood"/>
+       @showDeleteModal="showDeleteModal"
+       @editEvent="editFood"
+       />
      </div>
   </div>
   </b-container>

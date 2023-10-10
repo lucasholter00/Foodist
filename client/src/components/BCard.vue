@@ -41,7 +41,7 @@ export default {
         <div>
           <b-button class="editButton" variant="link" @click="emitEdit">Edit</b-button>
         </div>
-        <p>{{ displayData.name }}</p>
+        <h3>{{ displayData.name }}</h3>
         <div>
           <b-button
               class="delete-button"
