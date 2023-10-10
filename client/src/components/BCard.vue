@@ -88,7 +88,7 @@ export default {
   color: dimgrey !important;
 }
 .custom-rounded-card {
-  border-radius: 100px !important;
+  border-radius: 20px !important;
   border: none;
   overflow: hidden;
 }
