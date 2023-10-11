@@ -21,6 +21,15 @@
        @editEvent="editFood"
        />
      </div>
+     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+     <div>
+       <p>Are you sure you want to delete this food item?</p>
+     </div>
+     <b-row align-h="end" class="justify-content-around">
+       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+     </b-row>
+   </b-modal>
   </div>
   </b-container>
 </template>
@@ -42,6 +51,7 @@ export default {
   data() {
     return {
       foods: [],
+      selectedItem: null,
       showModal: false,
       showAddFood: false,
       errorMessage: '',
@@ -89,6 +99,9 @@ export default {
           }
         })
     },
+    editFood(id) {
+
+    },
     deleteFood(id) {
       const food = this.foods.find((food) => food._id === id)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
@@ -120,7 +133,7 @@ export default {
       this.showModal = true
     },
     confirmDelete() {
-      this.removeList(this.selectedItem)
+      this.deleteFood(this.selectedItem)
       this.hideModal()
     },
     cancelDelete() {

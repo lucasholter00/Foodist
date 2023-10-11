@@ -43,14 +43,13 @@ export default {
         </div>
         <p>{{ displayData.name }}</p>
         <div>
-          <span>&#128465;
           <b-button
               class="delete-button"
               alt="Remove"
               @click="showDeleteModal(displayData._id)"
           >
           </b-button>
-        </span>
+          <span>&#128465;</span>
         </div>
       </div>
     </template>
