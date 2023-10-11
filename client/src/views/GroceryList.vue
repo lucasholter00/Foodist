@@ -10,8 +10,8 @@
       </b-col>
     </b-row>
 
-    <b-modal hide-header hide-footer v-model="showCardModal" scrollable size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
-      <bcardrec :displayData="groceryLists[cardDisplay]" />
+    <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+      <bcardrec @closeCardModal="closeCardModal" :displayData="groceryLists[cardDisplay]" />
     </b-modal>
 
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -101,7 +101,11 @@ export default {
       // Hide the modal and clear the selected item
       this.showModal = false
       this.selectedItem = null
+    },
+    closeCardModal() {
+      this.showCardModal = false
     }
+
   }
 
 }
