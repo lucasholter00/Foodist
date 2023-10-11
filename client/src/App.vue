@@ -129,4 +129,7 @@ body{
   border: none;
   overflow: hidden;
 }
+.highlightCard:hover{
+  transform: scale(1.01) !important;
+}
 </style>
