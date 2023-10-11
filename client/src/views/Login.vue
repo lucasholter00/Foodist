@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center">
       <b-col cols="10" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onSubmit">
@@ -48,7 +48,7 @@
         </b-form>
       </b-col>
     </b-row>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
@@ -70,40 +70,52 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      this.errorMessage = ''
       event.preventDefault()
-      Api.post('/v1/users/authentication', this.form, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => {
-          if (response.status === 200) {
-            this.currentUser = this.form.userName
-            this.emitCurrentUser()
-            this.$router.push({ name: 'home' })
+      if (this.formValidation()) {
+        this.errorMessage = ''
+        Api.post('/v1/users/authentication', this.form, {
+          headers: {
+            'Content-Type': 'application/json'
           }
         })
-        .catch((error) => {
-          if ((error.response.status === 404) || (error.response.status === 401)) {
-            this.errorMessage = 'Username or Password incorrect'
-          } else {
-            this.errorMessage = 'Server error'
-          }
-        })
+          .then(response => {
+            if (response.status === 200) {
+              this.currentUser = this.form.userName
+              this.emitCurrentUser()
+              this.$router.push({ name: 'home' })
+            }
+          })
+          .catch((error) => {
+            if ((error.response.status === 404) || (error.response.status === 401)) {
+              this.errorMessage = 'Username or Password incorrect'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      } else {
+        this.errorMessage = 'Username or password can not be empty'
+      }
     },
     emitCurrentUser() {
       const eventData = this.currentUser
       console.log('Emitting currentUserEvent with data:', eventData)
       this.$emit('currentUserEvent', eventData)
+    },
+    formValidation() {
+      if (this.form.userName.trim().length === 0 || this.form.password.trim().length === 0) {
+        this.errorMessage = 'Username or password can not be empty'
+        return false
+      } else {
+        return true
+      }
     }
   }
 }
 </script>
 
 <style>
-  .errorMessage{
-    color: red;
-    font-size: 14px;
-  }
+.errorMessage{
+  color: red;
+  font-size: 14px;
+}
 </style>

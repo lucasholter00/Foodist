@@ -64,7 +64,7 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault()
-      if (this.validateExpiryDate()) {
+      if (this.validateExpiryDate() && this.validateForm()) {
         const newFood = {
           name: this.form.foodName,
           description: this.form.foodDescription,
@@ -76,12 +76,22 @@ export default {
         this.form.foodDescription = ''
         this.form.expiryDate = ''
       } else {
-        alert('Not a valid expiry date, enter a date that is today or further in the future')
+        if (!this.validateForm() && this.validateExpiryDate()) {
+          alert('No fields can be left empty')
+        } else if (!this.validateExpiryDate() && this.validateForm()) {
+          alert('Not a valid expiry date, enter a date that is today or further in the future')
+        } else {
+          alert('No fields can be left empty and the expiry date is invalid')
+        }
       }
     },
     validateExpiryDate() {
       const today = new Date().toISOString().split('T')[0] // Get today's date in 'yyyy-mm-dd' format
       return this.form.expiryDate >= today // Compare the expiryDate with today
+    },
+    validateForm() {
+      // will validate only name and description, since there is a separate validator for expiry date
+      return !(this.form.foodName.trim().length === 0 || this.form.foodDescription.trim().length === 0)
     }
   }
 }

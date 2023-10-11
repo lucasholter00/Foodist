@@ -84,7 +84,7 @@ export default {
       })
     },
     savePassword() {
-      if (this.newInputPassword !== '') {
+      if (this.inputValidator()) {
         this.form.password = this.oldPassword
         this.errorMessage = ''
         Api.post('/v1/users/authentication', this.form, {
@@ -106,7 +106,7 @@ export default {
             }
           })
       } else {
-        this.errorMessage = 'New password can not be empty!'
+        this.errorMessage = 'Password fields can not be empty!'
       }
     },
     openChangePasswordModal() {
@@ -124,6 +124,9 @@ export default {
     },
     closeDeleteAccountModal() {
       this.deleteAccountModal = false
+    },
+    inputValidator() {
+      return !(this.oldPassword.trim().length === 0 || this.newerPassword.trim().length === 0)
     }
   },
   created() {
