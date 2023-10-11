@@ -1,16 +1,19 @@
 <template>
   <div>
     <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
     </b-jumbotron>
+    <b-row>
+        <b-col cols="12" md="4">
+          <ExpiredFood @emitClose="emitClose"/>
+        </b-col>
+      </b-row>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+import ExpiredFood from '../components/ExpiredFood.vue'
 
 export default {
   name: 'home',
@@ -29,7 +32,8 @@ export default {
           this.message = error
         })
     }
-  }
+  },
+  components: { ExpiredFood }
 }
 
 </script>
