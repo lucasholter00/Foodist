@@ -53,9 +53,6 @@
         </b-form>
       </b-col>
     </b-row>
-    <p>{{form.name}}</p>
-    <p>{{form.groceries}}</p>
-    <p>{{currentUser}}</p>
   </b-container>
 </template>
 
