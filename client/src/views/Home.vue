@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
+  <div class="jumbotron">
+    <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
     </b-jumbotron>
   </div>
 </template>
@@ -33,3 +30,11 @@ export default {
 }
 
 </script>
+<style>
+.jumbotron {
+  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../assets/Banner.jpg");
+  background-size: cover;
+  color: mintcream
+
+}
+</style>
