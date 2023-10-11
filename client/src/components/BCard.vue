@@ -5,7 +5,16 @@ export default {
     displayData: []
   },
   data() {
-    return {}
+    return {
+      isOverflowing: Boolean
+    }
+  },
+  mounted() {
+    const card = this.$refs.card
+    console.log(card.scrollHeight)
+    console.log(card.clientHeight)
+    const isOverflowing = card.scrollHeight > card.clientHeight
+    this.isOverflowing = isOverflowing
   },
   methods: {
     capitalizeFirst(toBeCapitalized) {
@@ -37,7 +46,7 @@ export default {
 </script>
 
 <template>
-  <b-card class="shadow-lg custom-rounded-card" rounded max-width="374">
+  <b-card class="shadow-lg custom-rounded-card fixedHeight" rounded max-width="374" ref="card">
     <!-- Header slot -->
     <template #header>
       <div class="d-flex justify-content-between align-items-center">
@@ -58,6 +67,10 @@ export default {
     </template>
     <template #default>
       <div @click="emitModal">
+        <b-row align-h="center">
+          <p class="expandText" v-if="isOverflowing">Click for more</p>
+        </b-row>
+
         <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
           <!-- Array slot -->
           <b-col v-if="Array.isArray(field)">
@@ -69,8 +82,7 @@ export default {
               <b-list-group-item v-else>
                 <p>{{entry}}</p>
               </b-list-group-item>
-
-            </b-list-group>
+          </b-list-group>
 
         </b-col>
         <!-- Non array slot -->

@@ -6,7 +6,7 @@
     </b-row>
     <b-row>
       <b-col v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
-        <card class="highlightCard" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="emitEdit" :displayData="entry"/>
+        <card @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @editEvent="emitEdit" :displayData="entry" class="mb-2 highlightCard"/>
       </b-col>
     </b-row>
 
@@ -105,7 +105,6 @@ export default {
     closeCardModal() {
       this.showCardModal = false
     }
-
   }
 
 }

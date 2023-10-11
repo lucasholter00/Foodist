@@ -138,6 +138,17 @@ body{
   border: none;
   overflow: hidden;
 }
+.fixedHeight {
+  height: 300px !important;
+}
+.expandText {
+  color: #7c8f7f !important;
+  opacity: 0.9;
+  text-decoration: underline !important;
+}
+.expandText:hover {
+  cursor: pointer !important;
+}
 
 .custom-rounded-card {
   border-radius: 20px !important;
