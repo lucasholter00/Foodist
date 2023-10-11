@@ -29,8 +29,7 @@ export default {
           this.message = error
         })
     }
-  },
-  components: { }
+  }
 }
 
 </script>

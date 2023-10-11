@@ -27,16 +27,6 @@
        @modalEvent="cardModal"
        />
      </div>
-      <!-- <b-row>
-        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard class="highlightCard"
-           @showDeleteModal="showDeleteModal"
-            @modalEvent="cardModal(index)"
-            @removeEvent="removeFood"
-            @editEvent="handleEditFood" :displayData="food" />
-        </b-col>
-      </b-row> -->
-
       <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
         <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
       </b-modal>
