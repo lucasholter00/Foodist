@@ -1,35 +1,44 @@
 <template>
   <b-container>
- <div>
-   <b-row align-h="end">
-     <b-button
-         pill
-         class="mt-2 mb-2 mx-1 buttonStyle"
-         :class="{redText: showAddFood}"
-         @click="toggleAddFood"
-         @keydown.enter.prevent
-     >
-       {{ showAddFood ? 'Close' : '+ Add Food' }}
-     </b-button>
-   </b-row>
-    <div v-show="showAddFood">
-      <AddFood @add-food="addFood"/>
-    </div>
+    <div>
+      <b-row align-h="end">
+        <b-button
+             pill
+             class="mt-2 mb-2 mx-1 buttonStyle"
+             :class="{redText: showAddFood}"
+             @click="toggleAddFood"
+             @keydown.enter.prevent
+         >
+           {{ showAddFood ? 'Close' : '+ Add Food' }}
+        </b-button>
+      </b-row>
+
+      <div v-show="showAddFood">
+        <AddFood @add-food="addFood"/>
+      </div>
+
       <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
+          <BCard class="highlightCard" @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @removeEvent="removeList" :displayData="food" />
         </b-col>
       </b-row>
-   <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
-     <div>
-       <p>Are you sure you want to delete this food item?</p>
-     </div>
-     <b-row align-h="end" class="justify-content-around">
-       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
-       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
-     </b-row>
-   </b-modal>
-  </div>
+
+      <b-modal hide-header hide-footer v-model="showCardModal" scrollable size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+        <bcardrec :displayData="foods[cardDisplay]" />
+      </b-modal>
+
+
+      <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+        <div>
+          <p>Are you sure you want to delete this food item?</p>
+        </div>
+        <b-row align-h="end" class="justify-content-around">
+          <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+          <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+        </b-row>
+      </b-modal>
+
+    </div>
   </b-container>
 </template>
 
@@ -37,6 +46,7 @@
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
+import BCardrec from '@/components/BCardRec.vue'
 
 export default {
   name: 'Foods',
@@ -45,7 +55,9 @@ export default {
   },
   components: {
     AddFood,
-    BCard
+    BCard,
+    bcardrec: BCardrec
+
   },
   data() {
     return {
@@ -53,7 +65,9 @@ export default {
       showModal: false,
       showAddFood: false,
       errorMessage: '',
-      message: ''
+      message: '',
+      showCardModal: false,
+      cardDisplay: -1
     }
   },
   created() {
@@ -94,6 +108,10 @@ export default {
             this.errorMessage = 'Server error'
           }
         })
+    },
+    cardModal(index) {
+      this.showCardModal = true
+      this.cardDisplay = index
     },
     removeList(event) {
       const food = this.foods.find((food) => food._id === event)
