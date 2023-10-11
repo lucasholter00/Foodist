@@ -66,10 +66,11 @@ export default {
       </div>
     </template>
     <template #default>
-      <b-row align-h="center">
-        <p class="expandText" v-if="isOverflowing">Click for more</p>
-      </b-row>
       <div @click="emitModal">
+        <b-row align-h="center">
+          <p class="expandText" v-if="isOverflowing">Click for more</p>
+        </b-row>
+
         <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
           <!-- Array slot -->
           <b-col v-if="Array.isArray(field)">
@@ -81,15 +82,16 @@ export default {
               <b-list-group-item v-else>
                 <p>{{entry}}</p>
               </b-list-group-item>
-
           </b-list-group>
 
-        </b-col>
-        <!-- Non array slot -->
-        <b-col v-else>
-          <b-card-text v-if="name !== 'name' && name !=='_id'">{{formatField(name, field)}}</b-card-text>
-        </b-col>
-      </b-row>
+          </b-col>
+          <!-- Non array slot -->
+          <b-col v-else>
+            <b-card-text v-if="name !== 'name' && name !=='_id'">{{formatField(name, field)}}</b-card-text>
+          </b-col>
+
+        </b-row>
+      </div>
     </template>
   </b-card>
 </template>
