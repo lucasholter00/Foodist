@@ -147,4 +147,11 @@ body{
 .highlightCard:hover{
   transform: scale(1.01) !important;
 }
+.exitCross {
+  font-size: 20px !important;
+  color: #e85656 !important;
+}
+.exitCross:hover{
+  cursor: pointer !important;
+}
 </style>
