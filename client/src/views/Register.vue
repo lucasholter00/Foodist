@@ -73,27 +73,37 @@ export default {
     onSubmit(event) {
       this.message = ''
       event.preventDefault()
-      Api.post('/v1/users', this.form, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((res) => {
-          if (res.status === 201) {
-            this.message = 'User created'
-            this.form.userName = ''
-            this.form.password = ''
-            this.message = 'User created'
-            this.$router.push({ name: 'login' })
+      if (this.formValidation()) {
+        Api.post('/v1/users', this.form, {
+          headers: {
+            'Content-Type': 'application/json'
           }
         })
-        .catch((err) => {
-          if (err.response.status === 409) {
-            this.errorMessage = 'Username taken'
-          } else {
-            this.errorMessage = 'Server error'
-          }
-        })
+          .then((res) => {
+            if (res.status === 201) {
+              this.message = 'User created'
+              this.form.userName = ''
+              this.form.password = ''
+              this.message = 'User created'
+              this.$router.push({ name: 'login' })
+            }
+          })
+          .catch((err) => {
+            if (err.response.status === 409) {
+              this.errorMessage = 'Username taken'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      }
+    },
+    formValidation() {
+      if (this.form.userName.trim().length === 0 || this.form.password.trim().length === 0) {
+        this.errorMessage = 'Username or password can not be empty'
+        return false
+      } else {
+        return true
+      }
     }
   }
 }

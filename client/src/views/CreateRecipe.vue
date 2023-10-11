@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center" align-v="center">
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onsubmit">
@@ -82,7 +82,7 @@
 
     <p v-if="currentUser">Logged in user: {{currentUser}}</p>
 
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
@@ -120,34 +120,58 @@ export default {
     },
     onsubmit(event) {
       this.form.name = this.form.name.trim()
-      this.message = ''
+      // Update the v-model values for ingredients
+      this.form.ingredients.forEach((ingredient) => {
+        ingredient.name = ingredient.name.trim()
+        ingredient.quantity = ingredient.quantity.trim()
+        ingredient.unit = ingredient.unit.trim()
+      }); this.message = ''
       this.errorMessage = ''
       event.preventDefault()
       const currentName = this.currentUser
       const recipeData = this.form
+      if (this.formValidation()) {
+        Api.post('/v1/users/' + currentName + '/recipes', recipeData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then((response) => {
+            if (response.status === 201) {
+              this.message = 'Recipe successfully saved!'
+            } else if (response.status === 409) {
+              this.errorMessage = 'Recipe name already taken! Try another name'
+            }
+            console.log(response.status)
+          })
+          .catch((error) => {
+            console.error(error.response.status)
+            if (error.response.status === 409) {
+              // this does not show, don't know why. Fix later
+              this.errorMessage = 'Recipe name already taken! Try another name'
+            } else {
+              this.errorMessage = 'An error occurred. Please try again later.'
+            }
+          })
+      } else {
+        this.errorMessage = 'Fields can not be left empty'
+      }
+    },
+    formValidation() {
+      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients))
+    },
+    isArrayNotEmpty(arr) {
+      if (!Array.isArray(arr)) {
+        return false // Not an array
+      }
 
-      Api.post('/v1/users/' + currentName + '/recipes', recipeData, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      return arr.every((ingredient) => {
+        return (
+          ingredient.name.trim() !== '' &&
+          ingredient.quantity.trim() !== '' &&
+          ingredient.unit.trim() !== ''
+        )
       })
-        .then((response) => {
-          if (response.status === 201) {
-            this.message = 'Recipe successfully saved!'
-          } else if (response.status === 409) {
-            this.errorMessage = 'Recipe name already taken! Try another name'
-          }
-          console.log(response.status)
-        })
-        .catch((error) => {
-          console.error(error.response.status)
-          if (error.response.status === 409) {
-            // this does not show, don't know why. Fix later
-            this.errorMessage = 'Recipe name already taken! Try another name'
-          } else {
-            this.errorMessage = 'An error occurred. Please try again later.'
-          }
-        })
     }
   }
 }

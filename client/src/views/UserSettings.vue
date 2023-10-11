@@ -15,7 +15,8 @@ export default {
       },
       errorMessage: '',
       oldPassword: '',
-      newerPassword: '',
+      newInputPassword: '',
+      deleteOperationPassword: '',
       changePasswordModal: false,
       deleteAccountModal: false
     }
@@ -36,8 +37,38 @@ export default {
           }
         })
     },
+    verifyPassword() {
+      const verifyForm = {
+        userName: this.currentUser,
+        password: this.deleteOperationPassword
+      }
+      if (this.deleteOperationPassword !== '') {
+        this.form.password = this.deleteOperationPassword
+        this.errorMessage = ''
+        Api.post('/v1/users/authentication', verifyForm, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            if (response.status === 200) {
+              this.deleteAccount()
+            }
+          })
+          .catch((error) => {
+            console.log('error')
+            if ((error.response.status === 404) || (error.response.status === 401)) {
+              this.errorMessage = 'Password incorrect'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      } else {
+        this.errorMessage = 'Something went wrong'
+      }
+    },
     editPassword() {
-      this.form.newPassword = this.newerPassword
+      this.form.newPassword = this.newInputPassword
 
       Api.patch('v1/users/' + this.currentUser, this.form, {
         headers: {
@@ -55,7 +86,7 @@ export default {
       })
     },
     savePassword() {
-      if (this.newerPassword !== '') {
+      if (this.inputValidator()) {
         this.form.password = this.oldPassword
         this.errorMessage = ''
         Api.post('/v1/users/authentication', this.form, {
@@ -77,7 +108,7 @@ export default {
             }
           })
       } else {
-        this.errorMessage = 'New password can not be empty!'
+        this.errorMessage = 'Password fields can not be empty!'
       }
     },
     openChangePasswordModal() {
@@ -95,6 +126,9 @@ export default {
     },
     closeDeleteAccountModal() {
       this.deleteAccountModal = false
+    },
+    inputValidator() {
+      return !(this.oldPassword.trim().length === 0 || this.newInputPassword.trim().length === 0)
     }
   },
   created() {
@@ -123,7 +157,7 @@ export default {
             <b-form-input v-model="oldPassword" type="password"></b-form-input>
           </b-form-group>
           <b-form-group label="New Password">
-            <b-form-input v-model="newerPassword" type="password"></b-form-input>
+            <b-form-input v-model="newInputPassword" type="password"></b-form-input>
           </b-form-group>
         </div>
         <b-row align-h="end" class="justify-content-around">
@@ -134,9 +168,13 @@ export default {
     </div>
     <div>
       <b-modal v-model="deleteAccountModal" title="Delete account?" hide-footer @hidden="closeDeleteAccountModal">
+        <p v-if="errorMessage" class="text-danger">{{errorMessage}}</p>
+        <b-form-group label="Enter password: ">
+          <b-form-input v-model="deleteOperationPassword" type="password"></b-form-input>
+        </b-form-group>
         <p>Are you sure that you want to delete your account?</p>
         <b-row align-h="end" class="justify-content-around">
-        <b-button pill class="buttonStyle" variant="primary" @click="deleteAccount">Delete account!</b-button>
+        <b-button pill class="buttonStyle" variant="primary" @click="verifyPassword">Delete account!</b-button>
         <b-button pill variant="secondary" @click="closeDeleteAccountModal">Cancel</b-button>
         </b-row>
       </b-modal>

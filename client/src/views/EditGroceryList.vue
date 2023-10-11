@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center" align-v="center">
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
 
@@ -59,7 +59,7 @@
         </b-form>
       </b-col>
     </b-row>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
@@ -87,28 +87,33 @@ export default {
   methods: {
     onSubmit(event) {
       this.errorMessage = ''
+      this.message = ''
       this.form.name = this.form.name.trim()
       event.preventDefault()
       console.log(this.currentUser)
       const editId = this.editObject._id
-      Api.put('/v1/users/' + this.currentUser + '/grocery-lists/' + editId, this.form, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => {
-          if (response.status === 200) {
-            this.message = 'Grocery list edited'
-            this.$router.push({ name: 'Grocery list' })
+      if (this.formValidation()) {
+        Api.put('/v1/users/' + this.currentUser + '/grocery-lists/' + editId, this.form, {
+          headers: {
+            'Content-Type': 'application/json'
           }
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'Error, grocery list or user not found'
-          } else {
-            this.errorMessage = 'Server error'
-          }
-        })
+          .then(response => {
+            if (response.status === 200) {
+              this.message = 'Grocery list edited'
+              this.$router.push({ name: 'Grocery list' })
+            }
+          })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.errorMessage = 'Error, grocery list or user not found'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      } else {
+        this.errorMessage = 'No field can be left empty'
+      }
     },
     addField(event) {
       event.preventDefault()
@@ -123,6 +128,17 @@ export default {
     },
     reset() {
       this.form = JSON.parse(JSON.stringify(this.editObject))
+    },
+    formValidation() {
+      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.groceries))
+    },
+    isArrayNotEmpty(arr) {
+      if (!Array.isArray(arr)) {
+        return false // Not an array
+      }
+      return arr.every((item) => {
+        return !(typeof item !== 'string' || item.trim().length === 0)
+      })
     }
   },
   created() {
