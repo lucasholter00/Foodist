@@ -6,14 +6,14 @@
       </b-button>
     </b-row>
     <b-row class="border-0">
-      <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
-        <div class="rounded">
-          <bcard class="shadow-lg border-0 mb-2" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
-        </div>
-      </b-col>
+        <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
+          <div class="rounded">
+            <bcard class="shadow-lg border-0 mb-2" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
+          </div>
+        </b-col>
     </b-row>
 
-    <b-modal hide-header v-model="showCardModal" scrollable size="md">
+    <b-modal hide-header hide-footer v-model="showCardModal" scrollable size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
       <bcardrec :displayData="recipes[cardDisplay]" />
     </b-modal>
 
