@@ -8,7 +8,7 @@
     <b-row class="border-0">
         <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
           <div class="rounded">
-            <bcard class="shadow-lg border-0 mb-2" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
+            <bcard class="highlightCard" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
           </div>
         </b-col>
     </b-row>
