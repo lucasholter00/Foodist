@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center" align-v="center">
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onSubmit">
@@ -50,7 +50,7 @@
         </b-form>
       </b-col>
     </b-row>
-  </b-container-fluid>
+  </b-container>
 
 </template>
 

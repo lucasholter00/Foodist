@@ -20,6 +20,9 @@ export default {
       } else {
         return value
       }
+    },
+    emitClose() {
+      this.$emit('closeCardModal')
     }
   }
 }
@@ -29,9 +32,10 @@ export default {
   <b-card class="mx-auto mx-2 my-12 custom-rounded-card shadow-lg" rounded max-width="374">
     <!-- Header slot -->
     <template #header>
-      <div>
-        <div>{{ displayData.name }}</div>
-      </div>
+      <b-row align-h="between">
+          <div class="mt-2 ml-2">{{ displayData.name }}</div>
+          <p @click="emitClose" class="mr-3 exitCross">x</p>
+      </b-row>
     </template>
     <template #default>
       <b-row v-for="(field, name) in displayData" :key="name" align-h="center">

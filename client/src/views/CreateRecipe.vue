@@ -64,12 +64,12 @@
             label-size="lg"
             label-align="left"
           >
-            <b-form-input
+            <b-form-textarea
               id="description-input"
               placeholder="Enter the description needed to create the recipe!"
               v-model="form.description"
               type="text">
-            </b-form-input>
+            </b-form-textarea>
           </b-form-group>
             <!-- Button to Add Ingredients to recipe -->
             <!-- Submit recipe Button -->
