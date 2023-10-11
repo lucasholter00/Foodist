@@ -1,14 +1,20 @@
 <template>
-  <div>
+  <b-container-fluid class="p-5">
     <b-row align-h="center" align-v="center">
-      <b-col cols="8" sm="4" lg="2">
-        <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
-        <p class="message" v-if="message">{{message}}</p>
+      <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
 
         <b-form @submit="onSubmit">
+          <h1 class="p-3">Grocery List</h1>
+          <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+          <p class="message" v-if="message">{{message}}</p>
+
           <b-form-group
+            class="p-3"
             id="listName"
-            label="Grocery List"
+            label="Grocery List:"
+            label-size="lg"
+            label-align="left"
+
           >
             <b-form-input
               id="input1"
@@ -21,9 +27,13 @@
 
           <b-form-group
             v-for="(grocery, index) in form.groceries"
+            class="p-3"
             :key="index"
             :id="'grocery' + index"
             :label="'Grocery ' + (index+1)"
+            label-size="lg"
+            label-align="left"
+
           >
             <b-form-input
               :id="'grocery' + index"
@@ -33,21 +43,23 @@
             >
             </b-form-input>
             <b-row align-h="center">
-              <a @click="removeField(index)">Remove</a>
+              <a @click="removeField(index)" class="removeButton">Remove</a>
             </b-row>
             <b-row align-h="center">
-              <b-button v-if="index === (form.groceries.length-1)" type="field" variant="outline-primary" @click="addField">Add field</b-button>
+              <b-button v-if="index === (form.groceries.length-1)" class="mt-5 grayText rounded-circle" type="field" variant="light" size="sm" @click="addField">+</b-button>
             </b-row>
           </b-form-group>
-          <b-row align-h="between">
-            <b-button type="Submit" variant="primary">Submit</b-button>
-            <b-button @click="reset" variant="danger">Reset</b-button>
+          <b-row align-h="center" class="p-4">
+            <b-button type="Submit" class="w-100" variant="success">Edit</b-button>
+          </b-row>
+          <b-row align-h="center" class="px-4 pb-4">
+            <b-button @click="reset" class="w-100" variant="danger">Reset</b-button>
           </b-row>
 
         </b-form>
       </b-col>
     </b-row>
-  </div>
+  </b-container-fluid>
 </template>
 
 <script>
@@ -128,5 +140,4 @@ export default {
     color: green;
     font-size: 14px;
   }
-
 </style>

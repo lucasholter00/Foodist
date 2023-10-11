@@ -42,7 +42,7 @@
             </b-form-input>
           </b-col>
         </b-row>
-        <b-button class= 'btn' type="submit" variant="success">Add Food</b-button>
+        <b-button class= 'buttonStyle' type="submit" variant="success">Save Food</b-button>
       </b-form>
     </b-container>
   </div>
@@ -64,22 +64,24 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault()
+      if (this.validateExpiryDate()) {
+        const newFood = {
+          name: this.form.foodName,
+          description: this.form.foodDescription,
+          expiryDate: this.form.expiryDate
+        }
 
-      if (!this.form.foodName || !this.form.expiryDate) {
-        alert('Food Name and Expiry date needs to be filled in.')
-        return
+        this.$emit('add-food', newFood)
+        this.form.foodName = ''
+        this.form.foodDescription = ''
+        this.form.expiryDate = ''
+      } else {
+        alert('Not a valid expiry date, enter a date that is today or further in the future')
       }
-
-      const newFood = {
-        name: this.form.foodName,
-        description: this.form.foodDescription,
-        expiryDate: this.form.expiryDate
-      }
-
-      this.$emit('add-food', newFood)
-      this.form.foodName = ''
-      this.form.foodDescription = ''
-      this.form.expiryDate = ''
+    },
+    validateExpiryDate() {
+      const today = new Date().toISOString().split('T')[0] // Get today's date in 'yyyy-mm-dd' format
+      return this.form.expiryDate >= today // Compare the expiryDate with today
     }
   }
 }
@@ -96,30 +98,4 @@ export default {
   border-radius: 5px;
 }
 
-.btn {
-  display: inline-block;
-  background: green;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
 </style>
