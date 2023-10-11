@@ -124,6 +124,21 @@ body{
 .removeButton:hover{
   color: #9fa19f !important;
 }
+.buttonStyle {
+  background-color: #80a28b !important;
+  border: #80a28b !important;
+}
+
+.buttonStyle:hover {
+  background-color: #80b095 !important;
+  border: #80b095 !important;
+}
+.custom-rounded-card {
+  border-radius: 20px !important;
+  border: none;
+  overflow: hidden;
+}
+
 .custom-rounded-card {
   border-radius: 20px !important;
   border: none;
