@@ -84,13 +84,12 @@ export default {
               </b-list-group-item>
           </b-list-group>
 
-          </b-col>
-          <!-- Non array slot -->
-          <b-col v-else>
-            <b-card-text v-if="name !== 'name' && name !=='_id'">{{formatField(name, field)}}</b-card-text>
-          </b-col>
-
-        </b-row>
+        </b-col>
+        <!-- Non array slot -->
+        <b-col v-else>
+          <b-card-text v-if="name !== 'name' && name !=='_id' && name !=='reminder' && name !=='expired'">{{formatField(name, field)}}</b-card-text>
+        </b-col>
+      </b-row>
       </div>
     </template>
   </b-card>
