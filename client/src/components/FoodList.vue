@@ -6,7 +6,7 @@
           :displayData="food"
           @showDeleteModal="$emit('showDeleteModal', food._id)"
           @editEvent="$emit('editEvent', food._id)"
-          @modalEvent="emitModal($event, index)"
+          @modalEvent="$emit('modalEvent',index)"
           />
         </b-col>
       </b-row>
@@ -24,12 +24,7 @@ export default {
   components: {
     BCard
   },
-  methods: {
-    emitModal(index) {
-      this.$emit('modalEvent', index)
-    }
-  },
-  emits: ['showDeleteModal', 'editEvent', 'modalEvent']
+  emits: ['showDeleteModal', 'editEvent']
 }
 </script>
 <style scope>

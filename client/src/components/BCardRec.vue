@@ -53,7 +53,7 @@ export default {
         </b-col>
         <!-- Non array slot -->
         <b-col v-else>
-          <b-card-text v-if="name !== 'name' && name !=='_id'">{{formatField(name, field)}}</b-card-text>
+          <b-card-text v-if="name !== 'name' && name !=='_id'&& name !=='reminder' && name !=='expired'">{{formatField(name, field)}}</b-card-text>
         </b-col>
       </b-row>
     </template>
