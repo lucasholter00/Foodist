@@ -163,6 +163,7 @@ export default {
     </div>
     <div>
       <b-modal v-model="deleteAccountModal" title="Delete account?" hide-footer @hidden="closeDeleteAccountModal">
+        <p v-if="errorMessage" class="text-danger">{{errorMessage}}</p>
         <b-form-group label="Enter password: ">
           <b-form-input v-model="deleteOperationPassword" type="password"></b-form-input>
         </b-form-group>
