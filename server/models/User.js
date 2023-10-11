@@ -15,6 +15,14 @@ const foodSchema = new Schema(
         expiryDate:{
             type: Date,
             required: true,
+        },
+        reminder: {
+            type: Boolean,
+            default: false
+        },
+        expired: {
+            type: Boolean,
+            default: false
         }
     }
 );

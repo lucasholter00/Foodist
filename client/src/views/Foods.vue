@@ -20,12 +20,13 @@
     <div v-show="showEditFood">
       <EditFood :editObject="editObject" @edit-food="editFood" />
     </div>
-      <b-row>
-        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard class="highlightCard" @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @removeEvent="removeFood" @editEvent="handleEditFood" :displayData="food" />
-        </b-col>
-      </b-row>
-
+    <div>
+       <FoodList :foods="foods"
+       @showDeleteModal="showDeleteModal"
+       @editEvent="handleEditFood"
+       @modalEvent="cardModal"
+       />
+     </div>
       <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
         <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
       </b-modal>
@@ -47,7 +48,7 @@
 <script>
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
-import BCard from '../components/BCard.vue'
+import FoodList from '../components/FoodList.vue'
 import EditFood from '../components/EditFood.vue'
 import BCardrec from '@/components/BCardRec.vue'
 
@@ -58,14 +59,15 @@ export default {
     editObject: {}
   },
   components: {
+    FoodList,
     AddFood,
-    BCard,
     EditFood,
     bcardrec: BCardrec
   },
   data() {
     return {
       foods: [],
+      selectedItem: null,
       showAddFood: false,
       showEditFood: false,
       showModal: false,
@@ -103,7 +105,9 @@ export default {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
           if (res.status === 200) {
-            this.foods = res.data
+            console.log('Result ' + res.data)
+
+            this.foods = this.checkExpiryDates(res.data)
           }
         })
         .catch((error) => {
@@ -140,25 +144,43 @@ export default {
         })
       this.toggleEditFood()
     },
-    removeFood(event) {
-      const food = this.foods.find((food) => food._id === event)
+    deleteFood(id) {
+      const food = this.foods.find((food) => food._id === id)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
           this.foods = res.data.food
           this.message = 'Food has been removed.'
         })
     },
+    checkExpiryDates(foods) {
+      foods.forEach(food => {
+        const exprDate = new Date(food.expiryDate)
+        const timeDifference = exprDate - new Date()
+        if (timeDifference < 0) {
+          food.expired = true
+        } else {
+          // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
+          const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
+          if (leftDays < 15) {
+            food.reminder = true
+          }
+        }
+      }
+      )
+      return foods
+    },
     cardModal(index) {
       this.showCardModal = true
       this.cardDisplay = index
     },
     showDeleteModal(item) {
+      console.log(item)
       // Set the selected item and show the modal
       this.selectedItem = item
       this.showModal = true
     },
     confirmDelete() {
-      this.removeFood(this.selectedItem)
+      this.deleteFood(this.selectedItem)
       this.hideModal()
     },
     cancelDelete() {
@@ -184,4 +206,5 @@ export default {
   .redText:hover{
     background-color: #833131 !important;
   }
+
 </style>

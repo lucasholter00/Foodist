@@ -102,11 +102,11 @@ export default {
       const today = new Date().toISOString().split('T')[0] // Get today's date in 'yyyy-mm-dd' format
       return this.form.expiryDate >= today // Compare the expiryDate with today
     }
-  },
-  created() {
-    this.form = JSON.parse(JSON.stringify(this.editObject))
-    this.form.expiryDate = this.form.expiryDate.split('T')[0]
   }
+  // created() {
+  //   this.form = JSON.parse(JSON.stringify(this.editObject))
+  //   this.form.expiryDate = this.form.expiryDate.split('T')[0]
+  // }
 }
 </script>
 
@@ -119,32 +119,5 @@ export default {
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
-}
-
-.btn {
-  display: inline-block;
-  background: green;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
 }
 </style>
