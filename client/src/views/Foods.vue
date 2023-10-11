@@ -1,6 +1,8 @@
 <template>
   <b-container>
  <div>
+   <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+   <p class="message" v-if="message">{{message}}</p>
    <b-row align-h="end">
      <b-button
          pill
@@ -15,22 +17,36 @@
     <div v-show="showAddFood">
       <AddFood @add-food="addFood"/>
     </div>
+    <div v-show="showEditFood">
+      <EditFood :editObject="editObject" @edit-food="editFood" />
+    </div>
     <div class="Expiry">
        <FoodList :foods="foods"
        @showDeleteModal="showDeleteModal"
        @editEvent="editFood"
        />
      </div>
-     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
-     <div>
-       <p>Are you sure you want to delete this food item?</p>
-     </div>
-     <b-row align-h="end" class="justify-content-around">
-       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
-       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
-     </b-row>
-   </b-modal>
-  </div>
+      <b-row>
+        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
+          <BCard class="highlightCard" @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @removeEvent="removeFood" @editEvent="handleEditFood" :displayData="food" />
+        </b-col>
+      </b-row>
+
+      <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+        <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
+      </b-modal>
+
+      <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+        <div>
+          <p>Are you sure you want to delete this food item?</p>
+        </div>
+        <b-row align-h="end" class="justify-content-around">
+          <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+          <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+        </b-row>
+      </b-modal>
+
+    </div>
   </b-container>
 </template>
 
@@ -38,24 +54,32 @@
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import FoodList from '../components/FoodList.vue'
+import EditFood from '../components/EditFood.vue'
+import BCardrec from '@/components/BCardRec.vue'
 
 export default {
   name: 'Foods',
   props: {
-    currentUser: String
+    currentUser: String,
+    editObject: {}
   },
   components: {
     AddFood,
-    FoodList
+    FoodList,
+    EditFood,
+    bcardrec: BCardrec
   },
   data() {
     return {
       foods: [],
       selectedItem: null,
-      showModal: false,
       showAddFood: false,
+      showEditFood: false,
+      showModal: false,
       errorMessage: '',
-      message: ''
+      message: '',
+      showCardModal: false,
+      cardDisplay: -1
     }
   },
   created() {
@@ -99,16 +123,38 @@ export default {
           }
         })
     },
-    editFood(id) {
-
+    handleEditFood(id) {
+      const food = this.foods.find((food) => food._id === id)
+      this.$emit('editEvent', food)
+      this.toggleEditFood()
+    },
+    toggleEditFood() {
+      this.showEditFood = !this.showEditFood
+    },
+    editFood(name, food) {
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + name,
+        food, { headers: { 'Content-Type': 'application/json' } })
+        .then((res) => {
+          if (res.status === 200) {
+            this.message = 'Food has been saved.'
+            this.getFood()
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
+      this.toggleEditFood()
     },
     deleteFood(id) {
-      console.log(id)
-      const food = this.foods.find((food) => food._id === id)
+      const food = this.foods.find((food) => food._id === event)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
           this.foods = res.data.food
-          this.getFood()
+          this.message = 'Food has been removed.'
         })
     },
     checkExpiryDates(foods) {
@@ -127,6 +173,10 @@ export default {
       }
       )
       return foods
+    },
+    cardModal(index) {
+      this.showCardModal = true
+      this.cardDisplay = index
     },
     showDeleteModal(item) {
       console.log(item)
@@ -147,6 +197,9 @@ export default {
       // Hide the modal and clear the selected item
       this.showModal = false
       this.selectedItem = null
+    },
+    closeCardModal() {
+      this.showCardModal = false
     }
   }
 }

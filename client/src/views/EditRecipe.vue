@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center">
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onSubmit">
@@ -64,12 +64,12 @@
               label-size="lg"
               label-align="left"
           >
-            <b-form-input
+            <b-form-textarea
                 id="description-input"
                 placeholder="Enter the description needed to create the recipe!"
                 v-model="form.description"
                 type="text">
-            </b-form-input>
+            </b-form-textarea>
           </b-form-group>
           <b-row class="p-4">
             <b-button class="w-100" type="submit" variant="success">Edit</b-button>
@@ -80,7 +80,7 @@
         </b-form>
       </b-col>
     </b-row>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
@@ -128,26 +128,46 @@ export default {
       const currentName = this.currentUser
       const recipeData = this.form
       const recipeName = this.editObject.name
-      console.log(`/v1/users/${currentName}/recipes/${recipeName}`)
-      Api.put(`/v1/users/${currentName}/recipes/${recipeName}`, recipeData, {
-        headers: { 'Content-Type': 'application/json' }
-      })
-        .then((response) => {
-          if (response.status === 404) {
-            this.errorMessage = 'User not found'
-          } else if (response.status === 200) {
-            this.message = 'Recipe edited successfully'
-            this.navRecipe()
-          }
+      if (this.formValidation()) {
+        console.log(`/v1/users/${currentName}/recipes/${recipeName}`)
+        Api.put(`/v1/users/${currentName}/recipes/${recipeName}`, recipeData, {
+          headers: { 'Content-Type': 'application/json' }
         })
-        .catch((error) => {
-          // Handle network errors or other unexpected errors
-          console.error('Error:', error)
-          this.errorMessage = 'An error occurred while editing the recipe'
-        })
+          .then((response) => {
+            if (response.status === 404) {
+              this.errorMessage = 'User not found'
+            } else if (response.status === 200) {
+              this.message = 'Recipe edited successfully'
+              this.navRecipe()
+            }
+          })
+          .catch((error) => {
+            // Handle network errors or other unexpected errors
+            console.error('Error:', error)
+            this.errorMessage = 'An error occurred while editing the recipe'
+          })
+      } else {
+        this.errorMessage = 'No fields can be left empty'
+      }
     },
     navRecipe() {
       this.$router.push({ name: 'recipes' })
+    },
+    formValidation() {
+      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients))
+    },
+    isArrayNotEmpty(arr) {
+      if (!Array.isArray(arr)) {
+        return false // Not an array
+      }
+
+      return arr.every((ingredient) => {
+        return (
+          ingredient.name.trim() !== '' &&
+          ingredient.quantity.trim() !== '' &&
+          ingredient.unit.trim() !== ''
+        )
+      })
     }
   },
   created() {

@@ -1,5 +1,5 @@
 <template>
-  <b-container-fluid class="p-5">
+  <b-container fluid class="p-5">
     <b-row align-h="center" align-v="center">
       <b-col cols="10" sm="8" md="6" lg="3" class="bg-white roundContainer shadow-lg">
         <b-form @submit="onSubmit">
@@ -50,7 +50,7 @@
         </b-form>
       </b-col>
     </b-row>
-  </b-container-fluid>
+  </b-container>
 
 </template>
 
@@ -73,27 +73,37 @@ export default {
     onSubmit(event) {
       this.message = ''
       event.preventDefault()
-      Api.post('/v1/users', this.form, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((res) => {
-          if (res.status === 201) {
-            this.message = 'User created'
-            this.form.userName = ''
-            this.form.password = ''
-            this.message = 'User created'
-            this.$router.push({ name: 'login' })
+      if (this.formValidation()) {
+        Api.post('/v1/users', this.form, {
+          headers: {
+            'Content-Type': 'application/json'
           }
         })
-        .catch((err) => {
-          if (err.response.status === 409) {
-            this.errorMessage = 'Username taken'
-          } else {
-            this.errorMessage = 'Server error'
-          }
-        })
+          .then((res) => {
+            if (res.status === 201) {
+              this.message = 'User created'
+              this.form.userName = ''
+              this.form.password = ''
+              this.message = 'User created'
+              this.$router.push({ name: 'login' })
+            }
+          })
+          .catch((err) => {
+            if (err.response.status === 409) {
+              this.errorMessage = 'Username taken'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      }
+    },
+    formValidation() {
+      if (this.form.userName.trim().length === 0 || this.form.password.trim().length === 0) {
+        this.errorMessage = 'Username or password can not be empty'
+        return false
+      } else {
+        return true
+      }
     }
   }
 }
