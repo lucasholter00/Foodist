@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="highlightCard">
     <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
           <BCard :class="[food.reminder ? 'reminder' : '', 'food', food.expired ? 'expired' : '']"
           :displayData="food"
           @showDeleteModal="$emit('showDeleteModal', food._id)"
           @editEvent="$emit('editEvent', food._id)"
+          @modalEvent="emitModal($event, index)"
           />
         </b-col>
       </b-row>
@@ -23,7 +24,12 @@ export default {
   components: {
     BCard
   },
-  emits: ['showDeleteModal', 'editEvent']
+  methods: {
+    emitModal(index) {
+      this.$emit('modalEvent', index)
+    }
+  },
+  emits: ['showDeleteModal', 'editEvent', 'modalEvent']
 }
 </script>
 <style scope>

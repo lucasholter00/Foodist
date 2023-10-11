@@ -20,21 +20,26 @@
     <div v-show="showEditFood">
       <EditFood :editObject="editObject" @edit-food="editFood" />
     </div>
-    <div class="Expiry">
+    <div>
        <FoodList :foods="foods"
        @showDeleteModal="showDeleteModal"
        @editEvent="handleEditFood"
+       @modalEvent="cardModal(index)"
        />
      </div>
       <!-- <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard class="highlightCard" @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @removeEvent="removeFood" @editEvent="handleEditFood" :displayData="food" />
+          <BCard class="highlightCard"
+           @showDeleteModal="showDeleteModal"
+            @modalEvent="cardModal(index)"
+            @removeEvent="removeFood"
+            @editEvent="handleEditFood" :displayData="food" />
         </b-col>
       </b-row> -->
 
-      <!-- <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+      <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
         <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
-      </b-modal> -->
+      </b-modal>
 
       <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
         <div>
@@ -55,7 +60,7 @@ import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import FoodList from '../components/FoodList.vue'
 import EditFood from '../components/EditFood.vue'
-// import BCardrec from '@/components/BCardRec.vue'
+import BCardrec from '@/components/BCardRec.vue'
 
 export default {
   name: 'Foods',
@@ -66,8 +71,8 @@ export default {
   components: {
     FoodList,
     AddFood,
-    EditFood
-    // bcardrec: BCardrec
+    EditFood,
+    bcardrec: BCardrec
   },
   data() {
     return {

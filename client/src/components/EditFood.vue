@@ -102,11 +102,11 @@ export default {
       const today = new Date().toISOString().split('T')[0] // Get today's date in 'yyyy-mm-dd' format
       return this.form.expiryDate >= today // Compare the expiryDate with today
     }
-  },
-  created() {
-    this.form = JSON.parse(JSON.stringify(this.editObject))
-    this.form.expiryDate = this.form.expiryDate.split('T')[0]
   }
+  // created() {
+  //   this.form = JSON.parse(JSON.stringify(this.editObject))
+  //   this.form.expiryDate = this.form.expiryDate.split('T')[0]
+  // }
 }
 </script>
 
