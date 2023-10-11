@@ -24,7 +24,7 @@
        <FoodList :foods="foods"
        @showDeleteModal="showDeleteModal"
        @editEvent="handleEditFood"
-       @modalEvent="cardModal(index)"
+       @modalEvent="cardModal"
        />
      </div>
       <!-- <b-row>
