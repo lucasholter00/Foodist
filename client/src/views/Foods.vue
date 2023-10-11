@@ -22,19 +22,25 @@
     </div>
       <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeFood" :displayData="food" @editEvent="handleEditFood"/>
+          <BCard class="highlightCard" @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @removeEvent="removeFood" @editEvent="handleEditFood" :displayData="food" />
         </b-col>
       </b-row>
-   <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
-     <div>
-       <p>Are you sure you want to delete this food item?</p>
-     </div>
-     <b-row align-h="end" class="justify-content-around">
-       <b-button variant="danger" @click="confirmDelete">Delete</b-button>
-       <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
-     </b-row>
-   </b-modal>
-  </div>
+
+      <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+        <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
+      </b-modal>
+
+      <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
+        <div>
+          <p>Are you sure you want to delete this food item?</p>
+        </div>
+        <b-row align-h="end" class="justify-content-around">
+          <b-button variant="danger" @click="confirmDelete">Delete</b-button>
+          <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
+        </b-row>
+      </b-modal>
+
+    </div>
   </b-container>
 </template>
 
@@ -43,6 +49,7 @@ import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
 import EditFood from '../components/EditFood.vue'
+import BCardrec from '@/components/BCardRec.vue'
 
 export default {
   name: 'Foods',
@@ -53,7 +60,8 @@ export default {
   components: {
     AddFood,
     BCard,
-    EditFood
+    EditFood,
+    bcardrec: BCardrec
   },
   data() {
     return {
@@ -62,7 +70,9 @@ export default {
       showEditFood: false,
       showModal: false,
       errorMessage: '',
-      message: ''
+      message: '',
+      showCardModal: false,
+      cardDisplay: -1
     }
   },
   created() {
@@ -138,6 +148,10 @@ export default {
           this.message = 'Food has been removed.'
         })
     },
+    cardModal(index) {
+      this.showCardModal = true
+      this.cardDisplay = index
+    },
     showDeleteModal(item) {
       // Set the selected item and show the modal
       this.selectedItem = item
@@ -156,6 +170,9 @@ export default {
       // Hide the modal and clear the selected item
       this.showModal = false
       this.selectedItem = null
+    },
+    closeCardModal() {
+      this.showCardModal = false
     }
   }
 }

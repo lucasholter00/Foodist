@@ -6,9 +6,14 @@
     </b-row>
     <b-row>
       <b-col v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
-        <card @showDeleteModal="showDeleteModal" @editEvent="emitEdit" :displayData="entry" class="mb-2"/>
+        <card @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @editEvent="emitEdit" :displayData="entry" class="mb-2 highlightCard"/>
       </b-col>
     </b-row>
+
+    <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+      <bcardrec @closeCardModal="closeCardModal" :displayData="groceryLists[cardDisplay]" />
+    </b-modal>
+
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
       <div>
         <p>Are you sure you want to delete this grocery list?</p>
@@ -18,25 +23,32 @@
         <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
       </b-row>
     </b-modal>
+
   </b-container>
 </template>
 
 <script>
 import BCard from '../components/BCard.vue'
 import { Api } from '@/Api'
+import BCardrec from '@/components/BCardRec.vue'
+
 export default {
   name: 'GroceryLists',
   props: {
     currentUser: String
   },
   components: {
-    card: BCard
+    card: BCard,
+    bcardrec: BCardrec
+
   },
   data() {
     return {
       errorMessage: '',
       groceryLists: [],
-      showModal: false
+      showModal: false,
+      showCardModal: false,
+      cardDisplay: -1
     }
   },
   created() {
@@ -71,6 +83,11 @@ export default {
       this.selectedItem = item
       this.showModal = true
     },
+    cardModal(index) {
+      this.showCardModal = true
+      this.cardDisplay = index
+    },
+
     confirmDelete() {
       this.removeList(this.selectedItem)
       this.hideModal()
@@ -84,6 +101,9 @@ export default {
       // Hide the modal and clear the selected item
       this.showModal = false
       this.selectedItem = null
+    },
+    closeCardModal() {
+      this.showCardModal = false
     }
   }
 
