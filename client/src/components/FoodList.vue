@@ -1,8 +1,8 @@
 <template>
-  <div class="highlightCard">
+  <div>
     <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard :class="[food.reminder ? 'reminder' : '', 'food', food.expired ? 'expired' : '']"
+          <BCard class="highlightCard" :class="[food.reminder ? 'reminder' : '','food', food.expired ? 'expired' : '']"
           :displayData="food"
           @showDeleteModal="$emit('showDeleteModal', food._id)"
           @editEvent="$emit('editEvent', food._id)"
@@ -30,6 +30,7 @@ export default {
 <style scope>
 
 .food {
+
 background: #cff5d4;
 cursor: pointer;
 border: 2px solid mediumseagreen;
