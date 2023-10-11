@@ -1,7 +1,5 @@
 <template>
     <div>
-    <p>form: {{form}}</p>
-    <p>editObject: {{editObject}}</p>
       <b-container fluid class="container">
         <b-form  @submit="onSubmit">
           <b-row class = "my-1" align-h="center" align-v="center">
@@ -48,7 +46,7 @@
               </b-form-input>
             </b-col>
           </b-row>
-          <b-button class= 'btn' type="submit" variant="success">Save</b-button>
+          <b-button class='buttonStyle' pill type="submit" variant="success">Save</b-button>
         </b-form>
       </b-container>
     </div>

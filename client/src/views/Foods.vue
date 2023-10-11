@@ -22,7 +22,7 @@
     </div>
       <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
+          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeFood" :displayData="food" @editEvent="handleEditFood"/>
         </b-col>
       </b-row>
    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -144,7 +144,7 @@ export default {
       this.showModal = true
     },
     confirmDelete() {
-      this.removeList(this.selectedItem)
+      this.removeFood(this.selectedItem)
       this.hideModal()
     },
     cancelDelete() {
