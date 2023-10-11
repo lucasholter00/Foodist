@@ -1,6 +1,8 @@
 <template>
   <b-container>
  <div>
+   <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+   <p class="message" v-if="message">{{message}}</p>
    <b-row align-h="end">
      <b-button
          pill
@@ -15,9 +17,12 @@
     <div v-show="showAddFood">
       <AddFood @add-food="addFood"/>
     </div>
+    <div v-show="showEditFood">
+      <EditFood :editObject="editObject" @edit-food="editFood" />
+    </div>
       <b-row>
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
-          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeList" :displayData="food" />
+          <BCard @showDeleteModal="showDeleteModal" @removeEvent="removeFood" :displayData="food" @editEvent="handleEditFood"/>
         </b-col>
       </b-row>
    <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -37,21 +42,25 @@
 import { Api } from '@/Api'
 import AddFood from '../components/AddFood.vue'
 import BCard from '../components/BCard.vue'
+import EditFood from '../components/EditFood.vue'
 
 export default {
   name: 'Foods',
   props: {
-    currentUser: String
+    currentUser: String,
+    editObject: {}
   },
   components: {
     AddFood,
-    BCard
+    BCard,
+    EditFood
   },
   data() {
     return {
       foods: [],
-      showModal: false,
       showAddFood: false,
+      showEditFood: false,
+      showModal: false,
       errorMessage: '',
       message: ''
     }
@@ -95,12 +104,38 @@ export default {
           }
         })
     },
-    removeList(event) {
+    handleEditFood(id) {
+      const food = this.foods.find((food) => food._id === id)
+      this.$emit('editEvent', food)
+      this.toggleEditFood()
+    },
+    toggleEditFood() {
+      this.showEditFood = !this.showEditFood
+    },
+    editFood(name, food) {
+      Api.put('/v1/users/' + this.currentUser + '/food-items/' + name,
+        food, { headers: { 'Content-Type': 'application/json' } })
+        .then((res) => {
+          if (res.status === 200) {
+            this.message = 'Food has been saved.'
+            this.getFood()
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          } else {
+            this.errorMessage = 'Server error'
+          }
+        })
+      this.toggleEditFood()
+    },
+    removeFood(event) {
       const food = this.foods.find((food) => food._id === event)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
           this.foods = res.data.food
-          this.getFood()
+          this.message = 'Food has been removed.'
         })
     },
     showDeleteModal(item) {
@@ -109,7 +144,7 @@ export default {
       this.showModal = true
     },
     confirmDelete() {
-      this.removeList(this.selectedItem)
+      this.removeFood(this.selectedItem)
       this.hideModal()
     },
     cancelDelete() {
