@@ -103,6 +103,7 @@ export default {
 
     },
     deleteFood(id) {
+      console.log(id)
       const food = this.foods.find((food) => food._id === id)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
@@ -128,6 +129,7 @@ export default {
       return foods
     },
     showDeleteModal(item) {
+      console.log(item)
       // Set the selected item and show the modal
       this.selectedItem = item
       this.showModal = true

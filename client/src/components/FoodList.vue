@@ -4,7 +4,7 @@
         <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
           <BCard :class="[food.reminder ? 'reminder' : '', 'food', food.expired ? 'expired' : '']"
           :displayData="food"
-          @showDeleteModal="$emit('showDeleteModal', itemId)"
+          @showDeleteModal="$emit('showDeleteModal', food._id)"
           @editEvent="$emit('editEvent', eventData)"
           />
         </b-col>
@@ -33,8 +33,6 @@ color: red;
 
 .food {
 background: #cff5d4;
-margin: 5px;
-padding: 10px 20px;
 cursor: pointer;
 border: 2px solid mediumseagreen;
 }
