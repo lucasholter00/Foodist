@@ -38,12 +38,14 @@ export default {
         })
     },
     verifyPassword() {
-      this.form.newPassword = this.deleteOperationPassword
-
+      const verifyForm = {
+        userName: this.currentUser,
+        password: this.deleteOperationPassword
+      }
       if (this.deleteOperationPassword !== '') {
         this.form.password = this.deleteOperationPassword
         this.errorMessage = ''
-        Api.post('/v1/users/authentication', this.form, {
+        Api.post('/v1/users/authentication', verifyForm, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -126,7 +128,7 @@ export default {
       this.deleteAccountModal = false
     },
     inputValidator() {
-      return !(this.oldPassword.trim().length === 0 || this.newerPassword.trim().length === 0)
+      return !(this.oldPassword.trim().length === 0 || this.newInputPassword.trim().length === 0)
     }
   },
   created() {
