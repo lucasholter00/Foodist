@@ -5,7 +5,7 @@
           <BCard :class="[food.reminder ? 'reminder' : '', 'food', food.expired ? 'expired' : '']"
           :displayData="food"
           @showDeleteModal="$emit('showDeleteModal', food._id)"
-          @editEvent="$emit('editEvent', eventData)"
+          @editEvent="$emit('editEvent', food._id)"
           />
         </b-col>
       </b-row>
@@ -27,9 +27,6 @@ export default {
 }
 </script>
 <style scope>
-.fas {
-color: red;
-}
 
 .food {
 background: #cff5d4;
@@ -47,9 +44,4 @@ border-left: 10px solid red;
 border-right: 10px solid red;
 }
 
-.food h3 {
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
 </style>
