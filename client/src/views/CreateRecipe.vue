@@ -49,7 +49,7 @@
                   type="text">
                 </b-form-input>
               </div>
-              <a class="removeButton" type="button" variant="primary" @click="removeIngredient(index)">Remove</a>
+              <a class="removeButton" type="button" @click="removeIngredient(index)">Remove</a>
               <b-row align-h="center">
                 <b-button v-if="index === (form.ingredients.length-1)" class="mt-5 grayText rounded-circle" type="field" variant="light" size="sm" @click="addIngredient">+</b-button>
               </b-row>
@@ -154,11 +154,11 @@ export default {
             }
           })
       } else {
-        this.errorMessage = 'Fields can not be left empty'
+        this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'
       }
     },
     formValidation() {
-      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients))
+      return (!(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients)) && (this.form.ingredients.quantity === 'number'))
     },
     isArrayNotEmpty(arr) {
       if (!Array.isArray(arr)) {
