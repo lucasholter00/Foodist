@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row>
-        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4">
+        <b-col v-for="(food,index) in foods" :key="index" cols="12" md="4" class="mb-2">
           <BCard class="highlightCard food" :class="[food.reminder ? 'reminder' : 'ok','food', food.expired ? 'expired' : 'ok']"
           :displayData="food"
           @showDeleteModal="$emit('showDeleteModal', food._id)"
