@@ -49,7 +49,7 @@
                   type="text">
                 </b-form-input>
               </div>
-              <a class="removeButton" type="button" variant="primary" @click="removeIngredient(index)">Remove</a>
+              <a class="removeButton" type="button" @click="removeIngredient(index)">Remove</a>
               <b-row align-h="center">
                 <b-button v-if="index === (form.ingredients.length-1)" class="mt-5 grayText rounded-circle" type="field" variant="light" size="sm" @click="addIngredient">+</b-button>
               </b-row>
@@ -130,7 +130,7 @@ export default {
       event.preventDefault()
       const currentName = this.currentUser
       const recipeData = this.form
-      if (this.formValidation()) {
+      if (this.formValidation() && this.numberInputValidation()) {
         Api.post('/v1/users/' + currentName + '/recipes', recipeData, {
           headers: {
             'Content-Type': 'application/json'
@@ -154,11 +154,11 @@ export default {
             }
           })
       } else {
-        this.errorMessage = 'Fields can not be left empty'
+        this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'
       }
     },
     formValidation() {
-      return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients))
+      return (!(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients)))
     },
     isArrayNotEmpty(arr) {
       if (!Array.isArray(arr)) {
@@ -172,6 +172,14 @@ export default {
           ingredient.unit.trim() !== ''
         )
       })
+    },
+    numberInputValidation() {
+      for (const ingredient of this.form.ingredients) {
+        if (isNaN(Number(ingredient.quantity))) {
+          return false
+        }
+      }
+      return true
     }
   }
 }

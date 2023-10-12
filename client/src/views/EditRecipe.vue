@@ -128,7 +128,7 @@ export default {
       const currentName = this.currentUser
       const recipeData = this.form
       const recipeName = this.editObject.name
-      if (this.formValidation()) {
+      if (this.formValidation() && this.numberInputValidation()) {
         console.log(`/v1/users/${currentName}/recipes/${recipeName}`)
         Api.put(`/v1/users/${currentName}/recipes/${recipeName}`, recipeData, {
           headers: { 'Content-Type': 'application/json' }
@@ -147,7 +147,7 @@ export default {
             this.errorMessage = 'An error occurred while editing the recipe'
           })
       } else {
-        this.errorMessage = 'No fields can be left empty'
+        this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'
       }
     },
     navRecipe() {
@@ -155,6 +155,14 @@ export default {
     },
     formValidation() {
       return !(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients))
+    },
+    numberInputValidation() {
+      for (const ingredient of this.form.ingredients) {
+        if (isNaN(Number(ingredient.quantity))) {
+          return false
+        }
+      }
+      return true
     },
     isArrayNotEmpty(arr) {
       if (!Array.isArray(arr)) {

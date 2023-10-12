@@ -112,7 +112,7 @@ export default {
             }
           })
       } else {
-        this.errorMessage = 'No field can be left empty'
+        this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'
       }
     },
     addField(event) {
