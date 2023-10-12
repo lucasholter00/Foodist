@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
+  <div class="jumbotron">
+    <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
     </b-jumbotron>
   <div>
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
@@ -125,5 +125,12 @@ border-right: 10px solid red;
 .shortlyExpired {
 border-left: 10px solid rgb(233, 206, 53);
 border-right: 10px solid rgb(233, 206, 53);
+}
+</style>
+<style>
+.jumbotron {
+  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../assets/Banner.jpg");
+  background-size: cover;
+  color: mintcream
 }
 </style>
