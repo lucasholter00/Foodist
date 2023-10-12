@@ -36,7 +36,8 @@ import BCardrec from '@/components/BCardRec.vue'
 export default {
   name: 'GroceryLists',
   props: {
-    currentUser: String
+    currentUser: String,
+    userLinks: Object
   },
   components: {
     card: BCard,
@@ -53,7 +54,7 @@ export default {
     }
   },
   created() {
-    Api.get('/v1/users/' + this.currentUser + '/grocery-lists')
+    Api.get(this.userLinks.groceryLists.href)
       .then((res) => {
         if (res.status === 200) {
           this.groceryLists = res.data
