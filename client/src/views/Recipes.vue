@@ -2,7 +2,7 @@
   <b-container>
     <b-row >
       <b-col class="mt-2 mb-2 mx-1">
-        <b-form-spinbutton v-model="scaleFactor" inline align-h="start" min="1"/>
+        <b-form-spinbutton class="shadow-lg" v-model="scaleFactor" inline align-h="start" min="1"/>
       </b-col>
       <b-col align-h="end">
         <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({ name: 'create-recipe' })" variant="primary">
