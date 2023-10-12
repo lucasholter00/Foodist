@@ -4,11 +4,7 @@
     <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
     </b-jumbotron>
   </div>
-  <div  >
-    <div class="col">
-      <p>Recipes</p>
-    </div>
-    <div class="col">
+   <div class="col">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
 
@@ -33,7 +29,6 @@
           </b-col>
         </b-row>
       </div>
-  </div>
   </div>
   </div>
 </div>
