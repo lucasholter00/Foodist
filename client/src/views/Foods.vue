@@ -31,8 +31,6 @@
         <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
       </b-modal>
 
-      <ExpiryFood :foods="foods"/>
-
       <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
         <div>
           <p>Are you sure you want to delete this food item?</p>
@@ -53,7 +51,6 @@ import AddFood from '../components/AddFood.vue'
 import FoodList from '../components/FoodList.vue'
 import EditFood from '../components/EditFood.vue'
 import BCardrec from '@/components/BCardRec.vue'
-import ExpiryFood from '../components/ExpiryFood.vue'
 
 export default {
   name: 'Foods',
@@ -65,8 +62,7 @@ export default {
     FoodList,
     AddFood,
     EditFood,
-    bcardrec: BCardrec,
-    ExpiryFood
+    bcardrec: BCardrec
   },
   data() {
     return {

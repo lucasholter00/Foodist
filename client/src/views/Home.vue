@@ -7,22 +7,26 @@
     <p class="message" v-if="message">{{message}}</p>
   </div>
   <div class="container">
-    <h3>Expired Food List</h3>
+    <h2 style="color: mediumseagreen">Expired Food</h2>
+    <div class="block">
     <b-row>
         <b-col cols="12" md="4" v-for="(food,index) in expired" :key="index">
-          <BCardRec class="highlightCard food"
+          <BCardRec class="highlightCard expired"
           @closeCardModal="close" :displayData="food"/>
         </b-col>
       </b-row>
+    </div>
   </div>
   <div class="container">
-    <h3>Shortly Expired Food List</h3>
+    <h2 style="color: mediumseagreen" >Shortly Expired Food</h2>
+    <div class="block">
     <b-row>
         <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index">
-          <BCardRec class="highlightCard food"
+          <BCardRec class="highlightCard shortlyExpired"
           @closeCardModal="close" :displayData="food"/>
         </b-col>
       </b-row>
+    </div>
   </div>
   </div>
 </template>
@@ -108,16 +112,18 @@ export default {
   padding: 30px;
   border-radius: 5px;
 }
+
+.block {
+  border-top: 3px solid #80b095;
+  padding: 30px;
+}
 .expired {
-  border: 20px red;
-}
-
-.container.h3 {
-  color: mediumseagreen;
-}
-
-.expired.food {
 border-left: 10px solid red;
 border-right: 10px solid red;
+}
+
+.shortlyExpired {
+border-left: 10px solid rgb(233, 206, 53);
+border-right: 10px solid rgb(233, 206, 53);
 }
 </style>
