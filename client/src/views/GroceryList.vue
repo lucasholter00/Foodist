@@ -9,7 +9,7 @@
         <card @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @editEvent="emitEdit" :displayData="entry" class="mb-2 highlightCard"/>
       </b-col>
     </b-row>
-
+    <spinner v-if="isLoading"></spinner>
     <b-modal hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
       <bcardrec @closeCardModal="closeCardModal" :displayData="groceryLists[cardDisplay]" />
     </b-modal>
@@ -23,7 +23,6 @@
         <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
       </b-row>
     </b-modal>
-
   </b-container>
 </template>
 
@@ -31,6 +30,7 @@
 import BCard from '../components/BCard.vue'
 import { Api } from '@/Api'
 import BCardrec from '@/components/BCardRec.vue'
+import spinner from '@/components/Spinner.vue'
 
 export default {
   name: 'GroceryLists',
@@ -38,6 +38,7 @@ export default {
     currentUser: String
   },
   components: {
+    spinner,
     card: BCard,
     bcardrec: BCardrec
 
@@ -48,7 +49,8 @@ export default {
       groceryLists: [],
       showModal: false,
       showCardModal: false,
-      cardDisplay: -1
+      cardDisplay: -1,
+      isLoading: true
     }
   },
   created() {
@@ -56,6 +58,7 @@ export default {
       .then((res) => {
         if (res.status === 200) {
           this.groceryLists = res.data
+          this.isLoading = false
         }
       })
       .catch((error) => {

@@ -40,7 +40,7 @@
           <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
         </b-row>
       </b-modal>
-
+   <spinner v-if="isLoading"></spinner>
     </div>
   </b-container>
 </template>
@@ -51,6 +51,7 @@ import AddFood from '../components/AddFood.vue'
 import FoodList from '../components/FoodList.vue'
 import EditFood from '../components/EditFood.vue'
 import BCardrec from '@/components/BCardRec.vue'
+import spinner from '@/components/Spinner.vue'
 
 export default {
   name: 'Foods',
@@ -59,6 +60,7 @@ export default {
     editObject: {}
   },
   components: {
+    spinner,
     FoodList,
     AddFood,
     EditFood,
@@ -73,6 +75,7 @@ export default {
       showModal: false,
       errorMessage: '',
       message: '',
+      isLoading: true,
       showCardModal: false,
       cardDisplay: -1
     }
@@ -106,8 +109,8 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             console.log('Result ' + res.data)
-
             this.foods = this.checkExpiryDates(res.data)
+            this.isLoading = false
           }
         })
         .catch((error) => {
