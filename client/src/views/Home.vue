@@ -40,7 +40,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { Api } from '@/Api'
 import BCardRec from '../components/BCardRec.vue'
 
