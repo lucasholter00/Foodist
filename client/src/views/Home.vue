@@ -1,16 +1,22 @@
 <template>
-  <div class="jumbotron">
+  <div>
+    <div class="jumbotron">
     <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
     </b-jumbotron>
-  <div>
+  </div>
+  <div  >
+    <div class="col">
+      <p>Recipes</p>
+    </div>
+    <div class="col">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
-  </div>
+
   <div class="container">
     <h2 style="color: mediumseagreen">Expired Food</h2>
     <div class="block">
-    <b-row>
-        <b-col cols="12" md="4" v-for="(food,index) in expired" :key="index">
+    <b-row container-fluid>
+        <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index">
           <BCardRec class="highlightCard expired"
           @closeCardModal="close" :displayData="food"/>
         </b-col>
@@ -20,15 +26,17 @@
   <div class="container">
     <h2 style="color: mediumseagreen" >Shortly Expired Food</h2>
     <div class="block">
-    <b-row>
-        <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index">
-          <BCardRec class="highlightCard shortlyExpired"
-          @closeCardModal="close" :displayData="food"/>
-        </b-col>
-      </b-row>
-    </div>
+      <b-row>
+          <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index">
+            <BCardRec class="highlightCard shortlyExpired"
+            @closeCardModal="close" :displayData="food"/>
+          </b-col>
+        </b-row>
+      </div>
   </div>
   </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -87,7 +95,7 @@ export default {
         } else {
           // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
           const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
-          if (leftDays < 15) {
+          if (leftDays < 5) {
             food.reminder = true
             this.shortlyExpired.push(food)
           }
@@ -104,7 +112,6 @@ export default {
 <style scoped>
 
 .container {
-  max-width: 1000px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
