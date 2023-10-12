@@ -3,7 +3,8 @@
 export default {
   name: 'Card',
   props: {
-    displayData: []
+    displayData: [],
+    scaleFactor: Number
   },
   data() {
     return {}
@@ -43,7 +44,7 @@ export default {
         <b-col v-if="Array.isArray(field)">
           <b-list-group v-for="(entry, index) in field" :key="index" >
             <b-list-group-item v-if="typeof entry ==='object'">
-              <p v-if="name === 'ingredients'"><strong>{{ entry.name }}:</strong> {{ entry.quantity }} {{ entry.unit }}</p>
+              <p v-if="name === 'ingredients'"><strong>{{ entry.name }}:</strong> {{ entry.quantity * scaleFactor }} {{ entry.unit }}</p>
             </b-list-group-item>
             <!-- -->
             <b-list-group-item v-else>
