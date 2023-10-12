@@ -31,7 +31,7 @@
         <bcardrec @closeCardModal="closeCardModal" :displayData="foods[cardDisplay]" />
       </b-modal>
 
-      <ExpiredFood :foods="foods"/>
+      <ExpiryFood :foods="foods"/>
 
       <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
         <div>
@@ -53,7 +53,7 @@ import AddFood from '../components/AddFood.vue'
 import FoodList from '../components/FoodList.vue'
 import EditFood from '../components/EditFood.vue'
 import BCardrec from '@/components/BCardRec.vue'
-import ExpiredFood from '../components/ExpiredFood.vue'
+import ExpiryFood from '../components/ExpiryFood.vue'
 
 export default {
   name: 'Foods',
@@ -66,7 +66,7 @@ export default {
     AddFood,
     EditFood,
     bcardrec: BCardrec,
-    ExpiredFood
+    ExpiryFood
   },
   data() {
     return {
@@ -98,7 +98,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.res.status === 404) {
             this.errorMessage = 'Ooops! Food is not added.'
           } else {
             this.errorMessage = 'Server error'
@@ -115,7 +115,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.res.status === 404) {
             this.errorMessage = 'Not found'
           } else {
             this.errorMessage = 'Server error'
