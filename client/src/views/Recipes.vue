@@ -1,20 +1,25 @@
 <template>
   <b-container>
-    <b-row align-h="end">
-      <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({ name: 'create-recipe' })" variant="primary">
-        <span class="plus-sign">+</span> Add Recipe
-      </b-button>
+    <b-row >
+      <b-col class="mt-2 mb-2 mx-1">
+        <b-form-spinbutton v-model="scaleFactor" inline align-h="start" min="1"/>
+      </b-col>
+      <b-col align-h="end">
+        <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({ name: 'create-recipe' })" variant="primary">
+          <span class="plus-sign">+</span> Add Recipe
+        </b-button>
+      </b-col>
     </b-row>
     <b-row class="border-0">
         <b-col v-for="(recipe, index) in recipes" :key="index" cols="12" md="4">
           <div class="rounded">
-            <bcard class="highlightCard" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
+            <bcard :scaleFactor="scaleFactor" class="mb-2 highlightCard" @modalEvent="cardModal(index)" @showDeleteModal="showDeleteModal" @editEvent="editRecipe" :displayData="recipe" />
           </div>
         </b-col>
     </b-row>
 
     <b-modal  hide-header hide-footer v-model="showCardModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
-      <bcardrec @closeCardModal="closeCardModal" :displayData="recipes[cardDisplay]" />
+      <bcardrec :scaleFactor="scaleFactor" @closeCardModal="closeCardModal" :displayData="recipes[cardDisplay]" />
     </b-modal>
 
     <b-modal v-model="showModal" title="Confirm Delete" hide-footer>
@@ -53,7 +58,8 @@ export default {
       selectedItem: null,
       errorMessage: '',
       showCardModal: false,
-      cardDisplay: -1
+      cardDisplay: -1,
+      scaleFactor: 1
     }
   },
   methods: {
