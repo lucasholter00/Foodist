@@ -2,15 +2,28 @@
   <div>
     <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
     </b-jumbotron>
+  <div>
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
-   <p class="message" v-if="message">{{message}}</p>
+    <p class="message" v-if="message">{{message}}</p>
+  </div>
+  <div class="container">
+    <h3>Expired Food List</h3>
     <b-row>
-        <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index">
-          <BCardRec class="highlightCard food" :class="[food.reminder ? 'reminder' : 'ok',
-          'food', food.expired ? 'expired' : 'ok']"
+        <b-col cols="12" md="4" v-for="(food,index) in expired" :key="index">
+          <BCardRec class="highlightCard food"
           @closeCardModal="close" :displayData="food"/>
         </b-col>
       </b-row>
+  </div>
+  <div class="container">
+    <h3>Shortly Expired Food List</h3>
+    <b-row>
+        <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index">
+          <BCardRec class="highlightCard food"
+          @closeCardModal="close" :displayData="food"/>
+        </b-col>
+      </b-row>
+  </div>
   </div>
 </template>
 
@@ -26,8 +39,8 @@ export default {
   },
   data() {
     return {
-      // foods: [],
-      // expired: []
+      foods: [],
+      expired: [],
       shortlyExpired: [],
       errorMessage: '',
       message: ''
@@ -51,7 +64,9 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.res.status === 404) {
+          console.log(error)
+          if (error.response.status === 404) {
+            console.log('Testing error' + error.response.status)
             this.errorMessage = 'Not found'
           } else {
             this.errorMessage = 'Server error'
@@ -81,3 +96,28 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 3px solid #80b095 !important;
+  padding: 30px;
+  border-radius: 5px;
+}
+.expired {
+  border: 20px red;
+}
+
+.container.h3 {
+  color: mediumseagreen;
+}
+
+.expired.food {
+border-left: 10px solid red;
+border-right: 10px solid red;
+}
+</style>
