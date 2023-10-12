@@ -16,7 +16,7 @@
     <h2 style="color: mediumseagreen">Expired Food</h2>
     <div class="block">
     <b-row container-fluid>
-        <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index">
+        <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index" class="mb-2">
           <BCardRec class="highlightCard expired"
           @closeCardModal="close" :displayData="food"/>
         </b-col>
@@ -27,7 +27,7 @@
     <h2 style="color: mediumseagreen" >Shortly Expired Food</h2>
     <div class="block">
       <b-row>
-          <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index">
+          <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index" class="mb-2">
             <BCardRec class="highlightCard shortlyExpired"
             @closeCardModal="close" :displayData="food"/>
           </b-col>
