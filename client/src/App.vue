@@ -26,6 +26,7 @@
               </template>
               <b-dropdown-item to="/user-settings">Profile</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
+              <b-dropdown-item to="/FAQ">FAQ</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
         </b-navbar-nav>
