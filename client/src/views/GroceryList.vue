@@ -1,9 +1,10 @@
 <template>
   <b-container>
+
     <b-row align-h="end">
       <b-button pill class="mt-2 mb-2 mx-1 buttonStyle" @click="$router.push({name:'Create grocery list'})" variant="primary">+ Add new grocery list</b-button>
-
     </b-row>
+
     <b-row>
       <b-col v-for="(entry, index) in groceryLists" :key="index" cols="12" md="4">
         <card @showDeleteModal="showDeleteModal" @modalEvent="cardModal(index)" @editEvent="emitEdit" :displayData="entry" class="mb-2 highlightCard"/>
