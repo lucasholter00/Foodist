@@ -13,7 +13,7 @@
     <p class="message" v-if="message">{{message}}</p>
 
   <div class="container">
-    <h2 style="color: mediumseagreen">Expired Food</h2>
+    <h2>Expired Food</h2>
     <div class="block">
     <b-row container-fluid>
         <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index" class="mb-2">
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="container">
-    <h2 style="color: mediumseagreen" >Shortly Expired Food</h2>
+    <h2>Shortly Expired Food</h2>
     <div class="block">
       <b-row>
           <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index" class="mb-2">
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     close() {
-
+      this.$router.push({ name: 'foods' })
     },
     getFood() {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
@@ -94,7 +94,7 @@ export default {
         } else {
           // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 milliseconds)
           const leftDays = Math.ceil(timeDifference / (24 * 60 * 60 * 1000))
-          if (leftDays < 5) {
+          if (leftDays < 6) {
             food.reminder = true
             this.shortlyExpired.push(food)
           }
@@ -117,6 +117,9 @@ export default {
   border: 3px solid #80b095 !important;
   padding: 30px;
   border-radius: 5px;
+}
+h2 {
+  color: mediumseagreen;
 }
 
 .block {
