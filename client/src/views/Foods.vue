@@ -148,7 +148,7 @@ export default {
       const food = this.foods.find((food) => food._id === id)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
-          this.foods = res.data.food
+          this.foods = this.checkExpiryDates(res.data.food)
           this.message = 'Food has been removed.'
         })
     },
