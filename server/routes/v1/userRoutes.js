@@ -36,7 +36,23 @@ router.get('/:username', (req, res) => {
         } 
         else{
             //If user is found, return status message and the user itself
-            res.status(200).json(user);
+            
+            const links = {
+                self: {
+                    href: 'v1/users/' + req.params.username
+                },
+                groceryLists: {
+                    href: 'v1/users/' + req.params.username + '/grocery-lists' 
+                },
+                foodItems: {
+                    href: 'v1/users/' + req.params.username + '/food-items' 
+                },
+                recipes: {
+                    href: 'v1/users/' + req.params.username + '/recipes' 
+                }
+            }
+
+            res.status(200).json({user: user, links: links});
         }
     })
     .catch((error) => {
