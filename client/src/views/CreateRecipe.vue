@@ -130,7 +130,7 @@ export default {
       event.preventDefault()
       const currentName = this.currentUser
       const recipeData = this.form
-      if (this.formValidation()) {
+      if (this.formValidation() && this.numberInputValidation()) {
         Api.post('/v1/users/' + currentName + '/recipes', recipeData, {
           headers: {
             'Content-Type': 'application/json'
@@ -158,7 +158,7 @@ export default {
       }
     },
     formValidation() {
-      return (!(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients)) && (this.form.ingredients.quantity === 'number'))
+      return (!(this.form.name.trim().length === 0 || !this.isArrayNotEmpty(this.form.ingredients)))
     },
     isArrayNotEmpty(arr) {
       if (!Array.isArray(arr)) {
@@ -172,6 +172,14 @@ export default {
           ingredient.unit.trim() !== ''
         )
       })
+    },
+    numberInputValidation() {
+      for (const ingredient of this.form.ingredients) {
+        if (isNaN(Number(ingredient.quantity))) {
+          return false
+        }
+      }
+      return true
     }
   }
 }
