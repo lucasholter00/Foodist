@@ -143,11 +143,11 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test(\"Response 'userName' equals Testbonk\", () => {",
-							"    pm.expect(pm.response.json().userName).to.equal('Testbonk');",
+							"    pm.expect(pm.response.json().user.userName).to.equal('Testbonk');",
 							"});",
 							"",
 							"pm.test(\"Response 'password' equals 123\", () => {",
-							"    pm.expect(pm.response.json().password).to.equal('123');",
+							"    pm.expect(pm.response.json().user.password).to.equal('123');",
 							"});"
 						],
 						"type": "text/javascript"
