@@ -32,25 +32,36 @@
       </b-collapse>
     </b-navbar>
     <!-- Render the content of the current page view -->
-    <router-view :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
+    <router-view :userLinks="userLinks" :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
     <FooterComp/>
   </div>
 </template>
 
 <script>
 import FooterComp from './components/FooterComp.vue'
+import { Api } from '@/Api'
 
 export default {
   data() {
     return {
       currentUser: '',
-      editObject: null
+      editObject: null,
+      userLinks: Object
     }
   },
   watch: {
-    currentUser() {
+    currentUser(newVal, oldVal) {
       if (this.currentUser === null) {
         this.directLogin()
+      }
+      if (newVal !== '') {
+        Api.get('/v1/users/' + newVal)
+          .then((response) => {
+            this.userLinks = response.data.links
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
     }
   },
