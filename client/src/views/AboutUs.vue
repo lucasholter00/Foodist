@@ -2,7 +2,7 @@
   <div>
   <div class="about-section">
       <h1>About Us</h1>
-      <p>Some text about who we are and what we do.</p>
+      <p>We are Software Engineering students and working for sustainability.</p>
     </div>
 
     <h2 style="text-align:center">Our Team</h2>

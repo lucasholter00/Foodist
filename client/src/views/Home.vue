@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="jumbotron">
-    <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
-    </b-jumbotron>
-  </div>
+      <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
+      </b-jumbotron>
+   </div>
    <div class="col">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
@@ -23,7 +23,7 @@
     <h2>Shortly Expired Food</h2>
     <div class="block">
       <b-row>
-          <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index" >
+          <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index" class="mb-2">
             <BCardRec class="highlightCard shortlyExpired"
             @closeCardModal="close" :displayData="food"/>
           </b-col>
