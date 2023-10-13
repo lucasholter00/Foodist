@@ -96,7 +96,7 @@ export default {
   </b-card>
 </template>
 
-<style>
+<style scoped>
 .editButton {
   color: grey !important;
   text-decoration: underline !important;

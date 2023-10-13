@@ -103,9 +103,5 @@ export default {
       return this.form.expiryDate >= today // Compare the expiryDate with today
     }
   }
-  // created() {
-  //   this.form = JSON.parse(JSON.stringify(this.editObject))
-  //   this.form.expiryDate = this.form.expiryDate.split('T')[0]
-  // }
 }
 </script>

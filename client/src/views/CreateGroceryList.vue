@@ -135,7 +135,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
   .grayText{
     color: rgb(128, 128, 128) !important;
