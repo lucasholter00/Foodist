@@ -15,8 +15,10 @@
     <div class="block">
     <b-row container-fluid>
         <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index" class="mb-2">
-          <BCardRec class="highlightCard expired"
+          <div @click="navFood">
+          <DisplayFoodHome class="highlightCard expired"
           @closeCardModal="close" :displayData="food"/>
+          </div>
         </b-col>
       </b-row>
     </div>
@@ -26,8 +28,9 @@
     <div class="block">
       <b-row>
           <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index" class="mb-2">
-            <BCardRec class="highlightCard shortlyExpired"
-            @closeCardModal="close" :displayData="food"/>
+            <div @click="navFood">
+            <DisplayFoodHome class="highlightCard shortlyExpired" :displayData="food"/>
+            </div>
           </b-col>
         </b-row>
       </div>
@@ -41,13 +44,13 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 import spinner from '@/components/Spinner.vue'
-import BCardRec from '../components/BCardRec.vue'
+import DisplayFoodHome from '@/components/DisplayFoodHome.vue'
 
 export default {
   name: 'home',
   components: {
     spinner,
-    BCardRec
+    DisplayFoodHome
   },
   props: {
     currentUser: String
@@ -105,6 +108,11 @@ export default {
       }
       )
       return foods
+    },
+    navFood() {
+      this.$nextTick(() => {
+        this.$router.push({ name: 'foods' })
+      })
     }
   }
 }

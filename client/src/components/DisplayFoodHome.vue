@@ -1,4 +1,4 @@
-<!-- This card is BCard but with only a cross button, will be used as a on click component for BCard -->
+<!-- This card is BCard but without buttons, will be used as a component in other pages -->
 <script>
 export default {
   name: 'Card',
@@ -21,9 +21,6 @@ export default {
       } else {
         return value
       }
-    },
-    emitClose() {
-      this.$emit('closeCardModal')
     }
   }
 }
@@ -34,8 +31,7 @@ export default {
     <!-- Header slot -->
     <template #header>
       <b-row align-h="between">
-          <div class="mt-2 ml-2">{{ displayData.name }}</div>
-          <p @click="emitClose" class="mr-3 exitCross">x</p>
+        <div class="mt-2 ml-2">{{ displayData.name }}</div>
       </b-row>
     </template>
     <template #default>
