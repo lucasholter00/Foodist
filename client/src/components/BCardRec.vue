@@ -1,4 +1,4 @@
-<!-- This card is BCard but without buttons, will be used as a component in other pages -->
+<!-- This card is BCard but with only a cross button, will be used as a on click component for BCard -->
 <script>
 export default {
   name: 'Card',
