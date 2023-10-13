@@ -1,14 +1,14 @@
 <template>
     <div class="container">
-        <h1 style="color:mediumseagreen">Food Color Info</h1>
+        <h1 style="color:mediumseagreen">Food Card Color Info</h1>
         <h3 style="color:red">Red color border: </h3>
-        <p>Food items that are expired.</p>
+        <p>Food items that are expired will appear with red border on both sides.</p>
         <br>
         <h3 style="color:rgb(233, 206, 53)">Yellow color border: </h3>
-        <p>Food items that will be expired with in 15 days.<br> OBS: Home page will display only those which expire within 5 days.</p>
+        <p>Food items that will be expired with in 15 days will appear with yellow border on both sides.<br> OBS: Home page will display only those which expire within 5 days.</p>
         <br>
         <h3 style="color:green">Green color border: </h3>
-        <p>Food items that has more than 15 days to expire.</p>
+        <p>Food items that has more than 15 days to expire will appear with green border on both sides.</p>
     </div>
 </template>
 
