@@ -138,6 +138,28 @@ router.patch('/:username', (req, res) => {
     })
 });
 
+router.delete('/', (req, res) =>{ 
+
+    User.find()
+    .then((users) => {
+        if (!users) {
+            res.status(404).json({message: 'No user found'})
+        } 
+        else {
+            users = []
+            users.save()
+            .then(() => {
+                res.status(200).json({message: 'Users deleted'}) 
+            })
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: "Server error"})
+    })
+
+})
+
 router.delete('/:username', (req, res) => {
     //Delete user with specific username
     var filter = {userName: req.params.username};
