@@ -189,4 +189,12 @@ body{
   padding: 30px;
   border-radius: 5px;
 }
+.errorMessage{
+  color: red;
+  font-size: 14px;
+}
+.message{
+  color: green;
+  font-size: 14px;
+}
 </style>

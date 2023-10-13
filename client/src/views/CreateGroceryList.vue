@@ -136,14 +136,7 @@ export default {
 </script>
 
 <style>
-  .errorMessage{
-    color: red;
-    font-size: 14px;
-  }
-  .message{
-    color: green;
-    font-size: 14px;
-  }
+
   .grayText{
     color: rgb(128, 128, 128) !important;
   }
