@@ -33,10 +33,12 @@
     </b-navbar>
     <!-- Render the content of the current page view -->
     <router-view :userLinks="userLinks" :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
+    <FooterComp/>
   </div>
 </template>
 
 <script>
+import FooterComp from './components/FooterComp.vue'
 import { Api } from '@/Api'
 
 export default {
@@ -89,7 +91,8 @@ export default {
     if (this.$route.name !== 'login') {
       this.$router.push({ name: 'login' })
     }
-  }
+  },
+  components: { FooterComp }
 }
 </script>
 
