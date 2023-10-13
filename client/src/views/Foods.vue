@@ -94,7 +94,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.res.status === 404) {
             this.errorMessage = 'Ooops! Food is not added.'
           } else {
             this.errorMessage = 'Server error'
@@ -111,7 +111,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.res.status === 404) {
             this.errorMessage = 'Not found'
           } else {
             this.errorMessage = 'Server error'
