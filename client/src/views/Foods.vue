@@ -97,7 +97,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.res.status === 404) {
             this.errorMessage = 'Ooops! Food is not added.'
           } else {
             this.errorMessage = 'Server error'
@@ -114,7 +114,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.res.status === 404) {
             this.errorMessage = 'Not found'
           } else {
             this.errorMessage = 'Server error'
@@ -151,7 +151,7 @@ export default {
       const food = this.foods.find((food) => food._id === id)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
-          this.foods = res.data.food
+          this.foods = this.checkExpiryDates(res.data.food)
           this.message = 'Food has been removed.'
         })
     },
