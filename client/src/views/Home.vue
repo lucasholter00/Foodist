@@ -1,9 +1,11 @@
 <template>
   <div>
+    <spinner v-if="isLoading"></spinner>
+    <div v-if="!isLoading">
     <div class="jumbotron">
     <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
     </b-jumbotron>
-  </div>
+    </div>
    <div class="col">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
@@ -31,29 +33,34 @@
       </div>
   </div>
   </div>
+    </div>
 </div>
 </template>
 
 <script>
+// @ is an alias to /src
 import { Api } from '@/Api'
+import spinner from '@/components/Spinner.vue'
 import BCardRec from '../components/BCardRec.vue'
 
 export default {
   name: 'home',
+  components: {
+    spinner,
+    BCardRec
+  },
   props: {
     currentUser: String
   },
   data() {
     return {
+      isLoading: true,
       foods: [],
       expired: [],
       shortlyExpired: [],
       errorMessage: '',
       message: ''
     }
-  },
-  components: {
-    BCardRec
   },
   created() {
     this.getFood()
@@ -67,6 +74,7 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             this.foods = this.checkExpiryDates(res.data)
+            this.isLoading = false
           }
         })
         .catch((error) => {
