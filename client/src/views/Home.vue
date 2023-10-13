@@ -44,14 +44,12 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 import spinner from '@/components/Spinner.vue'
-import BCardRec from '../components/BCardRec.vue'
 import DisplayFoodHome from '@/components/DisplayFoodHome.vue'
 
 export default {
   name: 'home',
   components: {
     spinner,
-    BCardRec,
     DisplayFoodHome
   },
   props: {
