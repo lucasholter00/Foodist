@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid class="container">
+    <b-container fluid class="box">
       <b-form  @submit="onSubmit">
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
@@ -109,15 +109,3 @@ export default {
   // }
 }
 </script>
-
-<style scoped>
-.container {
-  max-width: 1000px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
-}
-</style>

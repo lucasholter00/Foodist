@@ -134,8 +134,8 @@ h2 {
 }
 
 .block {
-  border-top: 3px solid #80b095;
-  padding: 30px;
+border-top: 3px solid #80b095;
+padding: 30px;
 }
 .expired {
 border-left: 10px solid red;
