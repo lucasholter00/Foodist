@@ -13,6 +13,7 @@ import EditGroceryList from '@/views/EditGroceryList'
 import RecommendedRecipes from './views/RecommendedRecipes.vue'
 import UserSettings from '@/views/UserSettings.vue'
 import AboutUs from '@/views/AboutUs.vue'
+import FAQ from '@/views/FAQ.vue'
 
 Vue.use(Router)
 
@@ -85,6 +86,11 @@ export default new Router({
       path: '/AboutUs',
       name: 'AboutUs',
       component: AboutUs
+    },
+    {
+      path: '/FAQ',
+      name: 'FAQ',
+      component: FAQ
     }
   ]
 })

@@ -31,6 +31,7 @@
         <b-button variant="secondary" @click="cancelDelete">Cancel</b-button>
       </b-row>
     </b-modal>
+    <spinner v-if="isLoading"></spinner>
   </b-container>
 </template>
 
@@ -38,6 +39,7 @@
 import { Api } from '@/Api'
 import BCard from '@/components/BCard.vue'
 import BCardrec from '@/components/BCardRec.vue'
+import Spinner from '@/components/Spinner.vue'
 
 export default {
   name: 'recipes',
@@ -48,7 +50,8 @@ export default {
   },
   components: {
     bcard: BCard,
-    bcardrec: BCardrec
+    bcardrec: BCardrec,
+    spinner: Spinner
   },
   data() {
     return {
@@ -57,6 +60,7 @@ export default {
       showModal: false, // To control the visibility of the modal
       selectedItem: null,
       errorMessage: '',
+      isLoading: true,
       showCardModal: false,
       cardDisplay: -1,
       scaleFactor: 1
@@ -69,6 +73,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.recipes = response.data
+            this.isLoading = false
           }
         })
     },

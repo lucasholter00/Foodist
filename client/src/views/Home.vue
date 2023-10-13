@@ -1,9 +1,11 @@
 <template>
   <div>
+    <spinner v-if="isLoading"></spinner>
+    <div v-if="!isLoading">
     <div class="jumbotron">
       <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
       </b-jumbotron>
-   </div>
+     </div>
    <div class="col">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
@@ -13,8 +15,10 @@
     <div class="block">
     <b-row container-fluid>
         <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index" class="mb-2">
-          <BCardRec class="highlightCard expired"
+          <div @click="navFood">
+          <DisplayFoodHome class="highlightCard expired"
           @closeCardModal="close" :displayData="food"/>
+          </div>
         </b-col>
       </b-row>
     </div>
@@ -24,36 +28,42 @@
     <div class="block">
       <b-row>
           <b-col cols="12" md="4" v-for="(food,index) in shortlyExpired" :key="index" class="mb-2">
-            <BCardRec class="highlightCard shortlyExpired"
-            @closeCardModal="close" :displayData="food"/>
+            <div @click="navFood">
+            <DisplayFoodHome class="highlightCard shortlyExpired" :displayData="food"/>
+            </div>
           </b-col>
         </b-row>
       </div>
   </div>
   </div>
+    </div>
 </div>
 </template>
 
 <script>
+// @ is an alias to /src
 import { Api } from '@/Api'
-import BCardRec from '../components/BCardRec.vue'
+import spinner from '@/components/Spinner.vue'
+import DisplayFoodHome from '@/components/DisplayFoodHome.vue'
 
 export default {
   name: 'home',
+  components: {
+    spinner,
+    DisplayFoodHome
+  },
   props: {
     currentUser: String
   },
   data() {
     return {
+      isLoading: true,
       foods: [],
       expired: [],
       shortlyExpired: [],
       errorMessage: '',
       message: ''
     }
-  },
-  components: {
-    BCardRec
   },
   created() {
     this.getFood()
@@ -67,6 +77,7 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             this.foods = this.checkExpiryDates(res.data)
+            this.isLoading = false
           }
         })
         .catch((error) => {
@@ -97,6 +108,11 @@ export default {
       }
       )
       return foods
+    },
+    navFood() {
+      this.$nextTick(() => {
+        this.$router.push({ name: 'foods' })
+      })
     }
   }
 }
