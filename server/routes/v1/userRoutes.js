@@ -161,18 +161,9 @@ router.patch('/:username', (req, res) => {
 
 router.delete('/', (req, res) =>{ 
     //Deletes all users in database
-    User.find()
+    User.deleteMany()
     .then((users) => {
-        if (!users) {
-            res.status(404).json({message: 'No user found'})
-        } 
-        else {
-            users = []
-            users.save()
-            .then(() => {
-                res.status(200).json({message: 'Users deleted'}) 
-            })
-        }
+        res.status(200).json({message: 'Users deleted'})
     })
     .catch((error) => {
         console.error(error);
