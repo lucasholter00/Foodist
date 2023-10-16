@@ -12,7 +12,6 @@
           <router-link to="/Foods" class="nav-link">Foods</router-link>
           <router-link to="/recipes" class="nav-link">Recipes</router-link>
           <router-link to="/groceryList" class="nav-link">Grocery List</router-link>
-          <router-link to="/recipes/recommendation" class="nav-link">Recipes rec</router-link>
         </b-navbar-nav>
         </template>
         <b-navbar-nav class="ml-auto">

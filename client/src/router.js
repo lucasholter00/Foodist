@@ -10,7 +10,6 @@ import Register from './views/Register.vue'
 import GroceryLists from './views/GroceryList.vue'
 import EditRecipe from '@/views/EditRecipe.vue'
 import EditGroceryList from '@/views/EditGroceryList'
-import RecommendedRecipes from './views/RecommendedRecipes.vue'
 import UserSettings from '@/views/UserSettings.vue'
 
 Vue.use(Router)
@@ -59,11 +58,6 @@ export default new Router({
       path: '/recipes/create-recipe',
       name: 'create-recipe',
       component: CreateRecipe
-    },
-    {
-      path: '/recipes/recommendation',
-      name: 'recommendation',
-      component: RecommendedRecipes
     },
     {
       path: '/groceryList/edit',
