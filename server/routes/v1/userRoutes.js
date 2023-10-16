@@ -122,7 +122,12 @@ router.put('/:username', (req, res) => {
             res.status(404).json({message: 'User not found'})
         }
         else {
-            user = req.body.user
+            const newData = req.body
+            user.userName = newData.userName
+            user.password = newData.password
+            user.groceryList = newData.groceryList
+            user.recipe = newData.recipe
+            user.food = newData.food
             user.save()
             .then(() => {
                 res.status(200).json({message: 'User changed', user: user})
