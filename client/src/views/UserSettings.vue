@@ -18,7 +18,9 @@ export default {
       newInputPassword: '',
       deleteOperationPassword: '',
       changePasswordModal: false,
-      deleteAccountModal: false
+      deleteAccountModal: false,
+      deleteAllAccountsModal: false,
+      deleteAllPassword: ''
     }
   },
   methods: {
@@ -36,6 +38,24 @@ export default {
             this.errorMessage = 'Something went wrong!'
           }
         })
+    },
+    deleteAllAccounts() {
+      if (this.deleteAllPassword === 'Admin123') {
+        Api.delete('v1/users')
+          .then((res) => {
+            if (res.status === 200) {
+              this.$emit('currentUserEvent', '')
+              this.errorMessage = ''
+            }
+          })
+          .catch((err) => {
+            if (err.status === 404) {
+              this.errorMessage = 'No users found'
+            } else {
+              this.errorMessage = 'Server error'
+            }
+          })
+      }
     },
     verifyPassword() {
       const verifyForm = {
@@ -127,6 +147,12 @@ export default {
     closeDeleteAccountModal() {
       this.deleteAccountModal = false
     },
+    openDeleteAllModal() {
+      this.deleteAllAccountsModal = true
+    },
+    closeDeleteAllModal() {
+      this.deleteAllAccountsModal = false
+    },
     inputValidator() {
       return !(this.oldPassword.trim().length === 0 || this.newInputPassword.trim().length === 0)
     }
@@ -147,6 +173,10 @@ export default {
       <b-card @click="openDeleteAccountModal" class="text-center mx-2 mt-3" style="cursor: pointer; max-width: 18rem;">
         <span style="font-size: 48px;">&#128465;</span> <!-- Unicode for trash can icon -->
         <b-card-text class="mt-2">Delete My Account</b-card-text>
+      </b-card>
+      <b-card @click="openDeleteAllModal" class="text-center mx-2 mt-3" style="cursor: pointer; max-width: 18rem;">
+        <span style="font-size: 48px;">&#9888;</span> <!-- Unicode for trash can icon -->
+        <b-card-text class="mt-2">Delete All Accounts</b-card-text>
       </b-card>
     </div>
     <div>
@@ -174,10 +204,23 @@ export default {
         </b-form-group>
         <p>Are you sure that you want to delete your account?</p>
         <b-row align-h="end" class="justify-content-around">
-        <b-button pill class="buttonStyle" variant="primary" @click="verifyPassword">Delete account!</b-button>
-        <b-button pill variant="secondary" @click="closeDeleteAccountModal">Cancel</b-button>
+          <b-button pill class="buttonStyle" variant="primary" @click="verifyPassword">Delete account!</b-button>
+          <b-button pill variant="secondary" @click="closeDeleteAccountModal">Cancel</b-button>
         </b-row>
       </b-modal>
+
+      <b-modal v-model="deleteAllAccountsModal" title="Delete all accounts?" hide-footer @hidden="closeDeleteAllModal">
+        <p v-if="errorMessage" class="text-danger">{{errorMessage}}</p>
+        <b-form-group label="Enter admin password: ">
+          <b-form-input v-model="deleteAllPassword" type="password"></b-form-input>
+        </b-form-group>
+        <p>Are you sure that you want to delete all accounts?</p>
+        <b-row align-h="end" class="justify-content-around">
+          <b-button pill class="buttonStyle" variant="primary" @click="deleteAllAccounts">Delete all accounts!</b-button>
+          <b-button pill variant="secondary" @click="closeDeleteAllModal">Cancel</b-button>
+        </b-row>
+      </b-modal>
+
     </div>
   </div>
 
