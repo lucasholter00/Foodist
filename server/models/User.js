@@ -15,9 +15,32 @@ const foodSchema = new Schema(
         expiryDate:{
             type: Date,
             required: true,
+        },
+        reminder: {
+            type: Boolean,
+            default: false
+        },
+        expired: {
+            type: Boolean,
+            default: false
         }
     }
 );
+
+const ingredientSchema = new Schema(
+    {
+        name:{
+            type: String,
+            required: true
+        },
+        quantity:{
+            type: String
+        },
+        unit:{
+            type: String
+        }
+    }
+)
 
 
 const recipeSchema = new Schema(
@@ -26,10 +49,7 @@ const recipeSchema = new Schema(
             type: String,
             required: true
         },
-        ingredients: {
-            type: [String],
-            required: true
-        },
+        ingredients: [ingredientSchema],
         description: {
             type: String,
         }

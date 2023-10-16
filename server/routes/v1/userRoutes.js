@@ -36,7 +36,23 @@ router.get('/:username', (req, res) => {
         } 
         else{
             //If user is found, return status message and the user itself
-            res.status(200).json(user);
+            
+            const links = {
+                self: {
+                    href: 'v1/users/' + req.params.username
+                },
+                groceryLists: {
+                    href: 'v1/users/' + req.params.username + '/grocery-lists' 
+                },
+                foodItems: {
+                    href: 'v1/users/' + req.params.username + '/food-items' 
+                },
+                recipes: {
+                    href: 'v1/users/' + req.params.username + '/recipes' 
+                }
+            }
+
+            res.status(200).json({user: user, links: links});
         }
     })
     .catch((error) => {
@@ -78,6 +94,46 @@ router.post('/', (req, res) => {
 
 });
 
+router.post('/authentication', (req, res) => {
+    var filter = {userName: req.body.userName};
+    User.findOne(filter)
+    .then((user) => {
+        if(!user){
+            res.status(404).json({message: "User not found"});
+        }
+        else if(user.password !== req.body.password){
+            res.status(401).json({message: "Unauthorized"});
+        }
+        else{
+            res.status(200).send();
+        }
+    })
+    .catch((err) => {
+        res.status(500).json({message: "Server error"})
+    })
+})
+
+router.put('/:username', (req, res) => {
+
+    var filter = ({userName: req.params.username})
+    User.findOne(filter)
+    .then((user) => {
+        if (!user) {
+            res.status(404).json({message: 'User not found'})
+        }
+        else {
+            user = req.body.user
+            user.save()
+            .then(() => {
+                res.status(200).json({message: 'User changed', user: user})
+            })
+        }
+    })
+    .catch((error) => {
+        res.status(500).json({message: "Server error"})
+    })
+
+})
 
 router.patch('/:username', (req, res) => {
     //Update a specific user
@@ -102,6 +158,28 @@ router.patch('/:username', (req, res) => {
         }
     })
 });
+
+router.delete('/', (req, res) =>{ 
+    //Deletes all users in database
+    User.find()
+    .then((users) => {
+        if (!users) {
+            res.status(404).json({message: 'No user found'})
+        } 
+        else {
+            users = []
+            users.save()
+            .then(() => {
+                res.status(200).json({message: 'Users deleted'}) 
+            })
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: "Server error"})
+    })
+
+})
 
 router.delete('/:username', (req, res) => {
     //Delete user with specific username

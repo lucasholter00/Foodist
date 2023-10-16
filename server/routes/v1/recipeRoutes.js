@@ -208,7 +208,7 @@ router.delete('/:name', function(req, res){
                 //save changes
                 user.save()
                     .then(() => {
-                        res.status(200).json({ message: 'Recipe deleted successfully' });
+                        res.status(200).json({ message: 'Recipe deleted successfully', recipes: user.recipe });
                     });
             }
 
