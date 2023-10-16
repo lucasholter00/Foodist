@@ -699,7 +699,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userName\": \"Testbonk2\",\n    \"password\": \"123\"\n\n}"
+					"raw": "{\n    \"userName\": \"Testbonk3\",\n    \"password\": \"123\"\n\n}"
 				},
 				"url": {
 					"raw": "http://localhost:3001/api/v1/users",
