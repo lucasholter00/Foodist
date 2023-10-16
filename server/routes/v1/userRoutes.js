@@ -122,7 +122,12 @@ router.put('/:username', (req, res) => {
             res.status(404).json({message: 'User not found'})
         }
         else {
-            user = req.body.user
+            const newData = req.body
+            user.userName = newData.userName
+            user.password = newData.password
+            user.groceryList = newData.groceryList
+            user.recipe = newData.recipe
+            user.food = newData.food
             user.save()
             .then(() => {
                 res.status(200).json({message: 'User changed', user: user})
@@ -161,18 +166,9 @@ router.patch('/:username', (req, res) => {
 
 router.delete('/', (req, res) =>{ 
     //Deletes all users in database
-    User.find()
+    User.deleteMany()
     .then((users) => {
-        if (!users) {
-            res.status(404).json({message: 'No user found'})
-        } 
-        else {
-            users = []
-            users.save()
-            .then(() => {
-                res.status(200).json({message: 'Users deleted'}) 
-            })
-        }
+        res.status(200).json({message: 'Users deleted'})
     })
     .catch((error) => {
         console.error(error);
