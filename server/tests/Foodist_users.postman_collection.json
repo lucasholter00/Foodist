@@ -763,10 +763,10 @@
 					"script": {
 						"exec": [
 							"pm.test('Status code is 200', () => {",
-							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test(\"Response 'message' equals 'No user found'\", () => {",
-							"    pm.expect(pm.response.json().message).to.equal('No user found');",
+							"    pm.expect(pm.response.json().message).to.equal('Users deleted');",
 							"});"
 						],
 						"type": "text/javascript"
