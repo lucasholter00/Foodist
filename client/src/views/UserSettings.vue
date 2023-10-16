@@ -49,11 +49,8 @@ export default {
             }
           })
           .catch((err) => {
-            if (err.status === 404) {
-              this.errorMessage = 'No users found'
-            } else {
-              this.errorMessage = 'Server error'
-            }
+            this.errorMessage = 'Server error'
+            console.log(err)
           })
       }
     },
