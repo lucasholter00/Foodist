@@ -117,8 +117,12 @@ export default {
           })
           .catch((error) => {
             console.log('error')
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
+            if (error.response) {
+              if ((error.response.status === 401) && (error.response.status === 404)) {
+                this.errorMessage = 'Not found'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }
