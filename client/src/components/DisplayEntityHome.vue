@@ -56,19 +56,8 @@ export default {
       <p><i>{{numberOfMatches}} </i></p>
       <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
         <!-- Array slot -->
-        <b-col v-if="Array.isArray(field)">
-          <b-list-group v-for="(entry, index) in field" :key="index" >
-            <b-list-group-item v-if="typeof entry ==='object'">
-              <p v-if="name === 'ingredients'"><strong>{{ entry.name }}:</strong> {{ entry.quantity}} {{ entry.unit }}</p>
-            </b-list-group-item>
-            <!-- -->
-            <b-list-group-item v-else>
-              <p>{{entry}}</p>
-            </b-list-group-item>
-          </b-list-group>
-        </b-col>
         <!-- Non array slot -->
-        <b-col v-else>
+        <b-col v-if="!Array.isArray(field)">
           <b-card-text v-if="name !== 'name' && name !=='_id'&& name !=='reminder' && name !=='expired' && name !=='ingredientMatches'">{{formatField(name, field)}}</b-card-text>
         </b-col>
       </b-row>
