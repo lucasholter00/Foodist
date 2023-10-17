@@ -17,7 +17,7 @@
         <b-col cols="12" sm="4" v-for="(food,index) in expired" :key="index" class="mb-2">
           <div @click="navFood">
           <DisplayFoodHome class="highlightCard expired"
-          @closeCardModal="close" :displayData="food"/>
+           :displayData="food"/>
           </div>
         </b-col>
       </b-row>
@@ -69,25 +69,19 @@ export default {
     this.getFood()
   },
   methods: {
-    close() {
-      this.$router.push({ name: 'foods' })
-    },
     getFood() {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
+          if (res.status === 404) {
+            this.errorMessage = 'Not found'
+          }
           if (res.status === 200) {
             this.foods = this.checkExpiryDates(res.data)
             this.isLoading = false
           }
         })
-        .catch((error) => {
-          console.log(error)
-          if (error.response.status === 404) {
-            console.log('Testing error' + error.response.status)
-            this.errorMessage = 'Not found'
-          } else {
-            this.errorMessage = 'Server error'
-          }
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     checkExpiryDates(foods) {

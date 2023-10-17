@@ -144,14 +144,8 @@ export default {
             }
             console.log(response.status)
           })
-          .catch((error) => {
-            console.error(error.response.status)
-            if (error.response.status === 409) {
-              // this does not show, don't know why. Fix later
-              this.errorMessage = 'Recipe name already taken! Try another name'
-            } else {
-              this.errorMessage = 'An error occurred. Please try again later.'
-            }
+          .catch(() => {
+            this.$router.push({ name: 'ServerError' })
           })
       } else {
         this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'

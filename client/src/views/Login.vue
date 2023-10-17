@@ -79,18 +79,17 @@ export default {
           }
         })
           .then(response => {
+            if ((response.status === 404) || (response.status === 401)) {
+              this.errorMessage = 'Username or Password incorrect'
+            }
             if (response.status === 200) {
               this.currentUser = this.form.userName
               this.emitCurrentUser()
               this.$router.push({ name: 'home' })
             }
           })
-          .catch((error) => {
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Username or Password incorrect'
-            } else {
-              this.errorMessage = 'Server error'
-            }
+          .catch(() => {
+            this.$router.push({ name: 'ServerError' })
           })
       } else {
         this.errorMessage = 'Username or password can not be empty'

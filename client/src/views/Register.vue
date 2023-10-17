@@ -87,13 +87,12 @@ export default {
               this.message = 'User created'
               this.$router.push({ name: 'login' })
             }
-          })
-          .catch((err) => {
-            if (err.response.status === 409) {
+            if (res.status === 409) {
               this.errorMessage = 'Username taken'
-            } else {
-              this.errorMessage = 'Server error'
             }
+          })
+          .catch(() => {
+            this.$router.push({ name: 'ServerError' })
           })
       }
     },

@@ -91,34 +91,32 @@ export default {
       Api.post('/v1/users/' + this.currentUser + '/food-items',
         food, { headers: { 'Content-Type': 'application/json' } })
         .then((res) => {
+          if (res.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          }
           if (res.status === 200) {
             this.message = 'Food is added'
             this.getFood()
           }
         })
-        .catch((error) => {
-          if (error.res.status === 404) {
-            this.errorMessage = 'Ooops! Food is not added.'
-          } else {
-            this.errorMessage = 'Server error'
-          }
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     getFood() {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
+          if (res.status === 404) {
+            this.errorMessage = 'Not found'
+          }
           if (res.status === 200) {
             console.log('Result ' + res.data)
             this.foods = this.checkExpiryDates(res.data)
             this.isLoading = false
           }
         })
-        .catch((error) => {
-          if (error.res.status === 404) {
-            this.errorMessage = 'Not found'
-          } else {
-            this.errorMessage = 'Server error'
-          }
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     handleEditFood(id) {
@@ -133,17 +131,16 @@ export default {
       Api.put('/v1/users/' + this.currentUser + '/food-items/' + name,
         food, { headers: { 'Content-Type': 'application/json' } })
         .then((res) => {
+          if (res.status === 404) {
+            this.errorMessage = 'Ooops! Food is not added.'
+          }
           if (res.status === 200) {
             this.message = 'Food has been saved.'
             this.getFood()
           }
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'Ooops! Food is not added.'
-          } else {
-            this.errorMessage = 'Server error'
-          }
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
       this.toggleEditFood()
     },
@@ -151,8 +148,14 @@ export default {
       const food = this.foods.find((food) => food._id === id)
       Api.delete('/v1/users/' + this.currentUser + '/food-items/' + food.name)
         .then((res) => {
+          if (res.status === 404) {
+            this.errorMessage = 'Ooops! Food not found.'
+          }
           this.foods = this.checkExpiryDates(res.data.food)
           this.message = 'Food has been removed.'
+        })
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     checkExpiryDates(foods) {

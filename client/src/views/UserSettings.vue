@@ -31,7 +31,7 @@ export default {
             this.errorMessage = ''
             this.$router.push({ name: 'login' })
           } else if (res.status === 500) {
-            this.errorMessage = 'Server error, please try again'
+            this.$router.push({ name: 'ServerError' })
           } else {
             this.errorMessage = 'Something went wrong!'
           }
@@ -51,20 +51,19 @@ export default {
           }
         })
           .then(response => {
+            if ((response.status === 404) || (response.status === 401)) {
+              this.errorMessage = 'Password incorrect'
+            }
             if (response.status === 200) {
               this.deleteAccount()
             }
           })
-          .catch((error) => {
-            console.log('error')
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
-            } else {
-              this.errorMessage = 'Server error'
-            }
+          .catch(() => {
+            this.$router.push({ name: 'ServerError' })
           })
       } else {
         this.errorMessage = 'Something went wrong'
+        this.$router.push({ name: 'ServerError' })
       }
     },
     editPassword() {
@@ -79,7 +78,7 @@ export default {
           this.errorMessage = ''
           this.$router.push({ name: 'home' })
         } else if (res.status === 500) {
-          this.errorMessage = 'Server error, please try again'
+          this.$router.push({ name: 'ServerError' })
         } else {
           this.errorMessage = 'Something went wrong!'
         }
@@ -95,17 +94,15 @@ export default {
           }
         })
           .then(response => {
+            if ((response.status === 404) || (response.status === 401)) {
+              this.errorMessage = 'Password incorrect'
+            }
             if (response.status === 200) {
               this.editPassword()
             }
           })
-          .catch((error) => {
-            console.log('error')
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
-            } else {
-              this.errorMessage = 'Server error'
-            }
+          .catch(() => {
+            this.$router.push({ name: 'ServerError' })
           })
       } else {
         this.errorMessage = 'Password fields can not be empty!'

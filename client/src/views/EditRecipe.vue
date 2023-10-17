@@ -141,10 +141,8 @@ export default {
               this.navRecipe()
             }
           })
-          .catch((error) => {
-            // Handle network errors or other unexpected errors
-            console.error('Error:', error)
-            this.errorMessage = 'An error occurred while editing the recipe'
+          .catch(() => {
+            this.$router.push({ name: 'ServerError' })
           })
       } else {
         this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'

@@ -58,17 +58,16 @@ export default {
   created() {
     Api.get(this.userLinks.groceryLists.href)
       .then((res) => {
+        if (res.status === 404) {
+          this.errorMessage = 'User not found'
+        }
         if (res.status === 200) {
           this.groceryLists = res.data
           this.isLoading = false
         }
       })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          this.errorMessage = 'User not found'
-        } else {
-          this.errorMessage = 'Server error'
-        }
+      .catch(() => {
+        this.$router.push({ name: 'ServerError' })
       })
   },
   methods: {
@@ -81,6 +80,9 @@ export default {
       Api.delete('v1/users/' + this.currentUser + '/grocery-lists/' + event)
         .then((res) => {
           this.groceryLists = res.data.lists
+        })
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     showDeleteModal(item) {

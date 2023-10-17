@@ -76,6 +76,9 @@ export default {
             this.isLoading = false
           }
         })
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
+        })
     },
     editRecipe(event) {
       const recipe = this.recipes.find((recipe) => recipe._id === event)
@@ -87,6 +90,9 @@ export default {
       Api.delete('v1/users/' + this.currentUser + '/recipes/' + recipe.name)
         .then((res) => {
           this.recipes = res.data.recipes
+        })
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     showDeleteModal(item) {
@@ -121,9 +127,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-.border {
-}
-</style>

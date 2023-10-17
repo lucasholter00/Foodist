@@ -40,25 +40,30 @@ export default {
     getFoodItems() {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
+          if (res.status === 404) {
+            this.errorMessage = 'Not found'
+          }
           if (res.status === 200) {
             this.foodItems = res.data
           }
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'Not found'
-          } else {
-            this.errorMessage = 'Server error'
-          }
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     },
     sortRecipesByIngredientMatches() {
       Api.get('/v1/users/' + this.currentUser + '/recipes')
         .then((recipeResponse) => {
+          if (recipeResponse.status === 404) {
+            this.errorMessage = 'Not found'
+          }
           const recipeArray = recipeResponse.data
 
           Api.get('/v1/users/' + this.currentUser + '/food-items')
             .then((foodResponse) => {
+              if (foodResponse.status === 404) {
+                this.errorMessage = 'Not found'
+              }
               const foodArray = foodResponse.data
 
               function countIngredientMatches(recipe) {
@@ -81,12 +86,12 @@ export default {
                 ingredientMatches: countIngredientMatches(recipe)
               }))
             })
-            .catch((error) => {
-              console.error('Error fetching food items:', error)
+            .catch(() => {
+              this.$router.push({ name: 'ServerError' })
             })
         })
-        .catch((error) => {
-          console.error('Error fetching recipes:', error)
+        .catch(() => {
+          this.$router.push({ name: 'ServerError' })
         })
     }
   },
