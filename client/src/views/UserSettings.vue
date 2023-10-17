@@ -168,8 +168,9 @@ export default {
         }
       }).then((res) => {
         if (res.status === 200) {
+          this.$emit('currentUserEvent', '')
           this.errorMessage = ''
-          this.$router.push({ name: 'home' })
+          this.$router.push({ path: '/login' })
         }
       }).catch((error) => {
         if (error.response) {
