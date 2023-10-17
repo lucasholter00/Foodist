@@ -204,13 +204,13 @@ border-top: 3px solid #80b095;
 padding: 30px;
 }
 .expired {
-border-left: 10px solid red;
-border-right: 10px solid red;
+border-left: 10px solid rgba(218, 60, 60, 0.27);
+border-right: 10px solid rgba(218, 60, 60, 0.27);
 }
 
 .shortlyExpired {
-border-left: 10px solid rgb(233, 206, 53);
-border-right: 10px solid rgb(233, 206, 53);
+border-left: 10px solid rgba(233, 206, 53, 0.6);
+border-right: 10px solid rgba(233, 206, 53, 0.6);
 }
 
 </style>
