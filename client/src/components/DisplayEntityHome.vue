@@ -8,7 +8,15 @@ export default {
     displayData: []
   },
   data() {
-    return {}
+    return {
+      isOverflowing: Boolean
+    }
+  },
+  mounted() {
+    const card = this.$refs.card
+    console.log(card.scrollHeight)
+    console.log(card.clientHeight)
+    this.isOverflowing = card.scrollHeight > card.clientHeight
   },
   computed: {
     numberOfMatches() {
@@ -36,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <b-card class="mx-auto mx-2 my-12 custom-rounded-card shadow-lg" max-width="374">
+  <b-card class="custom-rounded-card shadow-lg fixedHeight" max-width="374">
     <!-- Header slot -->
     <template #header>
       <b-row align-h="between">
@@ -44,6 +52,8 @@ export default {
       </b-row>
     </template>
     <template #default>
+      <p class="expandText" v-if="isOverflowing">Click to show more</p>
+      <p><i>{{numberOfMatches}} </i></p>
       <b-row v-for="(field, name) in displayData" :key="name" align-h="center">
         <!-- Array slot -->
         <b-col v-if="Array.isArray(field)">
@@ -61,7 +71,6 @@ export default {
         <b-col v-else>
           <b-card-text v-if="name !== 'name' && name !=='_id'&& name !=='reminder' && name !=='expired' && name !=='ingredientMatches'">{{formatField(name, field)}}</b-card-text>
         </b-col>
-        <p v-if="name === 'ingredientMatches'"><strong>{{numberOfMatches}} </strong></p>
       </b-row>
     </template>
   </b-card>
