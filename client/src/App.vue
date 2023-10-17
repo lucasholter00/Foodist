@@ -73,8 +73,7 @@ export default {
       this.currentUser = event
     },
     updateEditObject(event) {
-      if (this.editObject === event) {
-      } else {
+      if (this.editObject !== event) {
         this.editObject = event
       }
     },
