@@ -142,6 +142,8 @@ export default {
             if (error.response) {
               if (error.response.status === 404) {
                 this.errorMessage = 'User or recipe not found'
+              } else if (error.response.status === 409) {
+                this.errorMessage = 'Recipe name already taken'
               }
             } else if (error.request) {
               this.$router.push('/error')
