@@ -91,6 +91,7 @@ export default {
             }
           })
           .catch((err) => {
+            this.navigate()
             if (err.response.status === 409) {
               this.errorMessage = 'Username taken'
             } else {
@@ -101,6 +102,7 @@ export default {
     },
     formValidation() {
       if (this.form.userName.trim().length === 0 || this.form.password.trim().length === 0) {
+        this.navigate()
         this.errorMessage = 'Username or password can not be empty'
         return false
       } else {
