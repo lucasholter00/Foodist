@@ -86,13 +86,15 @@ export default {
             this.$router.push({ name: 'login' })
           }
         })
-        .catch((err) => {
-          if (err.response.status === 404) {
-            this.errorMessage = 'User not found'
-            console.log(err)
+        .catch((error) => {
+          if (error.response) {
+            if ((error.response.status === 404)) {
+              this.errorMessage = 'Not found'
+            }
+          } else if (error.request) {
+            this.$router.push('/error')
           } else {
-            this.errorMessage = 'Could not reset account'
-            console.log(err)
+            this.errorMessage = 'Server error'
           }
         })
     },

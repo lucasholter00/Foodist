@@ -98,6 +98,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.message = ''
           if (error.response) {
             if (error.response.status === 404) {
               this.errorMessage = 'User not found.'
