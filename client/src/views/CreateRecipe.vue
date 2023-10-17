@@ -184,14 +184,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.errorMessage{
-  color: red;
-  font-size: 14px;
-}
-.message{
-  color: darkgreen;
-  font-size: 14px;
-}
-</style>

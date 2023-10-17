@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="box">
         <h1 style="color:mediumseagreen">Food Card Color Info</h1>
         <h3 style="color:red">Red color border: </h3>
         <p>Food items that are expired will appear with red border on both sides.</p>
@@ -13,16 +13,6 @@
 </template>
 
 <style scoped>
-
-.container {
-  max-width: 1000px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid #80b095 !important;
-  padding: 30px;
-  border-radius: 5px;
-}
 
 h1 {
     border-bottom:1px solid #80b095;

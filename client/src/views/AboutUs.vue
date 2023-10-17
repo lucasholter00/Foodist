@@ -75,16 +75,6 @@ export default {
   color: white;
 }
 
-.box {
-  max-width: 1000px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid #80b095 !important;
-  padding: 30px;
-  border-radius: 5px;
-}
-
 .container {
   padding: 0 16px;
 }

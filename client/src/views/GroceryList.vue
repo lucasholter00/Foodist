@@ -115,8 +115,3 @@ export default {
 }
 
 </script>
-<style scoped>
-  .border {
-    border: 1px solid;
-  }
-</style>
