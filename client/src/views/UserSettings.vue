@@ -32,10 +32,6 @@ export default {
             this.$emit('currentUserEvent', '')
             this.errorMessage = ''
             this.$router.push({ name: 'login' })
-          } else if (res.status === 500) {
-            this.errorMessage = 'Server error, please try again'
-          } else {
-            this.errorMessage = 'Something went wrong!'
           }
         }).catch((error) => {
           if (error.response) {
@@ -59,9 +55,16 @@ export default {
               this.errorMessage = ''
             }
           })
-          .catch((err) => {
-            this.errorMessage = 'Server error'
-            console.log(err)
+          .catch((error) => {
+            if (error.response) {
+              if ((error.response.status === 404)) {
+                this.errorMessage = 'Not found'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
+            } else {
+              this.errorMessage = 'Server error'
+            }
           })
       }
     },
@@ -85,8 +88,12 @@ export default {
           })
           .catch((error) => {
             console.log('error')
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
+            if (error.response) {
+              if ((error.response.status === 404) || (error.response.status === 401)) {
+                this.errorMessage = 'Password incorrect'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }
@@ -106,10 +113,16 @@ export default {
         if (res.status === 200) {
           this.errorMessage = ''
           this.$router.push({ name: 'home' })
-        } else if (res.status === 500) {
-          this.errorMessage = 'Server error, please try again'
+        }
+      }).catch((error) => {
+        if (error.response) {
+          if ((error.response.status === 404)) {
+            this.errorMessage = 'Not found'
+          }
+        } else if (error.request) {
+          this.$router.push('/error')
         } else {
-          this.errorMessage = 'Something went wrong!'
+          this.errorMessage = 'Server error'
         }
       })
     },
@@ -129,8 +142,12 @@ export default {
           })
           .catch((error) => {
             console.log('error')
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
+            if (error.response) {
+              if ((error.response.status === 404) || (error.response.status === 401)) {
+                this.errorMessage = 'Password incorrect'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }
@@ -231,5 +248,4 @@ export default {
 
     </div>
   </div>
-
 </template>
