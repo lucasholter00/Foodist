@@ -99,6 +99,12 @@ router.put('/:name', function(req, res){
                 return res.status(404).json({ message: 'User not found' });
             }else{
                 const indexRecipe = user.recipe.findIndex((recipe)=> recipe.name ===recipeName);
+                const checkNewNameIndex = user.recipe.findIndex((recipe)=> recipe.name ===req.body.name);
+
+                if ((checkNewNameIndex !== -1) && (checkNewNameIndex !== indexRecipe)) {
+                    return res.status(409).json({message: 'Name unavailable'})
+                }
+
 
                 if (indexRecipe === -1) {
                     return res.status(404).json({ message: 'Recipe not found' });
