@@ -64,8 +64,12 @@ export default {
         }
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          this.errorMessage = 'User not found'
+        if (error.response) {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+        } else if (error.request) {
+          this.$router.push('/error')
         } else {
           this.errorMessage = 'Server error'
         }

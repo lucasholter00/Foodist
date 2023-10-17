@@ -97,8 +97,12 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.res.status === 404) {
-            this.errorMessage = 'Ooops! Food is not added.'
+          if (error.response) {
+            if (error.response.status === 404) {
+              this.errorMessage = 'Ooops! Food is not added.'
+            }
+          } else if (error.request) {
+            this.$router.push('/error')
           } else {
             this.errorMessage = 'Server error'
           }
@@ -114,8 +118,12 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.res.status === 404) {
-            this.errorMessage = 'Not found'
+          if (error.response) {
+            if (error.response.status === 404) {
+              this.errorMessage = 'Not found'
+            }
+          } else if (error.request) {
+            this.$router.push('/error')
           } else {
             this.errorMessage = 'Server error'
           }

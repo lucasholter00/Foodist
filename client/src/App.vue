@@ -61,6 +61,9 @@ export default {
             this.userLinks = response.data.links
           })
           .catch((err) => {
+            if (err.request) {
+              this.$router.push('/error')
+            }
             console.log(err)
           })
       }

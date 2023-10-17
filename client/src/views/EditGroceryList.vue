@@ -105,8 +105,12 @@ export default {
             }
           })
           .catch((error) => {
-            if (error.response.status === 404) {
-              this.errorMessage = 'Error, grocery list or user not found'
+            if (error.response) {
+              if (error.response.status === 404) {
+                this.errorMessage = 'User or recipe not found'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }

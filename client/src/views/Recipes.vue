@@ -75,6 +75,16 @@ export default {
             this.recipes = response.data
             this.isLoading = false
           }
+        }).catch((error) => {
+          if (error.response) {
+            if ((error.response.status === 404)) {
+              this.errorMessage = 'Not found'
+            }
+          } else if (error.request) {
+            this.$router.push('/error')
+          } else {
+            this.errorMessage = 'Server error'
+          }
         })
     },
     editRecipe(event) {

@@ -14,6 +14,7 @@ import RecommendedRecipes from './views/RecommendedRecipes.vue'
 import UserSettings from '@/views/UserSettings.vue'
 import AboutUs from '@/views/AboutUs.vue'
 import FAQ from '@/views/FAQ.vue'
+import ErrorPage from '@/components/ErrorPage.vue'
 
 Vue.use(Router)
 
@@ -91,6 +92,10 @@ export default new Router({
       path: '/FAQ',
       name: 'FAQ',
       component: FAQ
+    }, {
+      path: '/error',
+      name: 'error',
+      component: ErrorPage
     }
   ]
 })

@@ -86,8 +86,12 @@ export default {
             }
           })
           .catch((error) => {
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Username or Password incorrect'
+            if (error.response) {
+              if ((error.response.status === 404) || (error.response.status === 401)) {
+                this.errorMessage = 'Username or Password incorrect'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }
