@@ -188,15 +188,20 @@ export default {
 }
 .container.with-opacity {
   background-color: rgba(255, 255, 255, 0.75); /* White with high opacity */
-  /* Other styling for your container */
 }
+.jumbotron {
+  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../assets/Banner.jpg");
+  background-size: cover;
+  color: mintcream
+}
+
 h2 {
   color: mediumseagreen;
 }
 
 .block {
-  border-top: 3px solid #80b095;
-  padding: 30px;
+border-top: 3px solid #80b095;
+padding: 30px;
 }
 .expired {
 border-left: 10px solid red;
@@ -207,11 +212,5 @@ border-right: 10px solid red;
 border-left: 10px solid rgb(233, 206, 53);
 border-right: 10px solid rgb(233, 206, 53);
 }
-</style>
-<style>
-.jumbotron {
-  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../assets/Banner.jpg");
-  background-size: cover;
-  color: mintcream
-}
+
 </style>

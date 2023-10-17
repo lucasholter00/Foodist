@@ -113,6 +113,32 @@ router.post('/authentication', (req, res) => {
     })
 })
 
+router.put('/:username', (req, res) => {
+
+    var filter = ({userName: req.params.username})
+    User.findOne(filter)
+    .then((user) => {
+        if (!user) {
+            res.status(404).json({message: 'User not found'})
+        }
+        else {
+            const newData = req.body
+            user.userName = newData.userName
+            user.password = newData.password
+            user.groceryList = newData.groceryList
+            user.recipe = newData.recipe
+            user.food = newData.food
+            user.save()
+            .then(() => {
+                res.status(200).json({message: 'User changed', user: user})
+            })
+        }
+    })
+    .catch((error) => {
+        res.status(500).json({message: "Server error"})
+    })
+
+})
 
 router.patch('/:username', (req, res) => {
     //Update a specific user
@@ -137,6 +163,19 @@ router.patch('/:username', (req, res) => {
         }
     })
 });
+
+router.delete('/', (req, res) =>{ 
+    //Deletes all users in database
+    User.deleteMany()
+    .then((users) => {
+        res.status(200).json({message: 'Users deleted'})
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).json({message: "Server error"})
+    })
+
+})
 
 router.delete('/:username', (req, res) => {
     //Delete user with specific username

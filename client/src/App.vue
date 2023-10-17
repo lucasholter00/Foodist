@@ -25,6 +25,7 @@
               </template>
               <b-dropdown-item to="/user-settings">Profile</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
+              <b-dropdown-item to="/FAQ">FAQ</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
         </b-navbar-nav>
@@ -32,10 +33,12 @@
     </b-navbar>
     <!-- Render the content of the current page view -->
     <router-view :userLinks="userLinks" :currentUser="currentUser" @currentUserEvent="updateUser" :editObject="editObject" @editEvent="updateEditObject"/>
+    <FooterComp/>
   </div>
 </template>
 
 <script>
+import FooterComp from './components/FooterComp.vue'
 import { Api } from '@/Api'
 
 export default {
@@ -88,7 +91,8 @@ export default {
     if (this.$route.name !== 'login') {
       this.$router.push({ name: 'login' })
     }
-  }
+  },
+  components: { FooterComp }
 }
 </script>
 
@@ -174,5 +178,22 @@ body{
 }
 .exitCross:hover{
   cursor: pointer !important;
+}
+.box{
+  max-width: 1000px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid #80b095 !important;
+  padding: 30px;
+  border-radius: 5px;
+}
+.errorMessage{
+  color: red;
+  font-size: 14px;
+}
+.message{
+  color: green;
+  font-size: 14px;
 }
 </style>

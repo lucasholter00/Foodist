@@ -11,6 +11,8 @@ import GroceryLists from './views/GroceryList.vue'
 import EditRecipe from '@/views/EditRecipe.vue'
 import EditGroceryList from '@/views/EditGroceryList'
 import UserSettings from '@/views/UserSettings.vue'
+import AboutUs from '@/views/AboutUs.vue'
+import FAQ from '@/views/FAQ.vue'
 
 Vue.use(Router)
 
@@ -73,6 +75,16 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/AboutUs',
+      name: 'AboutUs',
+      component: AboutUs
+    },
+    {
+      path: '/FAQ',
+      name: 'FAQ',
+      component: FAQ
     }
   ]
 })
