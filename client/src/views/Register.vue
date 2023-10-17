@@ -41,7 +41,7 @@
             </b-form-input>
           </b-form-group>
           <b-row align-h="center" class="p-4">
-            <b-button type="Submit" pill class="w-100" variant="success">Sign up</b-button>
+            <b-button type="Submit" pill class="w-100" :disabled="isNavigating" variant="success">Sign up</b-button>
           </b-row>
           <b-row align-h="center">
             <p>Already have an account? <router-link to="/login">Log in</router-link></p>
@@ -66,13 +66,15 @@ export default {
         password: ''
       },
       message: '',
-      errorMessage: ''
+      errorMessage: '',
+      isNavigating: false
     }
   },
   methods: {
     onSubmit(event) {
       this.message = ''
       event.preventDefault()
+      this.navigate()
       if (this.formValidation()) {
         Api.post('/v1/users', this.form, {
           headers: {
@@ -104,6 +106,9 @@ export default {
       } else {
         return true
       }
+    },
+    navigate() {
+      this.isNavigating = !this.isNavigating
     }
   }
 }
