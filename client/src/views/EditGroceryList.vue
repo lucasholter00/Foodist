@@ -107,7 +107,7 @@ export default {
           .catch((error) => {
             if (error.response) {
               if (error.response.status === 404) {
-                this.errorMessage = 'User or recipe not found'
+                this.errorMessage = 'User or grocery list not found'
               }
             } else if (error.request) {
               this.$router.push('/error')
