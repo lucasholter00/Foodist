@@ -134,17 +134,21 @@ export default {
           headers: { 'Content-Type': 'application/json' }
         })
           .then((response) => {
-            if (response.status === 404) {
-              this.errorMessage = 'User not found'
-            } else if (response.status === 200) {
+            if (response.status === 200) {
               this.message = 'Recipe edited successfully'
               this.navRecipe()
             }
           })
           .catch((error) => {
-            // Handle network errors or other unexpected errors
-            console.error('Error:', error)
-            this.errorMessage = 'An error occurred while editing the recipe'
+            if (error.response) {
+              if (error.response.status === 404) {
+                this.errorMessage = 'User or recipe not found'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
+            } else {
+              this.errorMessage = 'Server error'
+            }
           })
       } else {
         this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'

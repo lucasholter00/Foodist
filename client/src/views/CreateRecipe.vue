@@ -145,18 +145,19 @@ export default {
               }
 
               this.message = 'Recipe successfully saved!'
-            } else if (response.status === 409) {
-              this.errorMessage = 'Recipe name already taken! Try another name'
             }
-            console.log(response.status)
           })
           .catch((error) => {
-            console.error(error.response.status)
-            if (error.response.status === 409) {
-              // this does not show, don't know why. Fix later
-              this.errorMessage = 'Recipe name already taken! Try another name'
+            if (error.response) {
+              if (error.response.status === 404) {
+                this.errorMessage = 'User not found'
+              } else if (error.response.status === 409) {
+                this.errorMessage = 'Recipe name already taken'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
-              this.errorMessage = 'An error occurred. Please try again later.'
+              this.errorMessage = 'Server error'
             }
           })
       } else {

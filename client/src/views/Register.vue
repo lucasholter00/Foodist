@@ -90,10 +90,14 @@ export default {
               this.$router.push({ name: 'login' })
             }
           })
-          .catch((err) => {
+          .catch((error) => {
             this.navigate()
-            if (err.response.status === 409) {
-              this.errorMessage = 'Username taken'
+            if (error.response) {
+              if ((error.response.status === 409)) {
+                this.errorMessage = 'Username taken'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }
