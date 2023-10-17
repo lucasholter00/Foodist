@@ -84,6 +84,12 @@ router.put('/:name', function (req, res) {
             } else {
                 // Find the specific food index in food list
                 const foodIndex = userResult.food.findIndex((food) => food.name === foodName);
+                const checkNameIndex = userResult.food.findIndex((food)=> food.name ===req.body.name);
+
+                if ((checkNameIndex !== -1) && foodIndex !== checkNameIndex) {
+                    return res.status(409).json({message: 'Name unavailable'})
+                }
+
                 if (foodIndex === -1) {
                     res.status(404).json({ success: false, msg: "PUT request: Food not found" });
                 } else {
