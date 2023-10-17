@@ -10,7 +10,7 @@
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>
 
-  <div class="container">
+  <div class="box">
     <h2>Expired Food</h2>
     <div class="block">
     <b-row container-fluid>
@@ -23,7 +23,7 @@
       </b-row>
     </div>
   </div>
-  <div class="container">
+  <div class="box">
     <h2>Shortly Expired Food</h2>
     <div class="block">
       <b-row>
@@ -116,22 +116,19 @@ export default {
 </script>
 
 <style scoped>
-
-.container {
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 3px solid #80b095 !important;
-  padding: 30px;
-  border-radius: 5px;
+.jumbotron {
+  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../assets/Banner.jpg");
+  background-size: cover;
+  color: mintcream
 }
+
 h2 {
   color: mediumseagreen;
 }
 
 .block {
-  border-top: 3px solid #80b095;
-  padding: 30px;
+border-top: 3px solid #80b095;
+padding: 30px;
 }
 .expired {
 border-left: 10px solid red;
@@ -141,12 +138,5 @@ border-right: 10px solid red;
 .shortlyExpired {
 border-left: 10px solid rgb(233, 206, 53);
 border-right: 10px solid rgb(233, 206, 53);
-}
-</style>
-<style>
-.jumbotron {
-  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../assets/Banner.jpg");
-  background-size: cover;
-  color: mintcream
 }
 </style>

@@ -147,14 +147,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .errorMessage{
-    color: red;
-    font-size: 14px;
-  }
-  .message{
-    color: green;
-    font-size: 14px;
-  }
-</style>
