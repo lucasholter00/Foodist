@@ -3,9 +3,9 @@
     <spinner v-if="isLoading"></spinner>
     <div v-if="!isLoading">
     <div class="jumbotron">
-    <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
-    </b-jumbotron>
-    </div>
+      <b-jumbotron header="Foodist" lead="Welcome to your foodist App">
+      </b-jumbotron>
+     </div>
    <div class="col">
     <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
     <p class="message" v-if="message">{{message}}</p>

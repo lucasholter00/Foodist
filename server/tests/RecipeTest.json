@@ -1,0 +1,887 @@
+{
+	"info": {
+		"_postman_id": "33e77d12-de92-4779-8e6a-62cfb787774c",
+		"name": "Recipe test",
+		"description": "Test all operations for recipe entity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29533868"
+	},
+	"item": [
+		{
+			"name": "post recipeUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"Cornelia\",\n    \"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post spagetti",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 201', () =>{",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Message equals 'Recipe added successfully'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipe added successfully')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Spaghetti Carbonara\",\n  \"ingredients\": [\n    {\n      \"name\": \"Spaghetti\",\n      \"quantity\": \"200 grams\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"Classic Italian pasta dish.\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post chicken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 201', () =>{",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Message equals 'Recipe added successfully'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipe added successfully')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Chicken Stir-Fry\",\n  \"ingredients\": [\n    {\n      \"name\": \"Chicken breast\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Bell peppers\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Broccoli\",\n      \"quantity\": \"1 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Soy sauce\",\n      \"quantity\": \"2 tablespoons\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"Delicious and healthy stir-fry recipe.\"\n}\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post salad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 201', () =>{",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Message equals 'Recipe added successfully'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipe added successfully')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Grilled Vegetable Salad\",\n  \"ingredients\": [\n    {\n      \"name\": \"Bell peppers\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Zucchini\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Eggplant\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Cherry tomatoes\",\n      \"quantity\": \"1 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Red onion\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Olive oil\",\n      \"quantity\": \"3 tablespoons\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Balsamic vinegar\",\n      \"quantity\": \"2 tablespoons\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Salt\",\n      \"quantity\": \"to taste\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Black pepper\",\n      \"quantity\": \"to taste\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"A healthy and flavorful grilled vegetable salad.\"\n}\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post an already existing name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Message equals 'Recipe added successfully'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipe name already exists')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Grilled Vegetable Salad\",\n  \"ingredients\": [\n    {\n      \"name\": \"Bell peppers\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Zucchini\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Eggplant\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Cherry tomatoes\",\n      \"quantity\": \"1 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Red onion\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Olive oil\",\n      \"quantity\": \"3 tablespoons\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Balsamic vinegar\",\n      \"quantity\": \"2 tablespoons\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Salt\",\n      \"quantity\": \"to taste\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Black pepper\",\n      \"quantity\": \"to taste\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"A healthy and flavorful grilled vegetable salad.\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get recipe1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response 'name' equals 'Spaghetti Carbonara'\", () => {",
+							"    pm.expect(pm.response.json().name).to.equal(\"Spaghetti Carbonara\");",
+							"});",
+							"",
+							"pm.test(\"response 'ingredients' includes 'Spaghetti'\", () => {",
+							"    pm.expect(pm.response.json().ingredients.some(ingredient => ingredient.name === \"Spaghetti\")).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"response 'description' contains 'Classic Italian pasta dish'\", () => {",
+							"    pm.expect(pm.response.json().description).to.include(\"Classic Italian pasta dish\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Spaghetti Carbonara",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Spaghetti Carbonara"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all recipes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch name spagetti to carbonara",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Carbonara\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Spaghetti Carbonara",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Spaghetti Carbonara"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Carbonara",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response contains updated name\", function () {",
+							"    pm.expect(pm.response.json().name).to.equal('Carbonara')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Carbonara",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Carbonara"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch ingredients recipe2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Chicken Stir-Fry\",\n  \"ingredients\": [\n    {\n      \"name\": \"Chicken filé\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Peppers\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Broccoli\",\n      \"quantity\": \"1 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Soy sauce\",\n      \"quantity\": \"2 tablespoons\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"Delicious and healthy stir-fry recipe.\"\n}\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Chicken Stir-Fry",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Chicken Stir-Fry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put recipe3",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Chicken Stir-Fry\",\n  \"ingredients\": [\n    {\n      \"name\": \"Chicken breast hello\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Bell peppers\",\n      \"quantity\": \"1\",\n      \"unit\": \"piece\"\n    },\n    {\n      \"name\": \"Broccoli\",\n      \"quantity\": \"1 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Soy sauce\",\n      \"quantity\": \"2 tablespoons\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"Delicious and healthy stir-fry recipe.\"\n}\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Chicken Stir-Fry",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Chicken Stir-Fry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get recipe2 and check patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Chicken Stir-Fry",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Chicken Stir-Fry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch description recipe3",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"A healthy and flavorful grilled vegetable salad. Good for beginners!\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Grilled Vegetable Salad",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Grilled Vegetable Salad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get recipe3 and check patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response contains updated ingredients\", function () {",
+							"    pm.expect(pm.response.json().description).to.equal('A healthy and flavorful grilled vegetable salad. Good for beginners!')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Grilled Vegetable Salad",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Grilled Vegetable Salad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all recipes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put newRecipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update Recipe - Status is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Chicken Alfredo Pasta\",\n  \"ingredients\": [\n    {\n      \"name\": \"Chicken breast\",\n      \"quantity\": \"2\",\n      \"unit\": \"pieces\"\n    },\n    {\n      \"name\": \"Fettuccine pasta\",\n      \"quantity\": \"8 ounces\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Heavy cream\",\n      \"quantity\": \"1 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Butter\",\n      \"quantity\": \"4 tablespoons\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Parmesan cheese\",\n      \"quantity\": \"1/2 cup\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Garlic\",\n      \"quantity\": \"3 cloves\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Salt\",\n      \"quantity\": \"to taste\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Black pepper\",\n      \"quantity\": \"to taste\",\n      \"unit\": \"\"\n    },\n    {\n      \"name\": \"Fresh parsley\",\n      \"quantity\": \"for garnish\",\n      \"unit\": \"\"\n    }\n  ],\n  \"description\": \"A creamy and indulgent chicken Alfredo pasta dish.\"\n}\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Carbonara",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Carbonara"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get put-recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Chicken Alfredo Pasta",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Chicken Alfredo Pasta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete recipe2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', () =>{",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Message equals 'Recipe added successfully'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipe deleted successfully')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/Chicken Stir-Fry",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"Chicken Stir-Fry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete nonexisting recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 404', () =>{",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Message equals 'No recipes to delete'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipe not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes/recipe5",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes",
+						"recipe5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 201', () =>{",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Message equals 'Recipes added successfully'\", function (){",
+							"    pm.expect(pm.response.json().message).to.equal('Recipes deleted successfully')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia/recipes",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/v1/users/Cornelia",
+					"protocol": "http",
+					"host": [
+						"127.0.0.1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"Cornelia"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
