@@ -148,8 +148,15 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.status === 404) {
-            this.errorMessage = 'Ooops! Food is not added.'
+
+          if (error.response) {
+            if (error.response.status === 404) {
+              this.errorMessage = 'User not found, food not added'
+            } else if (error.response.status === 409) {
+              this.errorMessage = 'Need unique name'
+            }
+          } else if (error.request) {
+            this.$router.push('/error')
           } else {
             this.errorMessage = 'Server error'
           }
@@ -162,7 +169,17 @@ export default {
         .then((res) => {
           this.foods = this.checkExpiryDates(res.data.food)
           this.message = 'Food has been removed.'
-        })
+        }).catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+        } else if (error.request) {
+          this.$router.push('/error')
+        } else {
+          this.errorMessage = 'Server error'
+        }
+      })
     },
     checkExpiryDates(foods) {
       foods.forEach(food => {
