@@ -1,5 +1,6 @@
 <script>
 import { Api } from '@/Api'
+import BCardrec from '@/components/BCardRec.vue'
 
 export default {
   name: 'UserSettings',
@@ -8,11 +9,17 @@ export default {
       type: String
     }
   },
+  components: {
+    bcardrec: BCardrec
+
+  },
   data() {
     return {
       form: {
         newPassword: ''
       },
+      allUsers: [],
+      allUsersModal: false,
       errorMessage: '',
       oldPassword: '',
       newInputPassword: '',
@@ -208,7 +215,7 @@ export default {
             console.log('error')
             if (error.response) {
               if ((error.response.status === 404) || (error.response.status === 401)) {
-                this.errorMessage = 'Username or Password incorrect'
+                this.errorMessage = 'Password incorrect'
               }
             } else if (error.request) {
               this.$router.push('/error')
@@ -250,10 +257,32 @@ export default {
     },
     inputValidator() {
       return !(this.oldPassword.trim().length === 0 || this.newInputPassword.trim().length === 0)
+    },
+    showAllUsersModal() {
+      this.allUsersModal = true
+    },
+    closeAllUsersModal() {
+      this.allUsersModal = false
     }
   },
   created() {
     this.form.userName = this.currentUser
+
+    Api.get('v1/users')
+      .then((res) => {
+        this.allUsers = res.data.usernames
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.status === 404) {
+            this.errorMessage = 'Users not found'
+          }
+        } else if (err.request) {
+          this.$router.push({ path: '/error' })
+        } else {
+          this.errorMessage = 'Server error'
+        }
+      })
   }
 }
 </script>
@@ -278,6 +307,11 @@ export default {
         <span style="font-size: 48px;">&#9888;</span> <!-- Unicode for trash can icon -->
         <b-card-text class="mt-2">Delete All Accounts</b-card-text>
       </b-card>
+      <b-card @click="showAllUsersModal" class="text-center mx-2 mt-3" style="cursor: pointer; max-width: 18rem;">
+        <span style="font-size: 48px;">&#128100;</span> <!-- Unicode for trash can icon -->
+        <b-card-text class="mt-2">Show all users(experimental)</b-card-text>
+      </b-card>
+
     </div>
 
     <div>
@@ -312,7 +346,7 @@ export default {
       </b-modal>
     </div>
 
-        <div>
+    <div>
       <b-modal v-model="resetAccountModal" title="Reset your account?" hide-footer @hidden="closeResetModal">
         <p v-if="errorMessage" class="text-danger">{{errorMessage}}</p>
         <b-form-group label="Enter password">
@@ -339,6 +373,10 @@ export default {
         </b-row>
       </b-modal>
     </div>
+
+    <b-modal hide-header hide-footer v-model="allUsersModal" tall size="md" body-class="m-0 p-0" content-class="custom-rounded-card">
+      <bcardrec @closeCardModal="closeAllUsersModal" :displayData="allUsers" />
+    </b-modal>
 
   </div>
 </template>

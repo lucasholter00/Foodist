@@ -12,7 +12,7 @@
               <h2>Recommended Recipes</h2>
               <div class="block">
                 <b-row>
-                  <b-col cols="12" md="12" sm="4" v-for="(food, index) in sortedRecipes" :key="index" class="mb-2">
+                  <b-col cols="12" xl="6" lg="12" md="12" sm="12" v-for="(food, index) in sortedRecipes" :key="index" class="mb-2">
                     <div @click="navRecipe">
                       <DisplayEntityHome class="highlightCard" :displayData="food"/>
                     </div>
@@ -26,7 +26,7 @@
               <h2>Expired Food</h2>
               <div class="block">
                 <b-row>
-                  <b-col cols="12" md="12" sm="4" v-for="(food, index) in expired" :key="index" class="mb-2">
+                  <b-col cols="12" xl="6" lg="12" md="12" sm="12" v-for="(food, index) in expired" :key="index" class="mb-2">
                     <div @click="navFood">
                       <DisplayEntityHome class="highlightCard expired" @closeCardModal="close" :displayData="food"/>
                     </div>
@@ -40,7 +40,7 @@
               <h2>Shortly Expired Food</h2>
               <div class="block">
                 <b-row>
-                  <b-col cols="12" md="12" sm="4" v-for="(food, index) in shortlyExpired" :key="index" class="mb-2">
+                  <b-col cols="12" xl="6" lg="12" md="12" sm="12" v-for="(food, index) in shortlyExpired" :key="index" class="mb-2">
                     <div @click="navFood">
                       <DisplayEntityHome class="highlightCard shortlyExpired" :displayData="food"/>
                     </div>
