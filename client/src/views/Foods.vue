@@ -112,7 +112,6 @@ export default {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
           if (res.status === 200) {
-            console.log('Result ' + res.data)
             this.foods = this.checkExpiryDates(res.data)
             this.isLoading = false
           }

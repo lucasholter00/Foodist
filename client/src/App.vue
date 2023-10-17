@@ -71,17 +71,12 @@ export default {
   },
   methods: {
     updateUser(event) {
-      console.log('Event received in parent component:', event)
       this.currentUser = event
-      console.log(this.currentUser)
     },
     updateEditObject(event) {
-      console.log('Event received in parent component:', event)
       if (this.editObject === event) {
-        console.log('The same object are set again for edit!')
       } else {
         this.editObject = event
-        console.log(this.editObject)
       }
     },
     logout() {

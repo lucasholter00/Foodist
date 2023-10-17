@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     deleteAccount() {
-      console.log('Delete')
       Api.delete('v1/users/' + this.currentUser)
         .then((res) => {
           if (res.status === 200) {

@@ -129,7 +129,6 @@ export default {
       const recipeData = this.form
       const recipeName = this.editObject.name
       if (this.formValidation() && this.numberInputValidation()) {
-        console.log(`/v1/users/${currentName}/recipes/${recipeName}`)
         Api.put(`/v1/users/${currentName}/recipes/${recipeName}`, recipeData, {
           headers: { 'Content-Type': 'application/json' }
         })

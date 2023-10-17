@@ -90,7 +90,6 @@ export default {
       this.message = ''
       this.form.name = this.form.name.trim()
       event.preventDefault()
-      console.log(this.currentUser)
       const editId = this.editObject._id
       if (this.formValidation()) {
         Api.put('/v1/users/' + this.currentUser + '/grocery-lists/' + editId, this.form, {

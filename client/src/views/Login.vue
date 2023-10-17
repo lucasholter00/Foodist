@@ -105,7 +105,6 @@ export default {
     },
     emitCurrentUser() {
       const eventData = this.currentUser
-      console.log('Emitting currentUserEvent with data:', eventData)
       this.$emit('currentUserEvent', eventData)
     },
     formValidation() {
