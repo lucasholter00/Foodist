@@ -215,7 +215,7 @@ export default {
             console.log('error')
             if (error.response) {
               if ((error.response.status === 404) || (error.response.status === 401)) {
-                this.errorMessage = 'Username or Password incorrect'
+                this.errorMessage = 'Password incorrect'
               }
             } else if (error.request) {
               this.$router.push('/error')
