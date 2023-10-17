@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid class="box">
+    <b-container fluid class="box shadow-lg" id="addFoodBox">
       <b-form @submit="onSubmit">
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
@@ -96,3 +96,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+#addFoodBox {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  border: none !important;
+  border-radius: 20px;
+}
+</style>

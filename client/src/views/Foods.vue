@@ -85,6 +85,7 @@ export default {
   },
   methods: {
     toggleAddFood() {
+      this.showEditFood = false
       this.showAddFood = !this.showAddFood
     },
     addFood(food) {
@@ -134,6 +135,7 @@ export default {
       this.toggleEditFood()
     },
     toggleEditFood() {
+      this.showAddFood = false
       this.showEditFood = !this.showEditFood
     },
     editFood(name, food) {
