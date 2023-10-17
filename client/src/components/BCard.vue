@@ -12,8 +12,6 @@ export default {
   },
   mounted() {
     const card = this.$refs.card
-    console.log(card.scrollHeight)
-    console.log(card.clientHeight)
     const isOverflowing = card.scrollHeight > card.clientHeight
     this.isOverflowing = isOverflowing
   },

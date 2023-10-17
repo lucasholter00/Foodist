@@ -84,7 +84,6 @@ export default {
       this.errorMessage = ''
       event.preventDefault()
       if (this.formValidation()) {
-        console.log(this.currentUser)
         Api.post('/v1/users/' + this.currentUser + '/grocery-lists', this.form, {
           headers: {
             'Content-Type': 'application/json'
