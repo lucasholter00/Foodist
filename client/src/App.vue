@@ -54,7 +54,7 @@ export default {
       if (this.currentUser === null) {
         this.directLogin()
       }
-      if (newVal !== '') {
+      if (newVal !== '' && newVal !== null) {
         Api.get('/v1/users/' + newVal)
           .then((response) => {
             this.userLinks = response.data.links
