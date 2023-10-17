@@ -101,6 +101,8 @@ export default {
           if (error.response) {
             if (error.response.status === 404) {
               this.errorMessage = 'User not found.'
+            } else if (error.response.status === 409) {
+              this.errorMessage = 'Name not unique'
             }
           } else if (error.request) {
             this.$router.push('/error')
