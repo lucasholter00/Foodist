@@ -2,8 +2,8 @@
   <div>
     <spinner v-if="isLoading"></spinner>
     <div v-if="!isLoading">
-      <div class="jumbotron">
-        <b-jumbotron header="Foodist" lead="Welcome to your foodist App"></b-jumbotron>
+      <div class="jumbotron ">
+        <b-jumbotron header="Foodist" class="d-none d-md-block" lead="Welcome to your foodist App"></b-jumbotron>
       </div>
       <BContainer fluid>
         <div class="d-flex flex-wrap">

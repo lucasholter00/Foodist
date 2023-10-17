@@ -15,6 +15,7 @@ router.get('/', function(req, res){
         }
         else{
             var usernames = users.map((users) => users.userName);
+            usernames.sort()
             res.status(200).json({usernames});
         }
     })
