@@ -86,13 +86,15 @@ export default {
             this.$router.push({ name: 'login' })
           }
         })
-        .catch((err) => {
-          if (err.response.status === 404) {
-            this.errorMessage = 'User not found'
-            console.log(err)
+        .catch((error) => {
+          if (error.response) {
+            if ((error.response.status === 404)) {
+              this.errorMessage = 'Not found'
+            }
+          } else if (error.request) {
+            this.$router.push('/error')
           } else {
-            this.errorMessage = 'Could not reset account'
-            console.log(err)
+            this.errorMessage = 'Server error'
           }
         })
     },
@@ -115,8 +117,12 @@ export default {
           })
           .catch((error) => {
             console.log('error')
-            if ((error.response.status === 404) || (error.response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
+            if (error.response) {
+              if ((error.response.status === 401) && (error.response.status === 404)) {
+                this.errorMessage = 'Not found'
+              }
+            } else if (error.request) {
+              this.$router.push('/error')
             } else {
               this.errorMessage = 'Server error'
             }
@@ -168,8 +174,9 @@ export default {
         }
       }).then((res) => {
         if (res.status === 200) {
+          this.$emit('currentUserEvent', '')
           this.errorMessage = ''
-          this.$router.push({ name: 'home' })
+          this.$router.push({ path: '/login' })
         }
       }).catch((error) => {
         if (error.response) {
