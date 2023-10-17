@@ -27,26 +27,26 @@ export default {
   emits: ['showDeleteModal', 'editEvent']
 }
 </script>
-<style scope>
+<style scoped>
 
 .food {
-background: #cff5d4;
+background: #ffffff;
 cursor: pointer;
 }
 
 .food.ok {
-border-left: 10px solid green;
-border-right: 10px solid green;
+border-left: 10px solid rgba(0, 128, 0, 0.43);
+border-right: 10px solid rgba(0, 128, 0, 0.43);
 }
 
 .food.reminder {
-border-left: 10px solid rgb(233, 206, 53);
-border-right: 10px solid rgb(233, 206, 53);
+    border-left: 10px solid rgba(233, 206, 53, 0.6);
+    border-right: 10px solid rgba(233, 206, 53, 0.6);
 }
 
 .food.expired {
-border-left: 10px solid red;
-border-right: 10px solid red;
+  border-left: 10px solid rgba(162, 22, 22, 0.27);
+  border-right: 10px solid rgba(162, 22, 22, 0.27);
 }
 
 </style>
