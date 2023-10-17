@@ -2,7 +2,10 @@
   <div id="app">
     <b-navbar toggleable="lg" sticky type="dark"  style="background-color: mediumseagreen">
       <b-navbar-brand to="/">
-        <span class="app-name">Foodist - <span class="tagline">track your food</span></span>
+        <div class="d-flex align-items-center">
+          <span class="cart-icon d-none d-lg-block d-xl-none">&#128722;</span>
+          <span class="app-name"> Foodist - <span class="tagline">track your food</span></span>
+        </div>
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
