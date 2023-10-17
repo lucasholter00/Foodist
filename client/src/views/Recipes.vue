@@ -131,9 +131,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-.border {
-}
-</style>

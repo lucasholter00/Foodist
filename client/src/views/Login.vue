@@ -39,7 +39,7 @@
             </b-form-input>
           </b-form-group>
           <b-row class="p-4" align-h="between">
-            <b-button class="w-100" type="Submit" pill variant="success">Log in</b-button>
+            <b-button class="w-100" type="Submit" pill :disabled="isNavigating" variant="success">Log in</b-button>
           </b-row>
           <b-row align-h="center">
             <p>Not a member? Register <router-link to="/register">here</router-link></p>
@@ -65,12 +65,14 @@ export default {
         password: ''
       },
       currentUser: '',
-      errorMessage: ''
+      errorMessage: '',
+      isNavigating: false
     }
   },
   methods: {
     onSubmit(event) {
       event.preventDefault()
+      this.navigate()
       if (this.formValidation()) {
         this.errorMessage = ''
         Api.post('/v1/users/authentication', this.form, {
@@ -86,6 +88,7 @@ export default {
             }
           })
           .catch((error) => {
+            this.navigate()
             if (error.response) {
               if ((error.response.status === 404) || (error.response.status === 401)) {
                 this.errorMessage = 'Username or Password incorrect'
@@ -112,14 +115,10 @@ export default {
       } else {
         return true
       }
+    },
+    navigate() {
+      this.isNavigating = !this.isNavigating
     }
   }
 }
 </script>
-
-<style>
-.errorMessage{
-  color: red;
-  font-size: 14px;
-}
-</style>

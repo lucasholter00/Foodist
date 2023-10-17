@@ -60,7 +60,3 @@ export default {
     </template>
   </b-card>
 </template>
-
-<style>
-
-</style>

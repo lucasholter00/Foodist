@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid class="container">
+    <b-container fluid class="box">
       <b-form  @submit="onSubmit">
         <b-row class = "my-1" align-h="center" align-v="center">
           <b-col sm="2">
@@ -103,21 +103,5 @@ export default {
       return this.form.expiryDate >= today // Compare the expiryDate with today
     }
   }
-  // created() {
-  //   this.form = JSON.parse(JSON.stringify(this.editObject))
-  //   this.form.expiryDate = this.form.expiryDate.split('T')[0]
-  // }
 }
 </script>
-
-<style scoped>
-.container {
-  max-width: 1000px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
-}
-</style>
