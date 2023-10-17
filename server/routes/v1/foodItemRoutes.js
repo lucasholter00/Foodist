@@ -52,6 +52,11 @@ router.post('/', (req, res) => {
             if (!userResult) {
                 res.status(404).json({ success: false, msg: "User not found" });
             } else {
+                const checkNameIndex = userResult.food.findIndex((food)=> food.name ===req.body.name);
+
+                if (checkNameIndex !== -1) {
+                    return res.status(409).json({message: 'Name unavailable'})
+                }
 
                 const newFood = (req.body);
                 userResult.food.push(newFood);
