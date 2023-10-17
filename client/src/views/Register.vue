@@ -93,7 +93,7 @@ export default {
           .catch((error) => {
             this.navigate()
             if (error.response) {
-              if ((error.response.status === 404)) {
+              if ((error.response.status === 409)) {
                 this.errorMessage = 'Username taken'
               }
             } else if (error.request) {
