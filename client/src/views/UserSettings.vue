@@ -74,7 +74,7 @@ export default {
           }
         })
         .catch((err) => {
-          if (err.status === 404) {
+          if (err.response.status === 404) {
             this.errorMessage = 'User not found'
             console.log(err)
           } else {
