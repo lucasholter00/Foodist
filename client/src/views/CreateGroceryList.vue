@@ -91,17 +91,19 @@ export default {
           }
         })
           .then(response => {
-            if (response.status === 404) {
-              this.errorMessage = 'User not found'
-            }
             if (response.status === 201) {
               this.form.groceries = ['']
               this.form.name = ''
               this.message = 'Grocery list added'
             }
           })
-          .catch(() => {
-            this.$router.push({ name: 'ServerError' })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.errorMessage = 'Not found'
+            }
+            if (error.response.status === 500) {
+              this.$router.push({ name: 'ServerError' })
+            }
           })
       } else {
         this.errorMessage = 'Fields can not be left empty'

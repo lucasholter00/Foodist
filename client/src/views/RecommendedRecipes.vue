@@ -40,15 +40,17 @@ export default {
     getFoodItems() {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
-          if (res.status === 404) {
-            this.errorMessage = 'Not found'
-          }
           if (res.status === 200) {
             this.foodItems = res.data
           }
         })
-        .catch(() => {
-          this.$router.push({ name: 'ServerError' })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+          if (error.response.status === 500) {
+            this.$router.push({ name: 'ServerError' })
+          }
         })
     },
     sortRecipesByIngredientMatches() {
@@ -86,12 +88,22 @@ export default {
                 ingredientMatches: countIngredientMatches(recipe)
               }))
             })
-            .catch(() => {
-              this.$router.push({ name: 'ServerError' })
+            .catch((error) => {
+              if (error.response.status === 404) {
+                this.errorMessage = 'Not found'
+              }
+              if (error.response.status === 500) {
+                this.$router.push({ name: 'ServerError' })
+              }
             })
         })
-        .catch(() => {
-          this.$router.push({ name: 'ServerError' })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+          if (error.response.status === 500) {
+            this.$router.push({ name: 'ServerError' })
+          }
         })
     }
   },

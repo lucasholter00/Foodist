@@ -72,16 +72,18 @@ export default {
     getFood() {
       Api.get('/v1/users/' + this.currentUser + '/food-items')
         .then((res) => {
-          if (res.status === 404) {
-            this.errorMessage = 'Not found'
-          }
           if (res.status === 200) {
             this.foods = this.checkExpiryDates(res.data)
             this.isLoading = false
           }
         })
-        .catch(() => {
-          this.$router.push({ name: 'ServerError' })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+          if (error.response.status === 500) {
+            this.$router.push({ name: 'ServerError' })
+          }
         })
     },
     checkExpiryDates(foods) {

@@ -99,16 +99,18 @@ export default {
           }
         })
           .then(response => {
-            if (response.status === 404) {
-              this.errorMessage = 'Error, grocery list or user not found'
-            }
             if (response.status === 200) {
               this.message = 'Grocery list edited'
               this.$router.push({ name: 'Grocery list' })
             }
           })
-          .catch(() => {
-            this.$router.push({ name: 'ServerError' })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.errorMessage = 'Error, grocery list or user not found'
+            }
+            if (error.response.status === 500) {
+              this.$router.push({ name: 'ServerError' })
+            }
           })
       } else {
         this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'

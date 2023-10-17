@@ -58,16 +58,18 @@ export default {
   created() {
     Api.get(this.userLinks.groceryLists.href)
       .then((res) => {
-        if (res.status === 404) {
-          this.errorMessage = 'User not found'
-        }
         if (res.status === 200) {
           this.groceryLists = res.data
           this.isLoading = false
         }
       })
-      .catch(() => {
-        this.$router.push({ name: 'ServerError' })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          this.errorMessage = 'Not found'
+        }
+        if (error.response.status === 500) {
+          this.$router.push({ name: 'ServerError' })
+        }
       })
   },
   methods: {
@@ -81,8 +83,13 @@ export default {
         .then((res) => {
           this.groceryLists = res.data.lists
         })
-        .catch(() => {
-          this.$router.push({ name: 'ServerError' })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+          if (error.response.status === 500) {
+            this.$router.push({ name: 'ServerError' })
+          }
         })
     },
     showDeleteModal(item) {

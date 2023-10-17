@@ -76,8 +76,13 @@ export default {
             this.isLoading = false
           }
         })
-        .catch(() => {
-          this.$router.push({ name: 'ServerError' })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.errorMessage = 'Not found'
+          }
+          if (error.response.status === 500) {
+            this.$router.push({ name: 'ServerError' })
+          }
         })
     },
     editRecipe(event) {
@@ -91,8 +96,10 @@ export default {
         .then((res) => {
           this.recipes = res.data.recipes
         })
-        .catch(() => {
-          this.$router.push({ name: 'ServerError' })
+        .catch((error) => {
+          if (error.response.status === 500) {
+            this.$router.push({ name: 'ServerError' })
+          }
         })
     },
     showDeleteModal(item) {

@@ -144,8 +144,13 @@ export default {
             }
             console.log(response.status)
           })
-          .catch(() => {
-            this.$router.push({ name: 'ServerError' })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.errorMessage = 'Not found'
+            }
+            if (error.response.status === 500) {
+              this.$router.push({ name: 'ServerError' })
+            }
           })
       } else {
         this.errorMessage = 'Fields can not be left empty and/or quantity must be a number'

@@ -51,19 +51,20 @@ export default {
           }
         })
           .then(response => {
-            if ((response.status === 404) || (response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
-            }
             if (response.status === 200) {
               this.deleteAccount()
             }
           })
-          .catch(() => {
-            this.$router.push({ name: 'ServerError' })
+          .catch((error) => {
+            if ((error.response.status === 404) || (error.response.status === 401)) {
+              this.errorMessage = 'Password incorrect'
+            }
+            if (error.response.status === 500) {
+              this.$router.push({ name: 'ServerError' })
+            }
           })
       } else {
         this.errorMessage = 'Something went wrong'
-        this.$router.push({ name: 'ServerError' })
       }
     },
     editPassword() {
@@ -94,15 +95,17 @@ export default {
           }
         })
           .then(response => {
-            if ((response.status === 404) || (response.status === 401)) {
-              this.errorMessage = 'Password incorrect'
-            }
             if (response.status === 200) {
               this.editPassword()
             }
           })
-          .catch(() => {
-            this.$router.push({ name: 'ServerError' })
+          .catch((error) => {
+            if ((error.response.status === 404) || (error.response.status === 401)) {
+              this.errorMessage = 'Password incorrect'
+            }
+            if (error.response.status === 500) {
+              this.$router.push({ name: 'ServerError' })
+            }
           })
       } else {
         this.errorMessage = 'Password fields can not be empty!'
