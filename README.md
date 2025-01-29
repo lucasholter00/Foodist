@@ -58,3 +58,8 @@ Here are the pages of the system.
 ## Teaser (MS3)
 
 ![Teaser](./images/teaser.png)
+
+## Authors
+- Lucas Carlsson Holter <!-- x -->
+- Cornelia Olofsson Larsson <!-- x -->
+- Faiza Amjad
