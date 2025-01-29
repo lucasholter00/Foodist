@@ -1,8 +1,8 @@
-# Backend and Frontend Template
+# Foodist
 
-Latest version: https://git.chalmers.se/courses/dit342/group-00-web
+## Description
 
-This template refers to itself as `group-00-web`. In your project, use your group number in place of `00`.
+Foodist is a website that helps you effortlessly manage your grocery inventory. Track your items, generate recipe recommendations, and sync across all your devices. Keep your kitchen organized and reduce waste with Foodist!
 
 ## Project Structure
 
@@ -34,30 +34,6 @@ You can also use alternative tools if you know how to configure them (e.g., Fire
   * Checkout the [Backend-Frontend](https://git.chalmers.se/courses/dit342/group-00-web) template `git clone git@git.chalmers.se:courses/dit342/group-00-web.git`
 * [Server Requirements](./server/README.md#Requirements)
 * [Client Requirements](./client/README.md#Requirements)
-
-## Getting started
-
-```bash
-# Clone repository
-git clone git@git.chalmers.se:courses/dit342/group-00-web.git
-
-# Change into the directory
-cd group-00-web
-
-# Setup backend
-cd server && npm install
-npm run dev
-
-# Setup frontend
-cd client && npm install
-npm run serve
-```
-
-> Check out the detailed instructions for [backend](./server/README.md) and [frontend](./client/README.md).
-
-## Visual Studio Code (VSCode)
-
-Open the `server` and `client` in separate VSCode workspaces or open the combined [backend-frontend.code-workspace](./backend-frontend.code-workspace). Otherwise, workspace-specific settings don't work properly.
 
 ## System Definition (MS0)
 
