@@ -63,8 +63,7 @@ Here are the pages of the system.
 ## Authors
 <!-- Authors -->
 - Lucas Carlsson Holter
-- Cornelia Olofsson Larsson
-<!-- /Authors -->
+- Cornelia Olofsson Larsson <!-- /Authors -->
 - Faiza Amjad
 
 ## Keywords
