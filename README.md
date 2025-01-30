@@ -63,3 +63,11 @@ Here are the pages of the system.
 - Lucas Carlsson Holter <!-- x -->
 - Cornelia Olofsson Larsson <!-- x -->
 - Faiza Amjad
+
+## Keywords
+<!-- Keywords -->
+- Vue
+- REST
+- Express.js
+- MongoDB
+<!-- /Keywords -->
