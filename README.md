@@ -1,8 +1,9 @@
-# Foodist
+# <!-- Title --> Foodist <!-- /Title -->
 
 ## Description
-
+<!-- Description -->
 Foodist is a website that helps you effortlessly manage your grocery inventory. Track your items, generate recipe recommendations, and sync across all your devices. Keep your kitchen organized and reduce waste with Foodist!
+<!-- /Description -->
 
 ## Project Structure
 
@@ -60,8 +61,10 @@ Here are the pages of the system.
 ![Teaser](./images/teaser.png)
 
 ## Authors
-- Lucas Carlsson Holter <!-- x -->
-- Cornelia Olofsson Larsson <!-- x -->
+<!-- Authors -->
+- Lucas Carlsson Holter
+- Cornelia Olofsson Larsson
+<!-- /Authors -->
 - Faiza Amjad
 
 ## Keywords
